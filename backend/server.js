@@ -20,7 +20,7 @@ connectCloudinary();
 app.use(cors({
   origin: [
     "http://localhost:5173",
-    "https://e-commerce1-wc5f.vercel.app"
+    "https://e-commerce1-lovat.vercel.app"
   ],
   credentials: true
 }));
