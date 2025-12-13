@@ -17,13 +17,8 @@ connectDB();
 connectCloudinary();
 
 /* ✅ CORS — MUST be before routes */
-app.use(cors({
-  origin: [
-    "http://localhost:5173",
-    "https://e-commerce1-lovat.vercel.app"
-  ],
-  credentials: true
-}));
+app.use(cors());
+app.options("*", cors());
 
 app.use(express.json());
 
