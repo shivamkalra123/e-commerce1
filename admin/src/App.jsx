@@ -11,7 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import CategoryManager from './pages/CategoryManager'
 import AdminBanner from './pages/AdminBanner'
 
-export const backendUrl = import.meta.env.VITE_BACKEND_URL
+export const backendUrl = import.meta.env.VITE_BACKEND_URL || "";
 export const currency = '$'
 
 const App = () => {
