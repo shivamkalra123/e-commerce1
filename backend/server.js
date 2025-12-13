@@ -16,7 +16,14 @@ const port = process.env.PORT || 4000;
 connectDB();
 connectCloudinary();
 
-
+/* ✅ CORS — MUST be before routes */
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://e-commerce1-wc5f.vercel.app"
+  ],
+  credentials: true
+}));
 
 app.use(express.json());
 

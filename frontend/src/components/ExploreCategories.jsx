@@ -12,7 +12,7 @@ const gradients = [
 const ExploreCategories = () => {
   const [categories, setCategories] = useState([])
   const navigate = useNavigate()
-  const backendUrl = import.meta.env.VITE_BACKEND_URL || "";
+  const backendUrl = import.meta.env.VITE_BACKEND_URL
 
   useEffect(() => {
     const fetchCategories = async () => {
