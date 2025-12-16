@@ -27,7 +27,9 @@ app.use((req, res, next) => {
     "https://e-commerce1-lovat.vercel.app",
     "http://localhost:5173",
     "http://localhost:3000",
-    "https://e-commerce1-weme.onrender.com"
+    "https://e-commerce1-weme.onrender.com",
+    "https://brandedparcels.com"
+
   ];
 
   const origin = req.headers.origin;

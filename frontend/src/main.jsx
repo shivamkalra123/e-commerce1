@@ -1,47 +1,34 @@
-import React, { useContext } from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
-import { BrowserRouter } from 'react-router-dom'
-import ShopContextProvider, { ShopContext } from './context/ShopContext.jsx'
-import {assets} from './assets/assets.js'
+import React, { useContext } from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App.jsx';
+import './index.css';
+import { BrowserRouter } from 'react-router-dom';
+import ShopContextProvider, { ShopContext } from './context/ShopContext.jsx';
+import { assets } from './assets/assets.js';
 
 const Root = () => {
-  const { loading } = useContext(ShopContext)
+  const { products } = useContext(ShopContext);
 
-  if (loading) {
+  // ⛔ Block entire site until products load
+  if (products === null) {
     return (
-      <div
-        style={{
-          height: '100vh',
-          display: 'flex',
-          flexDirection: 'column'
-        }}
-      >
-        
-
-    
-        <div
-          style={{
-            flex: 1,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            fontSize: '24px',
-            fontWeight: '600',
-            flexDirection:'column'
-          }}
-        >
-          <img src={assets.logo} alt="Logo" style={{ height: '220px' }} />
+      <div style={{
+        height: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center'
+      }}>
+        <img src={assets.logo} alt="Logo" style={{ height: '220px' }} />
+        <div style={{ marginTop: '16px', fontSize: '22px', fontWeight: 600 }}>
           🛒 Loading...
         </div>
       </div>
-    )
+    );
   }
 
-  return <App />
-}
-
+  return <App />;
+};
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <BrowserRouter>
@@ -49,4 +36,4 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <Root />
     </ShopContextProvider>
   </BrowserRouter>
-)
+);
