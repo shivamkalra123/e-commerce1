@@ -147,28 +147,7 @@ const About = () => {
         </Accordion>
       </div>
 
-      {/* Contact */}
-      <div className='my-12'>
-        <Title text1={'CONTACT'} text2={'US'} />
-        <div className='grid md:grid-cols-2 gap-6 mt-6 text-gray-600'>
-          <Card className='rounded-2xl'>
-            <CardContent className='p-6'>
-              <b>Head Office</b>
-              <p>Kimberly Road, Judith Paarl, Johannesburg, South Africa</p>
-              <p>Phone: +27 784 281 036</p>
-              <p>Email: support@brandedparcels.com</p>
-            </CardContent>
-          </Card>
-          <Card className='rounded-2xl'>
-            <CardContent className='p-6'>
-              <b>Regional Offices</b>
-              <p>Nairobi – Delamere Avenue</p>
-              <p>Mbabane – Eswatini</p>
-              <p>Accra – Pelican Street 5</p>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
+     
 
       <NewsletterBox />
     </div>
