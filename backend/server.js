@@ -26,6 +26,7 @@ app.use((req, res, next) => {
   const allowedOrigins = [
     "https://e-commerce1-lovat.vercel.app",
     "http://localhost:5173",
+    "http://localhost:5174",
     "http://localhost:3000",
     "https://e-commerce1-weme.onrender.com",
     "https://brandedparcels.com"

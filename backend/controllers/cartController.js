@@ -47,41 +47,47 @@ const addToCart = async (req, res) => {
 
 const updateCart = async (req, res) => {
   try {
-    const userId = req.user?.id;
+    const userId = req.user.id;
     const { itemId, size, quantity } = req.body;
 
-    if (!userId) return res.status(401).json({ success: false, message: "Unauthorized" });
-    if (!itemId || !size || typeof quantity === "undefined")
-      return res.status(400).json({ success: false, message: "itemId, size and quantity required" });
-
     const q = Number(quantity);
-    if (Number.isNaN(q) || q < 0) return res.status(400).json({ success: false, message: "quantity must be non-negative" });
-
-    const user = await userModel.findById(userId);
-    if (!user) return res.status(404).json({ success: false, message: "User not found" });
-
-    user.cartData = user.cartData || {};
-    const itemKey = String(itemId);
-    const sizeKey = String(size);
-    if (!user.cartData[itemKey]) user.cartData[itemKey] = {};
-
-    if (q === 0) {
-      delete user.cartData[itemKey][sizeKey];
-      if (Object.keys(user.cartData[itemKey] || {}).length === 0) delete user.cartData[itemKey];
-    } else {
-      user.cartData[itemKey][sizeKey] = q;
+    if (Number.isNaN(q) || q < 0) {
+      return res.status(400).json({ success: false, message: "Invalid quantity" });
     }
 
-    await user.save();
-    const fresh = await userModel.findById(userId).lean();
-    console.log(`After updateCart (fresh from DB) for ${userId}:`, JSON.stringify(fresh?.cartData, null, 2));
+    const user = await userModel.findById(userId).lean();
+    if (!user) {
+      return res.status(404).json({ success: false });
+    }
 
-    return res.json({ success: true, message: "Cart Updated", cartData: fresh.cartData || {} });
-  } catch (error) {
-    console.error("updateCart error:", error);
-    return res.status(500).json({ success: false, message: error.message });
+    const current = user.cartData || {};
+    if (!current[itemId] || !current[itemId][size]) {
+      // 🔥 NOTHING TO UPDATE — prevent Mongo crash
+      return res.json({ success: true, cartData: current });
+    }
+
+    const path = `cartData.${itemId}.${size}`;
+
+    if (q === 0) {
+      await userModel.findByIdAndUpdate(userId, {
+        $unset: { [path]: "" }
+      });
+    } else {
+      await userModel.findByIdAndUpdate(userId, {
+        $set: { [path]: q }
+      });
+    }
+
+    const fresh = await userModel.findById(userId).lean();
+    return res.json({ success: true, cartData: fresh.cartData || {} });
+
+  } catch (err) {
+    console.error("updateCart crash:", err);
+    return res.status(500).json({ success: false, message: "Cart update failed" });
   }
 };
+
+
 
 const getUserCart = async (req, res) => {
   try {
