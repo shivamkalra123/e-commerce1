@@ -1,13 +1,9 @@
 import Hero from "../components/Hero";
 import FlashSale from "../components/FlashSale";
 import ShopByMood from "../components/ShopByMood";
-import SocialProof from "../components/SocialProof";
-import OneProductManyWays from "../components/OneProductManyWays";
+
 import NewsletterBox from "../components/NewsLetterBox";
-import SoftSectionDivider from "../components/Dividers/softsectiondivider";
-import FadeDivider from "../components/Dividers/FadeDivider";
-import TextDivider from "../components/Dividers/TextDivider";
-import DotDivider from "../components/Dividers/DotDivider";
+
 import BestSeller from "../components/BestSeller";
 
 
