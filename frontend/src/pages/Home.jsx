@@ -4,6 +4,8 @@ import LatestCollection from '../components/LatestCollection'
 import BestSeller from '../components/BestSeller'
 import OurPolicy from '../components/OurPolicy'
 import NewsletterBox from '../components/NewsLetterBox'
+import FlashSale from '../components/FlashSale'
+
 
 const Home = () => {
   return (
@@ -15,6 +17,9 @@ const Home = () => {
         <section className="py-8">
           <Hero />
         </section>
+         <section className="py-8">
+          <FlashSale />
+        </section>
 
         {/* BEST SELLER */}
         <section className="py-8">
@@ -22,6 +27,7 @@ const Home = () => {
             <BestSeller />
           </div>
         </section>
+     
 
         {/* LATEST COLLECTION */}
         <section className="py-8">

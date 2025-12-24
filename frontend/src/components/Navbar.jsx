@@ -1,85 +1,186 @@
-import React, { useContext, useState } from 'react'
-import {assets} from '../assets/assets'
-import { Link, NavLink } from 'react-router-dom'
-import { ShopContext } from '../context/ShopContext';
+import React, { useContext, useEffect, useState } from "react";
+import { assets } from "../assets/assets";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import { ShopContext } from "../context/ShopContext";
 
 const Navbar = () => {
+  const [visible, setVisible] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-    const [visible,setVisible] = useState(false);
+  const location = useLocation();
+  const isHome = location.pathname === "/";
 
-    const {setShowSearch , getCartCount , navigate, token, setToken, setCartItems} = useContext(ShopContext);
+  const {
+    setShowSearch,
+    getCartCount,
+    navigate,
+    token,
+    setToken,
+    setCartItems,
+  } = useContext(ShopContext);
 
-    const logout = () => {
-        navigate('/login')
-        localStorage.removeItem('token')
-        setToken('')
-        setCartItems({})
-    }
+  const logout = () => {
+    navigate("/login");
+    localStorage.removeItem("token");
+    setToken("");
+    setCartItems({});
+  };
+
+  useEffect(() => {
+    if (!isHome) return;
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [isHome]);
+
+  const navLinkClass = ({ isActive }) =>
+    `text-xs tracking-wide transition ${
+      isHome && !scrolled
+        ? isActive
+          ? "text-white"
+          : "text-white/80 hover:text-white"
+        : isActive
+        ? "text-black"
+        : "text-gray-600 hover:text-black"
+    }`;
 
   return (
-    <div className='relative z-50 flex items-center justify-between py-5 font-medium'>
-      
-      <Link to='/'><img src={assets.logo} className='w-36' alt="" /></Link>
+    <>
+      <header
+        className={`w-full z-50 transition-all duration-300 ${
+          isHome ? "fixed top-0 left-0" : "relative"
+        } ${
+          isHome
+            ? scrolled
+              ? "bg-white shadow-sm"
+              : "bg-transparent"
+            : "bg-white shadow-sm"
+        }`}
+      >
+        <div className="flex items-center justify-between px-6 py-3">
+          {/* LOGO */}
+          <Link to="/">
+            <img
+              src="/logo.png"
+              alt="Logo"
+              className={`w-42 transition ${
+                isHome && !scrolled ? "invert" : ""
+              }`}
+            />
+          </Link>
 
-      <ul className='hidden sm:flex gap-5 text-sm text-gray-700'>
-        
-        <NavLink to='/' className='flex flex-col items-center gap-1'>
-            <p>HOME</p>
-            <hr className='w-2/4 border-none h-[1.5px] bg-gray-700 hidden' />
-        </NavLink>
-        <NavLink to='/collection' className='flex flex-col items-center gap-1'>
-            <p>COLLECTION</p>
-            <hr className='w-2/4 border-none h-[1.5px] bg-gray-700 hidden' />
-        </NavLink>
-        <NavLink to='/about' className='flex flex-col items-center gap-1'>
-            <p>ABOUT</p>
-            <hr className='w-2/4 border-none h-[1.5px] bg-gray-700 hidden' />
-        </NavLink>
-        <NavLink to='/contact' className='flex flex-col items-center gap-1'>
-            <p>CONTACT</p>
-            <hr className='w-2/4 border-none h-[1.5px] bg-gray-700 hidden' />
-        </NavLink>
+          {/* DESKTOP LINKS */}
+          <ul className="hidden sm:flex gap-8">
+            <NavLink to="/" className={navLinkClass}>HOME</NavLink>
+            <NavLink to="/collection" className={navLinkClass}>COLLECTION</NavLink>
+            <NavLink to="/about" className={navLinkClass}>ABOUT</NavLink>
+            <NavLink to="/contact" className={navLinkClass}>CONTACT</NavLink>
+          </ul>
 
-      </ul>
+          {/* ICONS */}
+          <div className="flex items-center gap-5">
+            <img
+              src={assets.search_icon}
+              onClick={() => {
+                setShowSearch(true);
+                navigate("/collection");
+              }}
+              className={`w-5 cursor-pointer transition ${
+                isHome && !scrolled ? "invert opacity-90" : "opacity-70 hover:opacity-100"
+              }`}
+              alt=""
+            />
 
-      <div className='flex items-center gap-6'>
-            <img onClick={()=> { setShowSearch(true); navigate('/collection') }} src={assets.search_icon} className='w-5 cursor-pointer' alt="" />
-            
-            <div className='group relative'>
-                <img onClick={()=> token ? null : navigate('/login') } className='w-5 cursor-pointer' src={assets.profile_icon} alt="" />
-                {/* Dropdown Menu */}
-                {token && 
-                <div className='group-hover:block hidden absolute dropdown-menu right-0 pt-4'>
-                    <div className='flex flex-col gap-2 w-36 py-3 px-5  bg-slate-100 text-gray-500 rounded'>
-                        <p className='cursor-pointer hover:text-black'>My Profile</p>
-                        <p onClick={()=>navigate('/orders')} className='cursor-pointer hover:text-black'>Orders</p>
-                        <p onClick={logout} className='cursor-pointer hover:text-black'>Logout</p>
-                    </div>
-                </div>}
-            </div> 
-            <Link to='/cart' className='relative'>
-                <img src={assets.cart_icon} className='w-5 min-w-5' alt="" />
-                <p className='absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-black text-white aspect-square rounded-full text-[8px]'>{getCartCount()}</p>
-            </Link> 
-            <img onClick={()=>setVisible(true)} src={assets.menu_icon} className='w-5 cursor-pointer sm:hidden' alt="" /> 
+            <div className="relative group flex items-center">
+  <img
+    src={assets.profile_icon}
+    onClick={() => (!token ? navigate("/login") : null)}
+    className={`w-5 cursor-pointer transition ${
+      isHome && !scrolled ? "invert opacity-90" : "opacity-70 hover:opacity-100"
+    }`}
+    alt=""
+  />
+
+  {token && (
+    <div className="absolute right-0 top-full pt-2 hidden group-hover:block">
+      <div className="w-40 rounded-md bg-white shadow-lg border text-sm text-gray-600">
+        <p className="px-4 py-2 hover:bg-gray-50 cursor-pointer">
+          My Profile
+        </p>
+        <p
+          onClick={() => navigate("/orders")}
+          className="px-4 py-2 hover:bg-gray-50 cursor-pointer"
+        >
+          Orders
+        </p>
+        <p
+          onClick={logout}
+          className="px-4 py-2 hover:bg-gray-50 cursor-pointer text-red-500"
+        >
+          Logout
+        </p>
       </div>
-
-        {/* Sidebar menu for small screens */}
-        <div className={`absolute top-0 right-0 bottom-0 overflow-hidden bg-white transition-all ${visible ? 'w-full' : 'w-0'}`}>
-                <div className='flex flex-col text-gray-600'>
-                    <div onClick={()=>setVisible(false)} className='flex items-center gap-4 p-3 cursor-pointer'>
-                        <img className='h-4 rotate-180' src={assets.dropdown_icon} alt="" />
-                        <p>Back</p>
-                    </div>
-                    <NavLink onClick={()=>setVisible(false)} className='py-2 pl-6 border' to='/'>HOME</NavLink>
-                    <NavLink onClick={()=>setVisible(false)} className='py-2 pl-6 border' to='/collection'>COLLECTION</NavLink>
-                    <NavLink onClick={()=>setVisible(false)} className='py-2 pl-6 border' to='/about'>ABOUT</NavLink>
-                    <NavLink onClick={()=>setVisible(false)} className='py-2 pl-6 border' to='/contact'>CONTACT</NavLink>
-                </div>
-        </div>
-
     </div>
-  )
-}
+  )}
+</div>
 
-export default Navbar
+
+            <Link to="/cart" className="relative">
+              <img
+                src={assets.cart_icon}
+                className={`w-5 transition ${
+                  isHome && !scrolled ? "invert opacity-90" : "opacity-70 hover:opacity-100"
+                }`}
+                alt=""
+              />
+              <span className="absolute -right-2 -bottom-2 w-4 h-4 text-[9px] flex items-center justify-center rounded-full bg-black text-white">
+                {getCartCount()}
+              </span>
+            </Link>
+
+            <img
+              src={assets.menu_icon}
+              onClick={() => setVisible(true)}
+              className={`w-5 cursor-pointer sm:hidden ${
+                isHome && !scrolled ? "invert" : ""
+              }`}
+              alt=""
+            />
+          </div>
+        </div>
+      </header>
+
+      {/* MOBILE MENU (unchanged) */}
+      <div
+        className={`fixed inset-0 z-40 bg-black/30 transition ${
+          visible ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
+      >
+        <div
+          className={`absolute top-0 right-0 h-full w-3/4 max-w-xs bg-white transition-transform ${
+            visible ? "translate-x-0" : "translate-x-full"
+          }`}
+        >
+          <div className="flex items-center gap-3 px-5 py-4 border-b">
+            <img
+              src={assets.dropdown_icon}
+              className="h-4 rotate-180 cursor-pointer"
+              onClick={() => setVisible(false)}
+              alt=""
+            />
+            <p className="text-sm">Menu</p>
+          </div>
+
+          <nav className="flex flex-col text-sm text-gray-600">
+            <NavLink onClick={() => setVisible(false)} to="/" className="px-6 py-3 border-b">HOME</NavLink>
+            <NavLink onClick={() => setVisible(false)} to="/collection" className="px-6 py-3 border-b">COLLECTION</NavLink>
+            <NavLink onClick={() => setVisible(false)} to="/about" className="px-6 py-3 border-b">ABOUT</NavLink>
+            <NavLink onClick={() => setVisible(false)} to="/contact" className="px-6 py-3 border-b">CONTACT</NavLink>
+          </nav>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default Navbar;

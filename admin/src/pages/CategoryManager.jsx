@@ -1,6 +1,7 @@
 // src/components/CategoryManager.jsx
 import React, { useEffect, useState } from "react";
-import { getCategories, addCategory as apiAddCategory, addSubcategory as apiAddSubcategory } from "../api/categoriesApi";
+import { getCategories, addCategory as apiAddCategory, addSubcategory as apiAddSubcategory,deleteCategory as apiDeleteCategory,
+  deleteSubcategory as apiDeleteSubcategory } from "../api/categoriesApi";
 import { toast } from "react-toastify";
 
 /**
@@ -46,6 +47,38 @@ const CategoryManager = ({ token }) => {
       setLoading(false);
     }
   };
+const handleDeleteCategory = async () => {
+  if (!selectedCatId) return;
+
+  const cat = categories.find(c => c._id === selectedCatId);
+  if (!window.confirm(`Delete category "${cat?.name}"? This cannot be undone.`)) return;
+
+  try {
+    setLoading(true);
+    await apiDeleteCategory(selectedCatId, token);
+    toast.success("Category deleted");
+    setSelectedCatId("");
+    await loadCategories();
+  } catch (err) {
+    toast.error(err.response?.data?.message || "Failed to delete category");
+  } finally {
+    setLoading(false);
+  }
+};
+const handleDeleteSubcategory = async (sub) => {
+  if (!window.confirm(`Delete subcategory "${sub}"?`)) return;
+
+  try {
+    setLoading(true);
+    await apiDeleteSubcategory(selectedCatId, sub, token);
+    toast.success(`Deleted ${sub}`);
+    await loadCategories();
+  } catch (err) {
+    toast.error(err.response?.data?.message || "Failed to delete subcategory");
+  } finally {
+    setLoading(false);
+  }
+};
 
   const handleAddCategory = async () => {
     const name = (newCategoryName || "").trim();
@@ -126,41 +159,23 @@ const CategoryManager = ({ token }) => {
           ))}
           {categories.length === 0 && <option value="">-- no categories yet --</option>}
         </select>
+        {/* Delete category */}
+<div className="mt-2">
+  <button
+    onClick={handleDeleteCategory}
+    disabled={!selectedCatId || loading}
+    className="px-4 py-2 bg-red-600 text-white disabled:opacity-50"
+  >
+    Delete Category
+  </button>
+</div>
+
       </div>
 
       {/* Add subcategory (single or bulk) */}
-      <div className="mb-6">
-        <label className="block mb-1">Add subcategory (single or multiple)</label>
-        <textarea
-          value={newSubInput}
-          onChange={(e) => handleSubInputChange(e.target.value)}
-          className="border px-3 py-2 w-full max-w-2xl"
-          placeholder="Type one subcategory, or multiple separated by commas or new lines. e.g. Jackets, Blazers or one per line"
-          rows={3}
-        />
+      {/* Select existing category */}
 
-        <div className="flex items-center gap-3 mt-2">
-          <button onClick={handleAddSubcategories} className="bg-black text-white px-4 py-2" disabled={loading}>
-            Add Subcategory(s)
-          </button>
-          <button onClick={() => { setNewSubInput(""); setSubPreview([]); }} className="px-3 py-2 border">
-            Clear
-          </button>
-          <span className="text-sm text-slate-500">Parsed: {subPreview.length} item(s)</span>
-        </div>
 
-        {/* preview parsed */}
-        {subPreview.length > 0 && (
-          <div className="mt-3">
-            <p className="text-sm font-medium mb-1">Preview</p>
-            <div className="flex flex-wrap gap-2">
-              {subPreview.map(s => (
-                <span key={s} className="px-3 py-1 bg-slate-100 rounded">{s}</span>
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
 
       {/* show existing subcategories for selected category */}
       <div>
@@ -168,11 +183,21 @@ const CategoryManager = ({ token }) => {
         <div className="p-3 border rounded max-w-2xl">
           {selectedCatId ? (
             (categories.find(c => c._id === selectedCatId)?.subcategories || []).length > 0 ? (
-              <ul className="list-disc ml-6">
-                {(categories.find(c => c._id === selectedCatId)?.subcategories || []).map(s => (
-                  <li key={s}>{s}</li>
-                ))}
-              </ul>
+              <ul className="space-y-2">
+  {(categories.find(c => c._id === selectedCatId)?.subcategories || []).map(s => (
+    <li key={s} className="flex items-center justify-between">
+      <span>{s}</span>
+      <button
+        onClick={() => handleDeleteSubcategory(s)}
+        disabled={loading}
+        className="text-sm text-red-600 hover:underline disabled:opacity-50"
+      >
+        Delete
+      </button>
+    </li>
+  ))}
+</ul>
+
             ) : <p className="text-sm text-slate-500">No subcategories yet for this category.</p>
           ) : <p className="text-sm text-slate-500">Select a category to view subcategories.</p>}
         </div>

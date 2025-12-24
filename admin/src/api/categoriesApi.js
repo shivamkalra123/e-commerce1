@@ -25,3 +25,16 @@ export const addSubcategory = async (categoryId, subOrSubs, token) => {
     { headers: { token } }
   );
 };
+export const deleteCategory = (categoryId, token) => {
+  return axios.delete(
+    `${backendUrl}/api/categories/${categoryId}`,
+    { headers: { token } }
+  );
+};
+
+export const deleteSubcategory = (categoryId, sub, token) => {
+  return axios.delete(
+    `${backendUrl}/api/categories/${categoryId}/subcategories/${encodeURIComponent(sub)}`,
+    { headers: { token } }
+  );
+};
