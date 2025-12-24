@@ -30,7 +30,8 @@ app.use((req, res, next) => {
     "http://localhost:5174",
     "http://localhost:3000",
     "https://e-commerce1-weme.onrender.com",
-    "https://brandedparcels.com"
+    "https://brandedparcels.com",
+    "https://e-commerce1-veng.vercel.app"
 
   ];
 
