@@ -1,56 +1,46 @@
-import React from 'react'
-import Hero from '../components/Hero'
-import LatestCollection from '../components/LatestCollection'
-import BestSeller from '../components/BestSeller'
-import OurPolicy from '../components/OurPolicy'
-import NewsletterBox from '../components/NewsLetterBox'
-import FlashSale from '../components/FlashSale'
+import Hero from "../components/Hero";
+import FlashSale from "../components/FlashSale";
+import ShopByMood from "../components/ShopByMood";
+import SocialProof from "../components/SocialProof";
+import OneProductManyWays from "../components/OneProductManyWays";
+import NewsletterBox from "../components/NewsLetterBox";
+import SoftSectionDivider from "../components/Dividers/softsectiondivider";
+import FadeDivider from "../components/Dividers/FadeDivider";
+import TextDivider from "../components/Dividers/TextDivider";
+import DotDivider from "../components/Dividers/DotDivider";
+import BestSeller from "../components/BestSeller";
+
 
 
 const Home = () => {
   return (
-    <div className="min-h-screen w-full bg-gradient-to-b from-orange-50/40 via-white to-gray-100">
+    <div className="w-full">
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Hero />
 
-        {/* HERO */}
-        <section className="py-8">
-          <Hero />
-        </section>
-         <section className="py-8">
-          <FlashSale />
-        </section>
+      <section className="max-w-7xl mx-auto px-4 py-14">
+        <FlashSale />
+      </section>
 
-        {/* BEST SELLER */}
-        <section className="py-8">
-          <div className="rounded-2xl bg-white/50 backdrop-blur-md shadow-md p-5">
-            <BestSeller />
-          </div>
-        </section>
-     
+  
 
-        {/* LATEST COLLECTION */}
-        <section className="py-8">
-          <div className="rounded-2xl bg-gradient-to-br from-orange-50/30 via-white to-gray-50 shadow-inner p-5">
-            <LatestCollection />
-          </div>
-        </section>
+      <section className="max-w-7xl mx-auto px-4 py-24">
+        <ShopByMood />
+      </section>
+       <section className="max-w-7xl mx-auto px-4 py-24">
+        <BestSeller />
+      </section>
 
-        {/* POLICY */}
-        <section className="py-8">
-          <div className="rounded-2xl bg-white/60 backdrop-blur-xl shadow p-5">
-            <OurPolicy />
-          </div>
-        </section>
+    
 
-        {/* NEWSLETTER */}
-        <section className="py-10">
-          <NewsletterBox />
-        </section>
 
-      </div>
+
+      <section className="py-20">
+        <NewsletterBox />
+      </section>
+
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
