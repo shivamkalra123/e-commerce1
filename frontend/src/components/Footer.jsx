@@ -26,8 +26,8 @@ const Footer = () => {
         <div>
             <p className='text-xl font-medium mb-5'>GET IN TOUCH</p>
             <ul className='flex flex-col gap-1 text-gray-600'>
-                <li>+1-212-456-7890</li>
-                <li>forever@gmail.com</li>
+                <li>+27 784 281 036</li>
+                <li>support@brandedparcels.com</li>
             </ul>
         </div>
 
@@ -35,7 +35,7 @@ const Footer = () => {
 
         <div>
             <hr />
-            <p className='py-5 text-sm text-center'>Copyright 2025 forever.com - All Right Reserved.</p>
+            <p className='py-5 text-sm text-center'>Copyright 2025 brandedparcels.com - All Right Reserved.</p>
         </div>
 
     </div>
