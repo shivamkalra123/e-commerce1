@@ -1,0 +1,414 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2025-12-27 22:38+0530\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: zu\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
+
+#. placeholder {0}: mood.id
+#. placeholder {0}: stat.label
+#: src/components/ShopByMood.jsx:40
+#: src/components/StatsCounter.jsx:51
+msgid "{0}"
+msgstr "{0}"
+
+#: src/pages/Product.jsx:203
+msgid "{r} Stars"
+msgstr "{r} Izinkanyezi"
+
+#: src/pages/About.jsx:163
+msgid "& EXCHANGES"
+msgstr "& UKUSHINTSHANA"
+
+#: src/pages/Product.jsx:160
+msgid "100% Original product"
+msgstr "Umkhiqizo wokuqala ngo-100%"
+
+#: src/pages/Product.jsx:162
+msgid "7 days easy return"
+msgstr "Ukubuyiselwa okulula kwezinsuku eziyi-7"
+
+#: src/components/Navbar.jsx:76
+#: src/components/Navbar.jsx:190
+#: src/pages/About.jsx:22
+msgid "ABOUT"
+msgstr "MAYELANA NATHI"
+
+#: src/pages/About.jsx:30
+msgid "About Branded Parcels"
+msgstr "Mayelana ne-Branded Parcels"
+
+#: src/components/Footer.jsx:26
+msgid "About us"
+msgstr "Mayelana nathi"
+
+#: src/pages/Product.jsx:154
+msgid "ADD TO CART"
+msgstr "ENGEZA ENQOLENI"
+
+#: src/pages/About.jsx:146
+msgid "All-day delivery (7am–8pm), 2 working days. From $20."
+msgstr "Ukulethwa usuku lonke (7 ekuseni–8 kusihlwa), izinsuku zokusebenza ezi-2. Kusukela ku-$20."
+
+#: src/pages/About.jsx:191
+msgid "ASKED QUESTIONS"
+msgstr "IMIBUZO EBUZWE"
+
+#: src/components/BestSeller.jsx:20
+msgid "BEST"
+msgstr "EZINGCONO"
+
+#: src/pages/About.jsx:35
+msgid "Branded Parcels"
+msgstr "Branded Parcels"
+
+#: src/components/WhyUs.jsx:67
+msgid "Built to last"
+msgstr "Yakhelwe ukuhlala isikhathi eside"
+
+#: src/pages/Product.jsx:161
+msgid "Cash on delivery available"
+msgstr "Ukukhokha uma ulethwa kuyatholakala"
+
+#: src/components/Navbar.jsx:75
+#: src/components/Navbar.jsx:189
+msgid "COLLECTION"
+msgstr "IQOQO"
+
+#: src/components/Footer.jsx:22
+#: src/pages/About.jsx:101
+msgid "COMPANY"
+msgstr "INKAMPANI"
+
+#: src/components/Navbar.jsx:77
+#: src/components/Navbar.jsx:191
+#: src/pages/Contact.jsx:12
+msgid "CONTACT"
+msgstr "XHUMANA"
+
+#: src/pages/Contact.jsx:20
+msgid "Contact Branded Parcels"
+msgstr "Xhumana ne-Branded Parcels"
+
+#: src/components/Footer.jsx:48
+msgid "Copyright 2025 brandedparcels.com - All Right Reserved."
+msgstr "Ilungelo lobunikazi 2025 brandedparcels.com – Wonke amalungelo agodliwe."
+
+#: src/components/WhyUs.jsx:56
+msgid "Customer-first approach"
+msgstr "Indlela egxile kumakhasimende"
+
+#: src/pages/About.jsx:168
+msgid "Customers may return goods within 14 days of delivery if purchased remotely. Items must be preserved in original condition."
+msgstr "Amakhasimende angabuyisa izimpahla zingakapheli izinsuku eziyi-14 ngemuva kokulethwa uma zithengwe ku-inthanethi. Izinto kufanele zigcinwe zisesezimeni zazo zokuqala."
+
+#: src/pages/About.jsx:177
+msgid "Defect report (if applicable)"
+msgstr "Umbiko wesiphazamiso (uma usebenza)"
+
+#: src/pages/About.jsx:199
+msgid "Delays can occur due to logistics or peak demand. Our support team will assist with tracking and updates."
+msgstr "Ukubambezeleka kungase kwenzeke ngenxa yezokuthutha noma isidingo esiphezulu. Ithimba lethu lokusekela lizokusiza ngokulandelela nezibuyekezo."
+
+#: src/components/Footer.jsx:27
+msgid "Delivery"
+msgstr "Ukulethwa"
+
+#: src/pages/About.jsx:140
+msgid "DELIVERY"
+msgstr "UKULETHWA"
+
+#: src/pages/About.jsx:210
+msgid "Delivery availability may vary by location and courier schedules."
+msgstr "Ukutholakala kokulethwa kungahluka ngokuya ngendawo nezinhlelo zezithuthi."
+
+#: src/components/Footer.jsx:13
+msgid "Designed for the modern shopper. We blend simplicity with style to bring you everyday essentials you’ll love."
+msgstr "Yakhelwe umthengi wanamuhla. Sihlanganisa ubulula nesitayela ukuze sikulethele izinto zansuku zonke ozothanda."
+
+#: src/components/WhyUs.jsx:17
+msgid "Designed for the way <0/> you shop today"
+msgstr "Yakhelwe indlela othenga ngayo namuhla"
+
+#: src/components/BestSeller.jsx:25
+msgid "Discover our most popular products, loved by customers for their quality, value, and style. Handpicked favorites you don't want to miss."
+msgstr "Thola imikhiqizo yethu edume kakhulu, ethandwa amakhasimende ngenxa yekhwalithi, inani nesitayela. Izintandokazi ezikhethwe ngokucophelela ongafuni ukuziphuthelwa."
+
+#: src/pages/About.jsx:229
+msgid "Do I need to be present to sign for delivery?"
+msgstr "Ngabe kudingeka ngibe khona ukuze ngisayine ngesikhathi sokulethwa?"
+
+#: src/pages/About.jsx:207
+msgid "Do you deliver on public holidays?"
+msgstr "Niletha yini ngezinsuku zamaholide omphakathi?"
+
+#: src/pages/About.jsx:77
+msgid "Easy & Secure Checkout"
+msgstr "Ukukhokha okulula nokuphephile"
+
+#: src/pages/Contact.jsx:39
+msgid "Email: support@brandedparcels.com"
+msgstr "I-imeyili: support@brandedparcels.com"
+
+#: src/components/NewsLetterBox.jsx:28
+msgid "Enter your email"
+msgstr "Faka ikheli lakho le-imeyili"
+
+#: src/pages/About.jsx:90
+msgid "Every delivery is covered by our Money Back Guarantee and supported by our customer care team."
+msgstr "Konke ukulethwa kugunyazwe isiqinisekiso sethu sokubuyiselwa kwemali futhi kusekelwa ithimba lethu lokunakekela amakhasimende."
+
+#: src/components/WhyUs.jsx:23
+msgid "Every detail is intentional — from the products we curate to the experience we deliver. We believe shopping should feel effortless, modern, and reliable."
+msgstr "Yonke imininingwane icatshangwe kahle — kusukela emikhiqizweni esiyikhethayo kuya kulwazi esikunikeza lona. Sikholelwa ukuthi ukuthenga kufanele kube lula, kwesimanje futhi kuthembeke."
+
+#: src/components/ShopByMood.jsx:46
+msgid "Explore →"
+msgstr "Hlola →"
+
+#: src/components/WhyUs.jsx:48
+msgid "Fast, reliable shipping with transparent tracking from checkout to doorstep."
+msgstr "Ukuthunyelwa okusheshayo nokuthembekile okunokulandeleka okusobala kusukela ekukhokheni kuze kufike emnyango wakho."
+
+#: src/pages/About.jsx:113
+msgid "Founded in 2023 by <0>Daniel Eghan</0> and <1>Dorcas Out</1>."
+msgstr "Yasungulwa ngo-2023 ngu-<0>Daniel Eghan</0> no-<1>Dorcas Out</1>."
+
+#: src/pages/About.jsx:191
+msgid "FREQUENTLY"
+msgstr "IMIBUZO EVAME"
+
+#: src/pages/About.jsx:174
+msgid "Fully equipped product"
+msgstr "Umkhiqizo ophelele"
+
+#: src/components/Footer.jsx:35
+msgid "GET IN TOUCH"
+msgstr "XHUMANA NATHI"
+
+#: src/pages/Contact.jsx:25
+msgid "Head Office"
+msgstr "Ihhovisi elikhulu"
+
+#: src/pages/About.jsx:108
+msgid "Headquartered in Johannesburg, South Africa, with a vision for offices around the world."
+msgstr "Izinhloko zenkampani ziseJohannesburg, eNingizimu Afrika, zinombono wamahhovisi emhlabeni wonke."
+
+#: src/components/Footer.jsx:25
+msgid "Home"
+msgstr "Ikhaya"
+
+#: src/components/Navbar.jsx:74
+#: src/components/Navbar.jsx:188
+msgid "HOME"
+msgstr "IKHAYA"
+
+#: src/pages/About.jsx:61
+msgid "HOW"
+msgstr "INDLELA"
+
+#: src/pages/About.jsx:101
+msgid "INFO"
+msgstr "ULWAZI"
+
+#: src/pages/About.jsx:124
+msgid "Interested in investing? Learn more on our Careers page."
+msgstr "Unentshisekelo yokutshala imali? Funda kabanzi ekhasini lethu leMisebenzi."
+
+#: src/pages/About.jsx:122
+msgid "Invest & Sell"
+msgstr "Tshala imali & Thengisa"
+
+#: src/pages/About.jsx:36
+msgid "is a shopping app connecting millions of customers across 20+ countries with thousands of merchants in Africa and beyond. New products are added daily—from everyday essentials to new favorites you never knew existed."
+msgstr "iwuhlelo lokuthenga oluxhumanisa izigidi zamakhasimende emazweni angaphezu kwama-20 nabathengisi abaningi e-Afrika nangale kwayo. Imikhiqizo emisha yengezwa nsuku zonke — kusukela ezintweni zansuku zonke kuya ezintandokazini ezintsha."
+
+#: src/pages/About.jsx:218
+msgid "Is next-day delivery available on all orders?"
+msgstr "Ingabe ukulethwa kosuku olulandelayo kuyatholakala kuwo wonke ama-oda?"
+
+#: src/pages/About.jsx:61
+msgid "IT WORKS"
+msgstr "KUYASEBENZA"
+
+#: src/pages/Contact.jsx:29
+msgid "Kimberly Road, Judith Paarl, Johannesburg, South Africa"
+msgstr "Kimberly Road, Judith Paarl, Johannesburg, eNingizimu Afrika"
+
+#: src/components/Navbar.jsx:125
+msgid "Logout"
+msgstr "Phuma"
+
+#: src/components/Navbar.jsx:184
+msgid "Menu"
+msgstr "Imenyu"
+
+#: src/pages/About.jsx:79
+msgid "Multiple payment options with a smooth checkout experience."
+msgstr "Izindlela zokukhokha eziningi ezinolwazi lokukhokha olushelelayo."
+
+#: src/pages/About.jsx:196
+msgid "My order hasn’t arrived yet. Where is it?"
+msgstr "I-oda lami alikafiki. Likuphi?"
+
+#: src/components/Navbar.jsx:113
+msgid "My Profile"
+msgstr "Iphrofayela yami"
+
+#: src/pages/About.jsx:153
+msgid "Next-Day Delivery"
+msgstr "Ukulethwa kosuku olulandelayo"
+
+#: src/pages/About.jsx:221
+msgid "Next-day delivery depends on product type and your delivery address."
+msgstr "Ukulethwa kosuku olulandelayo kuncike ohlotsheni lomkhiqizo nekheli lakho lokulethwa."
+
+#: src/pages/About.jsx:140
+msgid "OPTIONS"
+msgstr "IZINKETHO"
+
+#: src/pages/About.jsx:154
+msgid "Order by 7pm on weekdays. All-day from $30."
+msgstr "Oda ngaphambi kuka-7 kusihlwa ngezinsuku zomsebenzi. Usuku lonke kusukela ku-$30."
+
+#: src/components/Navbar.jsx:119
+msgid "Orders"
+msgstr "Ama-oda"
+
+#: src/pages/About.jsx:48
+msgid "Our Mission"
+msgstr "Inhloso yethu"
+
+#: src/pages/About.jsx:42
+msgid "Our platform is designed to be inspiring, personalized, and reliable. The more you browse and buy, the smarter our recommendations become—tailored to your style, interests, and budget."
+msgstr "Ipulatifomu yethu yakhelwe ukuba ikhuthaze, ibe ngeyakho futhi ithembeke. Uma ubuka futhi uthenga kakhulu, iziphakamiso zethu ziba ngcono — zihambisane nesitayela sakho, izintshisekelo kanye nesabelomali."
+
+#: src/pages/About.jsx:66
+msgid "Personalized Discovery"
+msgstr "Ukutholakala okuqondene nawe"
+
+#: src/pages/Contact.jsx:35
+msgid "Phone: +27 784 281 036"
+msgstr "Ucingo: +27 784 281 036"
+
+#: src/components/WhyUs.jsx:34
+msgid "Premium curation"
+msgstr "Ukukhethwa kwe-premium"
+
+#: src/components/Footer.jsx:28
+msgid "Privacy policy"
+msgstr "Inqubomgomo yobumfihlo"
+
+#: src/pages/About.jsx:175
+msgid "Proof of purchase"
+msgstr "Ubufakazi bokuthenga"
+
+#: src/pages/About.jsx:181
+msgid "Refunds are processed according to applicable legislation."
+msgstr "Ukubuyiselwa kwemali kwenziwa ngokuhambisana nemithetho esebenzayo."
+
+#: src/pages/About.jsx:88
+msgid "Reliable Delivery"
+msgstr "Ukulethwa okuthembekile"
+
+#: src/pages/About.jsx:163
+msgid "RETURNS"
+msgstr "UKUBUYISA"
+
+#. placeholder {0}: reviews.length
+#: src/pages/Product.jsx:171
+msgid "Reviews ({0})"
+msgstr "Izibuyekezo ({0})"
+
+#: src/components/WhyUs.jsx:45
+msgid "Seamless delivery"
+msgstr "Ukulethwa okushelelayo"
+
+#: src/pages/Product.jsx:133
+msgid "Select Size"
+msgstr "Khetha usayizi"
+
+#: src/components/BestSeller.jsx:21
+msgid "SELLERS"
+msgstr "ABADAYISI"
+
+#: src/pages/About.jsx:129
+msgid "Selling is currently invite-only to ensure trust and quality across our marketplace."
+msgstr "Ukudayisa okwamanje kwenziwa ngesimemo kuphela ukuze kuqinisekiswe ukwethembana nekhwalithi emakethe yethu."
+
+#: src/pages/Product.jsx:211
+msgid "Share your experience"
+msgstr "Yabelana ngolwazi lwakho"
+
+#: src/components/ShopByMood.jsx:20
+msgid "Shop by Mood"
+msgstr "Thenga ngokwesimo sengqondo"
+
+#: src/pages/About.jsx:68
+msgid "Sign up and shop—our platform learns your preferences and recommends products you’ll love."
+msgstr "Bhalisa futhi uthenge — ipulatifomu yethu ifunda okuthandayo futhi iphakamise imikhiqizo ozoyithanda."
+
+#: src/pages/About.jsx:232
+msgid "Some items may require a signature, especially high-value or large appliances."
+msgstr "Ezinye izinto zingadinga isignesha, ikakhulukazi izinto ezibizayo noma ezinkulu."
+
+#: src/pages/About.jsx:145
+msgid "Standard Delivery"
+msgstr "Ukulethwa okujwayelekile"
+
+#: src/pages/Product.jsx:219
+msgid "Submit Review"
+msgstr "Thumela ukubuyekeza"
+
+#: src/components/NewsLetterBox.jsx:36
+msgid "SUBSCRIBE"
+msgstr "BHALISA"
+
+#: src/components/NewsLetterBox.jsx:12
+msgid "Subscribe now & get 20% off"
+msgstr "Bhalisa manje uthole isaphulelo esingu-20%"
+
+#: src/components/WhyUs.jsx:37
+msgid "Thoughtfully selected products that balance quality, design, and everyday practicality."
+msgstr "Imikhiqizo ekhethwe ngokucophelela ehlanganisa ikhwalithi, umklamo nokusebenza kwansuku zonke."
+
+#: src/pages/About.jsx:147
+msgid "Time slots available. From $35."
+msgstr "Izikhathi zokulethwa ziyatholakala. Kusukela ku-$35."
+
+#: src/pages/About.jsx:155
+msgid "Time slots available. From $45."
+msgstr "Izikhathi zokulethwa ziyatholakala. Kusukela ku-$45."
+
+#: src/pages/About.jsx:52
+msgid "To empower customers with choice, convenience, and confidence—delivering a seamless shopping experience from discovery to delivery, backed by a strong money-back guarantee and responsive support."
+msgstr "Ukuqinisa amakhasimende ngokubanika inketho, ukunethezeka nokuzethemba — ukuhlinzeka ngolwazi lokuthenga olungenazithiyo kusukela ekutholeni kuya ekulethweni, kusekelwa isiqinisekiso esiqinile sokubuyiselwa kwemali nokusekelwa okuphendulayo."
+
+#: src/pages/About.jsx:22
+#: src/pages/Contact.jsx:12
+msgid "US"
+msgstr "THINA"
+
+#: src/pages/About.jsx:176
+msgid "Warranty card"
+msgstr "Ikhadi lewaranti"
+
+#: src/components/WhyUs.jsx:70
+msgid "We prioritize durability and timeless style over fast trends."
+msgstr "Sigxila ekuqineni nasezitayeleni ezingaphelelwa yisikhathi kunokulandela amathrendi asheshayo."
+
+#: src/pages/About.jsx:106
+msgid "Where we’re from"
+msgstr "Sivela kuphi"
+
+#: src/pages/Product.jsx:193
+msgid "Write a review"
+msgstr "Bhala ukubuyekeza"

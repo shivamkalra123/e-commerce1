@@ -5,6 +5,7 @@ import { ShopContext } from "../context/ShopContext";
 import { assets } from "../assets/assets";
 import RelatedProducts from "../components/RelatedProducts";
 import AuthModal from "../components/AuthModal";
+import { Trans, t } from "@lingui/macro";
 
 const Product = () => {
   const { productId } = useParams();
@@ -79,6 +80,7 @@ const Product = () => {
   return (
     <>
       <div className="border-t-2 pt-10 transition-opacity duration-500 opacity-100">
+
         {/* ===================== PRODUCT DATA ===================== */}
         <div className="flex flex-col sm:flex-row gap-12">
 
@@ -102,14 +104,18 @@ const Product = () => {
 
           {/* INFO */}
           <div className="flex-1">
-            <h1 className="text-2xl font-medium">{productData.name}</h1>
+            <h1 className="text-2xl font-medium">
+              {productData.name}
+            </h1>
 
             <div className="flex items-center gap-1 mt-2">
               {[...Array(4)].map((_, i) => (
                 <img key={i} src={assets.star_icon} className="w-3" />
               ))}
               <img src={assets.star_dull_icon} className="w-3" />
-              <p className="pl-2 text-sm">( {reviews.length} )</p>
+              <p className="pl-2 text-sm">
+                ( {reviews.length} )
+              </p>
             </div>
 
             <p className="mt-5 text-3xl font-medium">
@@ -123,7 +129,9 @@ const Product = () => {
 
             {/* SIZE */}
             <div className="my-8">
-              <p className="mb-2">Select Size</p>
+              <p className="mb-2">
+                <Trans>Select Size</Trans>
+              </p>
               <div className="flex gap-2">
                 {productData.sizes.map((s) => (
                   <button
@@ -143,15 +151,15 @@ const Product = () => {
               onClick={() => addToCart(productData._id, size)}
               className="bg-black text-white px-8 py-3 text-sm"
             >
-              ADD TO CART
+              <Trans>ADD TO CART</Trans>
             </button>
 
             <hr className="mt-8 sm:w-4/5" />
 
             <div className="text-sm text-gray-500 mt-5 space-y-1">
-              <p>100% Original product</p>
-              <p>Cash on delivery available</p>
-              <p>7 days easy return</p>
+              <p><Trans>100% Original product</Trans></p>
+              <p><Trans>Cash on delivery available</Trans></p>
+              <p><Trans>7 days easy return</Trans></p>
             </div>
           </div>
         </div>
@@ -159,7 +167,9 @@ const Product = () => {
         {/* ===================== REVIEWS ===================== */}
         <div className="mt-20">
           <div className="flex border-b">
-            <b className="px-5 py-3 text-sm">Reviews ({reviews.length})</b>
+            <b className="px-5 py-3 text-sm">
+              <Trans>Reviews ({reviews.length})</Trans>
+            </b>
           </div>
 
           {/* REVIEW LIST */}
@@ -179,7 +189,9 @@ const Product = () => {
 
           {/* ADD REVIEW */}
           <div className="mt-8 border p-5 rounded-md">
-            <h3 className="font-medium mb-3">Write a review</h3>
+            <h3 className="font-medium mb-3">
+              <Trans>Write a review</Trans>
+            </h3>
 
             <select
               value={rating}
@@ -188,7 +200,7 @@ const Product = () => {
             >
               {[5, 4, 3, 2, 1].map((r) => (
                 <option key={r} value={r}>
-                  {r} Stars
+                  <Trans>{r} Stars</Trans>
                 </option>
               ))}
             </select>
@@ -196,7 +208,7 @@ const Product = () => {
             <textarea
               value={comment}
               onChange={(e) => setComment(e.target.value)}
-              placeholder="Share your experience"
+              placeholder={t`Share your experience`}
               className="border w-full p-3 mb-3"
             />
 
@@ -204,7 +216,7 @@ const Product = () => {
               onClick={submitReview}
               className="bg-black text-white px-6 py-2"
             >
-              Submit Review
+              <Trans>Submit Review</Trans>
             </button>
           </div>
         </div>

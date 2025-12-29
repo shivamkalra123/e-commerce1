@@ -1,0 +1,418 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2025-12-27 22:38+0530\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: fr\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
+
+#. placeholder {0}: mood.id
+#. placeholder {0}: stat.label
+#: src/components/ShopByMood.jsx:40
+#: src/components/StatsCounter.jsx:51
+msgid "{0}"
+msgstr "{0}"
+
+#: src/pages/Product.jsx:203
+msgid "{r} Stars"
+msgstr "{r} étoiles"
+
+#: src/pages/About.jsx:163
+msgid "& EXCHANGES"
+msgstr "& ÉCHANGES"
+
+#: src/pages/Product.jsx:160
+msgid "100% Original product"
+msgstr "Produit 100 % original"
+
+#: src/pages/Product.jsx:162
+msgid "7 days easy return"
+msgstr "Retour facile sous 7 jours"
+
+#: src/components/Navbar.jsx:76
+#: src/components/Navbar.jsx:190
+#: src/pages/About.jsx:22
+msgid "ABOUT"
+msgstr "À PROPOS"
+
+#: src/pages/About.jsx:30
+msgid "About Branded Parcels"
+msgstr "À propos de Branded Parcels"
+
+#: src/components/Footer.jsx:26
+msgid "About us"
+msgstr "À propos de nous"
+
+#: src/pages/Product.jsx:154
+msgid "ADD TO CART"
+msgstr "AJOUTER AU PANIER"
+
+#: src/pages/About.jsx:146
+msgid "All-day delivery (7am–8pm), 2 working days. From $20."
+msgstr "Livraison toute la journée (7h–20h), 2 jours ouvrés. À partir de 20 $."
+
+#: src/pages/About.jsx:191
+msgid "ASKED QUESTIONS"
+msgstr "QUESTIONS POSÉES"
+
+#: src/components/BestSeller.jsx:20
+msgid "BEST"
+msgstr "MEILLEURS"
+
+#: src/pages/About.jsx:35
+msgid "Branded Parcels"
+msgstr "Branded Parcels"
+
+#: src/components/WhyUs.jsx:67
+msgid "Built to last"
+msgstr "Conçu pour durer"
+
+#: src/pages/Product.jsx:161
+msgid "Cash on delivery available"
+msgstr "Paiement à la livraison disponible"
+
+#: src/components/Navbar.jsx:75
+#: src/components/Navbar.jsx:189
+msgid "COLLECTION"
+msgstr "COLLECTION"
+
+#: src/components/Footer.jsx:22
+#: src/pages/About.jsx:101
+msgid "COMPANY"
+msgstr "ENTREPRISE"
+
+#: src/components/Navbar.jsx:77
+#: src/components/Navbar.jsx:191
+#: src/pages/Contact.jsx:12
+msgid "CONTACT"
+msgstr "CONTACT"
+
+#: src/pages/Contact.jsx:20
+msgid "Contact Branded Parcels"
+msgstr "Contacter Branded Parcels"
+
+#: src/components/Footer.jsx:48
+msgid "Copyright 2025 brandedparcels.com - All Right Reserved."
+msgstr "Copyright 2025 brandedparcels.com – Tous droits réservés."
+
+#: src/components/WhyUs.jsx:56
+msgid "Customer-first approach"
+msgstr "Approche centrée sur le client"
+
+#: src/pages/About.jsx:168
+msgid "Customers may return goods within 14 days of delivery if purchased remotely. Items must be preserved in original condition."
+msgstr "Les clients peuvent retourner les articles dans un délai de 14 jours après la livraison s’ils ont été achetés à distance. Les articles doivent être conservés dans leur état d’origine."
+
+#: src/pages/About.jsx:177
+msgid "Defect report (if applicable)"
+msgstr "Rapport de défaut (le cas échéant)"
+
+#: src/pages/About.jsx:199
+msgid "Delays can occur due to logistics or peak demand. Our support team will assist with tracking and updates."
+msgstr "Des retards peuvent survenir en raison de la logistique ou de fortes demandes. Notre équipe d’assistance vous aidera avec le suivi et les mises à jour."
+
+#: src/components/Footer.jsx:27
+msgid "Delivery"
+msgstr "Livraison"
+
+#: src/pages/About.jsx:140
+msgid "DELIVERY"
+msgstr "LIVRAISON"
+
+#: src/pages/About.jsx:210
+msgid "Delivery availability may vary by location and courier schedules."
+msgstr "La disponibilité de la livraison peut varier selon la localisation et les horaires des transporteurs."
+
+#: src/components/Footer.jsx:13
+msgid "Designed for the modern shopper. We blend simplicity with style to bring you everyday essentials you’ll love."
+msgstr "Conçu pour le consommateur moderne. Nous allions simplicité et style pour vous offrir des essentiels du quotidien que vous allez adorer."
+
+#: src/components/WhyUs.jsx:17
+msgid "Designed for the way <0/> you shop today"
+msgstr "Conçu pour la façon dont vous achetez aujourd’hui"
+
+#: src/components/BestSeller.jsx:25
+msgid "Discover our most popular products, loved by customers for their quality, value, and style. Handpicked favorites you don't want to miss."
+msgstr "Découvrez nos produits les plus populaires, appréciés par nos clients pour leur qualité, leur valeur et leur style. Des favoris soigneusement sélectionnés à ne pas manquer."
+
+#: src/pages/About.jsx:229
+msgid "Do I need to be present to sign for delivery?"
+msgstr "Dois-je être présent pour signer lors de la livraison ?"
+
+#: src/pages/About.jsx:207
+msgid "Do you deliver on public holidays?"
+msgstr "Livrez-vous les jours fériés ?"
+
+#: src/pages/About.jsx:77
+msgid "Easy & Secure Checkout"
+msgstr "Paiement simple et sécurisé"
+
+#: src/pages/Contact.jsx:39
+msgid "Email: support@brandedparcels.com"
+msgstr "E-mail : support@brandedparcels.com"
+
+#: src/components/NewsLetterBox.jsx:28
+msgid "Enter your email"
+msgstr "Entrez votre adresse e-mail"
+
+#: src/pages/About.jsx:90
+msgid "Every delivery is covered by our Money Back Guarantee and supported by our customer care team."
+msgstr "Chaque livraison est couverte par notre garantie de remboursement et soutenue par notre service client."
+
+#: src/components/WhyUs.jsx:23
+msgid "Every detail is intentional — from the products we curate to the experience we deliver. We believe shopping should feel effortless, modern, and reliable."
+msgstr "Chaque détail est intentionnel — des produits que nous sélectionnons à l’expérience que nous offrons. Nous pensons que le shopping doit être fluide, moderne et fiable."
+
+#: src/components/ShopByMood.jsx:46
+msgid "Explore →"
+msgstr "Explorer →"
+
+#: src/components/WhyUs.jsx:48
+msgid "Fast, reliable shipping with transparent tracking from checkout to doorstep."
+msgstr "Livraison rapide et fiable avec un suivi transparent du paiement jusqu’à votre porte."
+
+#: src/pages/About.jsx:113
+msgid "Founded in 2023 by <0>Daniel Eghan</0> and <1>Dorcas Out</1>."
+msgstr "Fondée en 2023 par <0>Daniel Eghan</0> et <1>Dorcas Out</1>."
+
+#: src/pages/About.jsx:191
+msgid "FREQUENTLY"
+msgstr "FOIRE AUX"
+
+#: src/pages/About.jsx:174
+msgid "Fully equipped product"
+msgstr "Produit entièrement équipé"
+
+#: src/components/Footer.jsx:35
+msgid "GET IN TOUCH"
+msgstr "CONTACTEZ-NOUS"
+
+#: src/pages/Contact.jsx:25
+msgid "Head Office"
+msgstr "Siège social"
+
+#: src/pages/About.jsx:108
+msgid "Headquartered in Johannesburg, South Africa, with a vision for offices around the world."
+msgstr "Basée à Johannesburg, en Afrique du Sud, avec une vision de bureaux dans le monde entier."
+
+#: src/components/Footer.jsx:25
+msgid "Home"
+msgstr "Accueil"
+
+#: src/components/Navbar.jsx:74
+#: src/components/Navbar.jsx:188
+msgid "HOME"
+msgstr "ACCUEIL"
+
+#: src/pages/About.jsx:61
+msgid "HOW"
+msgstr "COMMENT"
+
+#: src/pages/About.jsx:101
+msgid "INFO"
+msgstr "INFO"
+
+#: src/pages/About.jsx:124
+msgid "Interested in investing? Learn more on our Careers page."
+msgstr "Intéressé par un investissement ? Découvrez-en plus sur notre page Carrières."
+
+#: src/pages/About.jsx:122
+msgid "Invest & Sell"
+msgstr "Investir & Vendre"
+
+#: src/pages/About.jsx:36
+msgid "is a shopping app connecting millions of customers across 20+ countries with thousands of merchants in Africa and beyond. New products are added daily—from everyday essentials to new favorites you never knew existed."
+msgstr "est une application de shopping reliant des millions de clients dans plus de 20 pays à des milliers de commerçants en Afrique et au-delà. De nouveaux produits sont ajoutés chaque jour — des essentiels du quotidien aux nouveaux favoris."
+
+#: src/pages/About.jsx:218
+msgid "Is next-day delivery available on all orders?"
+msgstr "La livraison le lendemain est-elle disponible pour toutes les commandes ?"
+
+#: src/pages/About.jsx:61
+msgid "IT WORKS"
+msgstr "ÇA MARCHE"
+
+#: src/pages/Contact.jsx:29
+msgid "Kimberly Road, Judith Paarl, Johannesburg, South Africa"
+msgstr "Kimberly Road, Judith Paarl, Johannesburg, Afrique du Sud"
+
+#: src/components/Navbar.jsx:125
+msgid "Logout"
+msgstr "Se déconnecter"
+
+#: src/components/Navbar.jsx:184
+msgid "Menu"
+msgstr "Menu"
+
+#: src/pages/About.jsx:79
+msgid "Multiple payment options with a smooth checkout experience."
+msgstr "Plusieurs options de paiement avec une expérience de paiement fluide."
+
+#: src/pages/About.jsx:196
+msgid "My order hasn’t arrived yet. Where is it?"
+msgstr "Ma commande n’est pas encore arrivée. Où est-elle ?"
+
+#: src/components/Navbar.jsx:113
+msgid "My Profile"
+msgstr "Mon profil"
+
+#: src/pages/About.jsx:153
+msgid "Next-Day Delivery"
+msgstr "Livraison le lendemain"
+
+#: src/pages/About.jsx:221
+msgid "Next-day delivery depends on product type and your delivery address."
+msgstr "La livraison le lendemain dépend du type de produit et de votre adresse de livraison."
+
+#: src/pages/About.jsx:140
+msgid "OPTIONS"
+msgstr "OPTIONS"
+
+#: src/pages/About.jsx:154
+msgid "Order by 7pm on weekdays. All-day from $30."
+msgstr "Commandez avant 19h en semaine. Toute la journée à partir de 30 $."
+
+#: src/components/Navbar.jsx:119
+msgid "Orders"
+msgstr "Commandes"
+
+#: src/pages/About.jsx:48
+msgid "Our Mission"
+msgstr "Notre mission"
+
+#: src/pages/About.jsx:42
+msgid "Our platform is designed to be inspiring, personalized, and reliable. The more you browse and buy, the smarter our recommendations become—tailored to your style, interests, and budget."
+msgstr "Notre plateforme est conçue pour être inspirante, personnalisée et fiable. Plus vous naviguez et achetez, plus nos recommandations deviennent intelligentes — adaptées à votre style, vos intérêts et votre budget."
+
+#: src/pages/About.jsx:66
+msgid "Personalized Discovery"
+msgstr "Découverte personnalisée"
+
+#: src/pages/Contact.jsx:35
+msgid "Phone: +27 784 281 036"
+msgstr "Téléphone : +27 784 281 036"
+
+#: src/components/WhyUs.jsx:34
+msgid "Premium curation"
+msgstr "Sélection premium"
+
+#: src/components/Footer.jsx:28
+msgid "Privacy policy"
+msgstr "Politique de confidentialité"
+
+#: src/pages/About.jsx:175
+msgid "Proof of purchase"
+msgstr "Preuve d’achat"
+
+#: src/pages/About.jsx:181
+msgid "Refunds are processed according to applicable legislation."
+msgstr "Les remboursements sont traités conformément à la législation en vigueur."
+
+#: src/pages/About.jsx:88
+msgid "Reliable Delivery"
+msgstr "Livraison fiable"
+
+#: src/components/WhyUs.jsx:59
+msgid "Responsive support, easy returns, and policies designed around real customers."
+msgstr "Un support réactif, des retours faciles et des politiques conçues pour de vrais clients."
+
+#: src/pages/About.jsx:163
+msgid "RETURNS"
+msgstr "RETOURS"
+
+#. placeholder {0}: reviews.length
+#: src/pages/Product.jsx:171
+msgid "Reviews ({0})"
+msgstr "Avis ({0})"
+
+#: src/components/WhyUs.jsx:45
+msgid "Seamless delivery"
+msgstr "Livraison fluide"
+
+#: src/pages/Product.jsx:133
+msgid "Select Size"
+msgstr "Sélectionner la taille"
+
+#: src/components/BestSeller.jsx:21
+msgid "SELLERS"
+msgstr "VENTES"
+
+#: src/pages/About.jsx:129
+msgid "Selling is currently invite-only to ensure trust and quality across our marketplace."
+msgstr "La vente est actuellement uniquement sur invitation afin de garantir la confiance et la qualité sur notre marketplace."
+
+#: src/pages/Product.jsx:211
+msgid "Share your experience"
+msgstr "Partagez votre expérience"
+
+#: src/components/ShopByMood.jsx:20
+msgid "Shop by Mood"
+msgstr "Acheter selon l’humeur"
+
+#: src/pages/About.jsx:68
+msgid "Sign up and shop—our platform learns your preferences and recommends products you’ll love."
+msgstr "Inscrivez-vous et faites vos achats — notre plateforme apprend vos préférences et vous recommande des produits que vous allez adorer."
+
+#: src/pages/About.jsx:232
+msgid "Some items may require a signature, especially high-value or large appliances."
+msgstr "Certains articles peuvent nécessiter une signature, notamment les produits de grande valeur ou les appareils volumineux."
+
+#: src/pages/About.jsx:145
+msgid "Standard Delivery"
+msgstr "Livraison standard"
+
+#: src/pages/Product.jsx:219
+msgid "Submit Review"
+msgstr "Envoyer un avis"
+
+#: src/components/NewsLetterBox.jsx:36
+msgid "SUBSCRIBE"
+msgstr "S’ABONNER"
+
+#: src/components/NewsLetterBox.jsx:12
+msgid "Subscribe now & get 20% off"
+msgstr "Abonnez-vous maintenant et obtenez 20 % de réduction"
+
+#: src/components/WhyUs.jsx:37
+msgid "Thoughtfully selected products that balance quality, design, and everyday practicality."
+msgstr "Des produits soigneusement sélectionnés qui allient qualité, design et praticité au quotidien."
+
+#: src/pages/About.jsx:147
+msgid "Time slots available. From $35."
+msgstr "Créneaux horaires disponibles. À partir de 35 $."
+
+#: src/pages/About.jsx:155
+msgid "Time slots available. From $45."
+msgstr "Créneaux horaires disponibles. À partir de 45 $."
+
+#: src/pages/About.jsx:52
+msgid "To empower customers with choice, convenience, and confidence—delivering a seamless shopping experience from discovery to delivery, backed by a strong money-back guarantee and responsive support."
+msgstr "Donner aux clients le choix, la commodité et la confiance — en offrant une expérience d’achat fluide de la découverte à la livraison, soutenue par une solide garantie de remboursement et un support réactif."
+
+#: src/pages/About.jsx:22
+#: src/pages/Contact.jsx:12
+msgid "US"
+msgstr "NOUS"
+
+#: src/pages/About.jsx:176
+msgid "Warranty card"
+msgstr "Carte de garantie"
+
+#: src/components/WhyUs.jsx:70
+msgid "We prioritize durability and timeless style over fast trends."
+msgstr "Nous privilégions la durabilité et un style intemporel plutôt que les tendances éphémères."
+
+#: src/pages/About.jsx:106
+msgid "Where we’re from"
+msgstr "D’où nous venons"
+
+#: src/pages/Product.jsx:193
+msgid "Write a review"
+msgstr "Écrire un avis"

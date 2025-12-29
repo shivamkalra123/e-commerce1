@@ -1,0 +1,434 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2025-12-27 22:15+0530\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: en\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
+
+#. placeholder {0}: mood.id
+#. placeholder {0}: stat.label
+#: src/components/ShopByMood.jsx:40
+#: src/components/StatsCounter.jsx:51
+msgid "{0}"
+msgstr "{0}"
+
+#: src/pages/Product.jsx:203
+msgid "{r} Stars"
+msgstr "{r} Stars"
+
+#: src/components/Title.jsx:8
+#~ msgid "{text1}"
+#~ msgstr "{text1}"
+
+#: src/components/Title.jsx:10
+#~ msgid "{text2}"
+#~ msgstr "{text2}"
+
+#: src/pages/About.jsx:163
+msgid "& EXCHANGES"
+msgstr "& EXCHANGES"
+
+#: src/pages/Product.jsx:160
+msgid "100% Original product"
+msgstr "100% Original product"
+
+#: src/pages/Product.jsx:162
+msgid "7 days easy return"
+msgstr "7 days easy return"
+
+#: src/components/Navbar.jsx:76
+#: src/components/Navbar.jsx:190
+#: src/pages/About.jsx:22
+msgid "ABOUT"
+msgstr "ABOUT"
+
+#: src/pages/About.jsx:30
+msgid "About Branded Parcels"
+msgstr "About Branded Parcels"
+
+#: src/components/Footer.jsx:26
+msgid "About us"
+msgstr "About us"
+
+#: src/pages/Product.jsx:154
+msgid "ADD TO CART"
+msgstr "ADD TO CART"
+
+#: src/pages/About.jsx:146
+msgid "All-day delivery (7am–8pm), 2 working days. From $20."
+msgstr "All-day delivery (7am–8pm), 2 working days. From $20."
+
+#: src/pages/About.jsx:191
+msgid "ASKED QUESTIONS"
+msgstr "ASKED QUESTIONS"
+
+#: src/components/BestSeller.jsx:20
+msgid "BEST"
+msgstr "BEST"
+
+#: src/pages/About.jsx:35
+msgid "Branded Parcels"
+msgstr "Branded Parcels"
+
+#: src/components/WhyUs.jsx:67
+msgid "Built to last"
+msgstr "Built to last"
+
+#: src/pages/Product.jsx:161
+msgid "Cash on delivery available"
+msgstr "Cash on delivery available"
+
+#: src/components/Navbar.jsx:75
+#: src/components/Navbar.jsx:189
+msgid "COLLECTION"
+msgstr "COLLECTION"
+
+#: src/components/Footer.jsx:22
+#: src/pages/About.jsx:101
+msgid "COMPANY"
+msgstr "COMPANY"
+
+#: src/components/Navbar.jsx:77
+#: src/components/Navbar.jsx:191
+#: src/pages/Contact.jsx:12
+msgid "CONTACT"
+msgstr "CONTACT"
+
+#: src/pages/Contact.jsx:20
+msgid "Contact Branded Parcels"
+msgstr "Contact Branded Parcels"
+
+#: src/components/Footer.jsx:48
+msgid "Copyright 2025 brandedparcels.com - All Right Reserved."
+msgstr "Copyright 2025 brandedparcels.com - All Right Reserved."
+
+#: src/components/WhyUs.jsx:56
+msgid "Customer-first approach"
+msgstr "Customer-first approach"
+
+#: src/pages/About.jsx:168
+msgid "Customers may return goods within 14 days of delivery if purchased remotely. Items must be preserved in original condition."
+msgstr "Customers may return goods within 14 days of delivery if purchased remotely. Items must be preserved in original condition."
+
+#: src/pages/About.jsx:177
+msgid "Defect report (if applicable)"
+msgstr "Defect report (if applicable)"
+
+#: src/pages/About.jsx:199
+msgid "Delays can occur due to logistics or peak demand. Our support team will assist with tracking and updates."
+msgstr "Delays can occur due to logistics or peak demand. Our support team will assist with tracking and updates."
+
+#: src/components/Footer.jsx:27
+msgid "Delivery"
+msgstr "Delivery"
+
+#: src/pages/About.jsx:140
+msgid "DELIVERY"
+msgstr "DELIVERY"
+
+#: src/pages/About.jsx:210
+msgid "Delivery availability may vary by location and courier schedules."
+msgstr "Delivery availability may vary by location and courier schedules."
+
+#: src/components/Footer.jsx:13
+msgid "Designed for the modern shopper. We blend simplicity with style to bring you everyday essentials you’ll love."
+msgstr "Designed for the modern shopper. We blend simplicity with style to bring you everyday essentials you’ll love."
+
+#: src/components/WhyUs.jsx:17
+msgid "Designed for the way <0/> you shop today"
+msgstr "Designed for the way <0/> you shop today"
+
+#: src/components/BestSeller.jsx:25
+msgid "Discover our most popular products, loved by customers for their quality, value, and style. Handpicked favorites you don't want to miss."
+msgstr "Discover our most popular products, loved by customers for their quality, value, and style. Handpicked favorites you don't want to miss."
+
+#: src/pages/About.jsx:229
+msgid "Do I need to be present to sign for delivery?"
+msgstr "Do I need to be present to sign for delivery?"
+
+#: src/pages/About.jsx:207
+msgid "Do you deliver on public holidays?"
+msgstr "Do you deliver on public holidays?"
+
+#: src/pages/About.jsx:77
+msgid "Easy & Secure Checkout"
+msgstr "Easy & Secure Checkout"
+
+#: src/pages/Contact.jsx:39
+msgid "Email: support@brandedparcels.com"
+msgstr "Email: support@brandedparcels.com"
+
+#: src/components/NewsLetterBox.jsx:28
+msgid "Enter your email"
+msgstr "Enter your email"
+
+#: src/pages/About.jsx:90
+msgid "Every delivery is covered by our Money Back Guarantee and supported by our customer care team."
+msgstr "Every delivery is covered by our Money Back Guarantee and supported by our customer care team."
+
+#: src/components/WhyUs.jsx:23
+msgid "Every detail is intentional — from the products we curate to the experience we deliver. We believe shopping should feel effortless, modern, and reliable."
+msgstr "Every detail is intentional — from the products we curate to the experience we deliver. We believe shopping should feel effortless, modern, and reliable."
+
+#: src/components/ShopByMood.jsx:46
+msgid "Explore →"
+msgstr "Explore →"
+
+#: src/components/WhyUs.jsx:48
+msgid "Fast, reliable shipping with transparent tracking from checkout to doorstep."
+msgstr "Fast, reliable shipping with transparent tracking from checkout to doorstep."
+
+#: src/pages/About.jsx:113
+msgid "Founded in 2023 by <0>Daniel Eghan</0> and <1>Dorcas Out</1>."
+msgstr "Founded in 2023 by <0>Daniel Eghan</0> and <1>Dorcas Out</1>."
+
+#: src/pages/About.jsx:191
+msgid "FREQUENTLY"
+msgstr "FREQUENTLY"
+
+#: src/pages/About.jsx:174
+msgid "Fully equipped product"
+msgstr "Fully equipped product"
+
+#: src/components/Footer.jsx:35
+msgid "GET IN TOUCH"
+msgstr "GET IN TOUCH"
+
+#: src/pages/Contact.jsx:25
+msgid "Head Office"
+msgstr "Head Office"
+
+#: src/pages/About.jsx:108
+msgid "Headquartered in Johannesburg, South Africa, with a vision for offices around the world."
+msgstr "Headquartered in Johannesburg, South Africa, with a vision for offices around the world."
+
+#: src/components/Footer.jsx:25
+msgid "Home"
+msgstr "Home"
+
+#: src/components/Navbar.jsx:74
+#: src/components/Navbar.jsx:188
+msgid "HOME"
+msgstr "HOME"
+
+#: src/pages/About.jsx:61
+msgid "HOW"
+msgstr "HOW"
+
+#: src/pages/About.jsx:101
+msgid "INFO"
+msgstr "INFO"
+
+#: src/pages/About.jsx:124
+msgid "Interested in investing? Learn more on our Careers page."
+msgstr "Interested in investing? Learn more on our Careers page."
+
+#: src/pages/About.jsx:122
+msgid "Invest & Sell"
+msgstr "Invest & Sell"
+
+#: src/pages/About.jsx:36
+msgid "is a shopping app connecting millions of customers across 20+ countries with thousands of merchants in Africa and beyond. New products are added daily—from everyday essentials to new favorites you never knew existed."
+msgstr "is a shopping app connecting millions of customers across 20+ countries with thousands of merchants in Africa and beyond. New products are added daily—from everyday essentials to new favorites you never knew existed."
+
+#: src/pages/About.jsx:218
+msgid "Is next-day delivery available on all orders?"
+msgstr "Is next-day delivery available on all orders?"
+
+#: src/pages/About.jsx:61
+msgid "IT WORKS"
+msgstr "IT WORKS"
+
+#: src/components/NewsLetterBox.jsx:16
+msgid "Join our newsletter for style tips, special offers, and early access to new products."
+msgstr "Join our newsletter for style tips, special offers, and early access to new products."
+
+#: src/pages/Contact.jsx:29
+msgid "Kimberly Road, Judith Paarl, Johannesburg, South Africa"
+msgstr "Kimberly Road, Judith Paarl, Johannesburg, South Africa"
+
+#: src/main.jsx:29
+#~ msgid "Loading..."
+#~ msgstr "Loading..."
+
+#: src/components/Navbar.jsx:125
+msgid "Logout"
+msgstr "Logout"
+
+#: src/components/Navbar.jsx:184
+msgid "Menu"
+msgstr "Menu"
+
+#: src/pages/About.jsx:79
+msgid "Multiple payment options with a smooth checkout experience."
+msgstr "Multiple payment options with a smooth checkout experience."
+
+#: src/pages/About.jsx:196
+msgid "My order hasn’t arrived yet. Where is it?"
+msgstr "My order hasn’t arrived yet. Where is it?"
+
+#: src/components/Navbar.jsx:113
+msgid "My Profile"
+msgstr "My Profile"
+
+#: src/pages/About.jsx:153
+msgid "Next-Day Delivery"
+msgstr "Next-Day Delivery"
+
+#: src/pages/About.jsx:221
+msgid "Next-day delivery depends on product type and your delivery address."
+msgstr "Next-day delivery depends on product type and your delivery address."
+
+#: src/pages/About.jsx:140
+msgid "OPTIONS"
+msgstr "OPTIONS"
+
+#: src/pages/About.jsx:154
+msgid "Order by 7pm on weekdays. All-day from $30."
+msgstr "Order by 7pm on weekdays. All-day from $30."
+
+#: src/components/Navbar.jsx:119
+msgid "Orders"
+msgstr "Orders"
+
+#: src/pages/About.jsx:48
+msgid "Our Mission"
+msgstr "Our Mission"
+
+#: src/pages/About.jsx:42
+msgid "Our platform is designed to be inspiring, personalized, and reliable. The more you browse and buy, the smarter our recommendations become—tailored to your style, interests, and budget."
+msgstr "Our platform is designed to be inspiring, personalized, and reliable. The more you browse and buy, the smarter our recommendations become—tailored to your style, interests, and budget."
+
+#: src/pages/About.jsx:66
+msgid "Personalized Discovery"
+msgstr "Personalized Discovery"
+
+#: src/pages/Contact.jsx:35
+msgid "Phone: +27 784 281 036"
+msgstr "Phone: +27 784 281 036"
+
+#: src/components/WhyUs.jsx:34
+msgid "Premium curation"
+msgstr "Premium curation"
+
+#: src/components/Footer.jsx:28
+msgid "Privacy policy"
+msgstr "Privacy policy"
+
+#: src/pages/About.jsx:175
+msgid "Proof of purchase"
+msgstr "Proof of purchase"
+
+#: src/pages/About.jsx:181
+msgid "Refunds are processed according to applicable legislation."
+msgstr "Refunds are processed according to applicable legislation."
+
+#: src/pages/About.jsx:88
+msgid "Reliable Delivery"
+msgstr "Reliable Delivery"
+
+#: src/components/WhyUs.jsx:59
+msgid "Responsive support, easy returns, and policies designed around real customers."
+msgstr "Responsive support, easy returns, and policies designed around real customers."
+
+#: src/pages/About.jsx:163
+msgid "RETURNS"
+msgstr "RETURNS"
+
+#. placeholder {0}: reviews.length
+#: src/pages/Product.jsx:171
+msgid "Reviews ({0})"
+msgstr "Reviews ({0})"
+
+#: src/components/WhyUs.jsx:45
+msgid "Seamless delivery"
+msgstr "Seamless delivery"
+
+#: src/pages/Product.jsx:133
+msgid "Select Size"
+msgstr "Select Size"
+
+#: src/components/BestSeller.jsx:21
+msgid "SELLERS"
+msgstr "SELLERS"
+
+#: src/pages/About.jsx:129
+msgid "Selling is currently invite-only to ensure trust and quality across our marketplace."
+msgstr "Selling is currently invite-only to ensure trust and quality across our marketplace."
+
+#: src/pages/Product.jsx:211
+msgid "Share your experience"
+msgstr "Share your experience"
+
+#: src/components/ShopByMood.jsx:20
+msgid "Shop by Mood"
+msgstr "Shop by Mood"
+
+#: src/pages/About.jsx:68
+msgid "Sign up and shop—our platform learns your preferences and recommends products you’ll love."
+msgstr "Sign up and shop—our platform learns your preferences and recommends products you’ll love."
+
+#: src/pages/About.jsx:232
+msgid "Some items may require a signature, especially high-value or large appliances."
+msgstr "Some items may require a signature, especially high-value or large appliances."
+
+#: src/pages/About.jsx:145
+msgid "Standard Delivery"
+msgstr "Standard Delivery"
+
+#: src/pages/Product.jsx:219
+msgid "Submit Review"
+msgstr "Submit Review"
+
+#: src/components/NewsLetterBox.jsx:36
+msgid "SUBSCRIBE"
+msgstr "SUBSCRIBE"
+
+#: src/components/NewsLetterBox.jsx:12
+msgid "Subscribe now & get 20% off"
+msgstr "Subscribe now & get 20% off"
+
+#: src/components/WhyUs.jsx:37
+msgid "Thoughtfully selected products that balance quality, design, and everyday practicality."
+msgstr "Thoughtfully selected products that balance quality, design, and everyday practicality."
+
+#: src/pages/About.jsx:147
+msgid "Time slots available. From $35."
+msgstr "Time slots available. From $35."
+
+#: src/pages/About.jsx:155
+msgid "Time slots available. From $45."
+msgstr "Time slots available. From $45."
+
+#: src/pages/About.jsx:52
+msgid "To empower customers with choice, convenience, and confidence—delivering a seamless shopping experience from discovery to delivery, backed by a strong money-back guarantee and responsive support."
+msgstr "To empower customers with choice, convenience, and confidence—delivering a seamless shopping experience from discovery to delivery, backed by a strong money-back guarantee and responsive support."
+
+#: src/pages/About.jsx:22
+#: src/pages/Contact.jsx:12
+msgid "US"
+msgstr "US"
+
+#: src/pages/About.jsx:176
+msgid "Warranty card"
+msgstr "Warranty card"
+
+#: src/components/WhyUs.jsx:70
+msgid "We prioritize durability and timeless style over fast trends."
+msgstr "We prioritize durability and timeless style over fast trends."
+
+#: src/pages/About.jsx:106
+msgid "Where we’re from"
+msgstr "Where we’re from"
+
+#: src/pages/Product.jsx:193
+msgid "Write a review"
+msgstr "Write a review"

@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { assets } from "../assets/assets";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
+import { Trans } from "@lingui/macro";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 const Navbar = () => {
   const [visible, setVisible] = useState(false);
@@ -63,18 +65,16 @@ const Navbar = () => {
             <img
               src="/logo.png"
               alt="Logo"
-              className={`w-42 transition ${
-                isHome && !scrolled ? "invert" : ""
-              }`}
+              className={`w-42 transition ${isHome && !scrolled ? "invert" : ""}`}
             />
           </Link>
 
           {/* DESKTOP LINKS */}
           <ul className="hidden sm:flex gap-8">
-            <NavLink to="/" className={navLinkClass}>HOME</NavLink>
-            <NavLink to="/collection" className={navLinkClass}>COLLECTION</NavLink>
-            <NavLink to="/about" className={navLinkClass}>ABOUT</NavLink>
-            <NavLink to="/contact" className={navLinkClass}>CONTACT</NavLink>
+            <NavLink to="/" className={navLinkClass}><Trans>HOME</Trans></NavLink>
+            <NavLink to="/collection" className={navLinkClass}><Trans>COLLECTION</Trans></NavLink>
+            <NavLink to="/about" className={navLinkClass}><Trans>ABOUT</Trans></NavLink>
+            <NavLink to="/contact" className={navLinkClass}><Trans>CONTACT</Trans></NavLink>
           </ul>
 
           {/* ICONS */}
@@ -86,50 +86,57 @@ const Navbar = () => {
                 navigate("/collection");
               }}
               className={`w-5 cursor-pointer transition ${
-                isHome && !scrolled ? "invert opacity-90" : "opacity-70 hover:opacity-100"
+                isHome && !scrolled
+                  ? "invert opacity-90"
+                  : "opacity-70 hover:opacity-100"
               }`}
               alt=""
             />
 
+            {/* PROFILE */}
             <div className="relative group flex items-center">
-  <img
-    src={assets.profile_icon}
-    onClick={() => (!token ? navigate("/login") : null)}
-    className={`w-5 cursor-pointer transition ${
-      isHome && !scrolled ? "invert opacity-90" : "opacity-70 hover:opacity-100"
-    }`}
-    alt=""
-  />
+              <img
+                src={assets.profile_icon}
+                onClick={() => (!token ? navigate("/login") : null)}
+                className={`w-5 cursor-pointer transition ${
+                  isHome && !scrolled
+                    ? "invert opacity-90"
+                    : "opacity-70 hover:opacity-100"
+                }`}
+                alt=""
+              />
 
-  {token && (
-    <div className="absolute right-0 top-full pt-2 hidden group-hover:block">
-      <div className="w-40 rounded-md bg-white shadow-lg border text-sm text-gray-600">
-        <p className="px-4 py-2 hover:bg-gray-50 cursor-pointer">
-          My Profile
-        </p>
-        <p
-          onClick={() => navigate("/orders")}
-          className="px-4 py-2 hover:bg-gray-50 cursor-pointer"
-        >
-          Orders
-        </p>
-        <p
-          onClick={logout}
-          className="px-4 py-2 hover:bg-gray-50 cursor-pointer text-red-500"
-        >
-          Logout
-        </p>
-      </div>
-    </div>
-  )}
-</div>
+              {token && (
+                <div className="absolute right-0 top-full pt-2 hidden group-hover:block">
+                  <div className="w-40 rounded-md bg-white shadow-lg border text-sm text-gray-600">
+                    <p className="px-4 py-2 hover:bg-gray-50 cursor-pointer">
+                      <Trans>My Profile</Trans>
+                    </p>
+                    <p
+                      onClick={() => navigate("/orders")}
+                      className="px-4 py-2 hover:bg-gray-50 cursor-pointer"
+                    >
+                      <Trans>Orders</Trans>
+                    </p>
+                    <p
+                      onClick={logout}
+                      className="px-4 py-2 hover:bg-gray-50 cursor-pointer text-red-500"
+                    >
+                      <Trans>Logout</Trans>
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
 
-
+            {/* CART */}
             <Link to="/cart" className="relative">
               <img
                 src={assets.cart_icon}
                 className={`w-5 transition ${
-                  isHome && !scrolled ? "invert opacity-90" : "opacity-70 hover:opacity-100"
+                  isHome && !scrolled
+                    ? "invert opacity-90"
+                    : "opacity-70 hover:opacity-100"
                 }`}
                 alt=""
               />
@@ -138,6 +145,12 @@ const Navbar = () => {
               </span>
             </Link>
 
+            {/* LANGUAGE SWITCHER (DESKTOP) */}
+            <div className="hidden sm:block">
+              <LanguageSwitcher />
+            </div>
+
+            {/* MOBILE MENU ICON */}
             <img
               src={assets.menu_icon}
               onClick={() => setVisible(true)}
@@ -150,7 +163,7 @@ const Navbar = () => {
         </div>
       </header>
 
-      {/* MOBILE MENU (unchanged) */}
+      {/* MOBILE MENU */}
       <div
         className={`fixed inset-0 z-40 bg-black/30 transition ${
           visible ? "opacity-100" : "opacity-0 pointer-events-none"
@@ -168,14 +181,19 @@ const Navbar = () => {
               onClick={() => setVisible(false)}
               alt=""
             />
-            <p className="text-sm">Menu</p>
+            <p className="text-sm"><Trans>Menu</Trans></p>
           </div>
 
           <nav className="flex flex-col text-sm text-gray-600">
-            <NavLink onClick={() => setVisible(false)} to="/" className="px-6 py-3 border-b">HOME</NavLink>
-            <NavLink onClick={() => setVisible(false)} to="/collection" className="px-6 py-3 border-b">COLLECTION</NavLink>
-            <NavLink onClick={() => setVisible(false)} to="/about" className="px-6 py-3 border-b">ABOUT</NavLink>
-            <NavLink onClick={() => setVisible(false)} to="/contact" className="px-6 py-3 border-b">CONTACT</NavLink>
+            <NavLink onClick={() => setVisible(false)} to="/" className="px-6 py-3 border-b"><Trans>HOME</Trans></NavLink>
+            <NavLink onClick={() => setVisible(false)} to="/collection" className="px-6 py-3 border-b"><Trans>COLLECTION</Trans></NavLink>
+            <NavLink onClick={() => setVisible(false)} to="/about" className="px-6 py-3 border-b"><Trans>ABOUT</Trans></NavLink>
+            <NavLink onClick={() => setVisible(false)} to="/contact" className="px-6 py-3 border-b"><Trans>CONTACT</Trans></NavLink>
+
+            {/* LANGUAGE SWITCHER (MOBILE) */}
+            <div className="px-6 py-4">
+              <LanguageSwitcher className="w-full" />
+            </div>
           </nav>
         </div>
       </div>

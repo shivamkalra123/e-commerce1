@@ -10,6 +10,8 @@ import orderRouter from "./routes/orderRoute.js";
 import categoriesRoute from "./routes/categoryRoute.js"
 import bannerRoute from "./routes/bannerRoute.js"
 import reviewRoutes from "./routes/reviewRoute.js"
+import adminContentRoute from "./routes/adminContent.js"
+import contentRoute from "./routes/contentRoute.js"
 
 // app config
 const app = express();
@@ -66,6 +68,8 @@ app.use((req, res, next) => {
 });
 
 // routes
+app.use("/api/content", contentRoute);
+app.use("/api/admin/content", adminContentRoute);
 app.use('/api/categories', categoriesRoute);
 app.use('/api/user', userRouter)
 app.use('/api/product', productRouter)
