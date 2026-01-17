@@ -54,6 +54,11 @@ msgstr "Über uns"
 msgid "ADD TO CART"
 msgstr "IN DEN WARENKORB"
 
+#: src/pages/Collection.jsx:228
+msgid "ALL"
+msgstr "ALLE"
+
+
 #: src/pages/About.jsx:146
 msgid "All-day delivery (7am–8pm), 2 working days. From $20."
 msgstr "Ganztägige Lieferung (7–20 Uhr), 2 Werktage. Ab 20 $."
@@ -78,10 +83,20 @@ msgstr "Für Langlebigkeit gemacht"
 msgid "Cash on delivery available"
 msgstr "Nachnahme verfügbar"
 
+#: src/pages/Collection.jsx:183
+msgid "CATEGORIES"
+msgstr "KATEGORIEN"
+
+
 #: src/components/Navbar.jsx:75
 #: src/components/Navbar.jsx:189
 msgid "COLLECTION"
 msgstr "KOLLEKTION"
+
+#: src/pages/Collection.jsx:228
+msgid "COLLECTIONS"
+msgstr "KOLLEKTIONEN"
+
 
 #: src/components/Footer.jsx:22
 #: src/pages/About.jsx:101
@@ -101,6 +116,11 @@ msgstr "Kontakt Branded Parcels"
 #: src/components/Footer.jsx:48
 msgid "Copyright 2025 brandedparcels.com - All Right Reserved."
 msgstr "Copyright 2025 brandedparcels.com – Alle Rechte vorbehalten."
+
+#: src/pages/Collection.jsx:45
+msgid "Could not load categories"
+msgstr "Kategorien konnten nicht geladen werden"
+
 
 #: src/components/WhyUs.jsx:56
 msgid "Customer-first approach"
@@ -178,6 +198,11 @@ msgstr "Entdecken →"
 msgid "Fast, reliable shipping with transparent tracking from checkout to doorstep."
 msgstr "Schneller, zuverlässiger Versand mit transparenter Sendungsverfolgung vom Checkout bis zur Haustür."
 
+#: src/pages/Collection.jsx:169
+msgid "FILTERS"
+msgstr "FILTER"
+
+
 #: src/pages/About.jsx:113
 msgid "Founded in 2023 by <0>Daniel Eghan</0> and <1>Dorcas Out</1>."
 msgstr "Gegründet im Jahr 2023 von <0>Daniel Eghan</0> und <1>Dorcas Out</1>."
@@ -239,9 +264,18 @@ msgstr "Ist eine Lieferung am nächsten Tag für alle Bestellungen verfügbar?"
 msgid "IT WORKS"
 msgstr "ES FUNKTIONIERT"
 
+#: src/components/NewsLetterBox.jsx:16
+msgid "Join our newsletter for style tips, special offers, and early access to new products."
+msgstr "Abonnieren Sie unseren Newsletter für Styling-Tipps, exklusive Angebote und frühen Zugang zu neuen Produkten."
+
+
 #: src/pages/Contact.jsx:29
 msgid "Kimberly Road, Judith Paarl, Johannesburg, South Africa"
 msgstr "Kimberly Road, Judith Paarl, Johannesburg, Südafrika"
+
+#: src/pages/Collection.jsx:188
+msgid "Loading..."
+msgstr ""
 
 #: src/components/Navbar.jsx:125
 msgid "Logout"
@@ -270,6 +304,11 @@ msgstr "Lieferung am nächsten Tag"
 #: src/pages/About.jsx:221
 msgid "Next-day delivery depends on product type and your delivery address."
 msgstr "Die Lieferung am nächsten Tag hängt vom Produkttyp und Ihrer Lieferadresse ab."
+
+#: src/pages/Collection.jsx:260
+msgid "No products found"
+msgstr "Keine Produkte gefunden"
+
 
 #: src/pages/About.jsx:140
 msgid "OPTIONS"
@@ -319,6 +358,11 @@ msgstr "Rückerstattungen erfolgen gemäß den geltenden gesetzlichen Bestimmung
 msgid "Reliable Delivery"
 msgstr "Zuverlässige Lieferung"
 
+#: src/components/WhyUs.jsx:59
+msgid "Responsive support, easy returns, and policies designed around real customers."
+msgstr "Reaktionsschneller Support, einfache Rückgaben und Richtlinien, die auf echte Kunden zugeschnitten sind."
+
+
 #: src/pages/About.jsx:163
 msgid "RETURNS"
 msgstr "RÜCKGABEN"
@@ -359,6 +403,19 @@ msgstr "Registrieren Sie sich und shoppen Sie – unsere Plattform lernt Ihre Vo
 #: src/pages/About.jsx:232
 msgid "Some items may require a signature, especially high-value or large appliances."
 msgstr "Einige Artikel erfordern möglicherweise eine Unterschrift, insbesondere hochwertige oder große Geräte."
+
+#: src/pages/Collection.jsx:242
+msgid "Sort by: High to Low"
+msgstr "Sortieren nach: Hoch zu Niedrig"
+
+#: src/pages/Collection.jsx:239
+msgid "Sort by: Low to High"
+msgstr "Sortieren nach: Niedrig zu Hoch"
+
+#: src/pages/Collection.jsx:236
+msgid "Sort by: Relavent"
+msgstr "Sortieren nach: Relevanz"
+
 
 #: src/pages/About.jsx:145
 msgid "Standard Delivery"

@@ -4,9 +4,6 @@ import { Trans } from "@lingui/macro";
 
 const WhyUs = () => {
 
-  // ensure AOS recalculates when this section mounts
-
-
   return (
     <section className="bg-[#f8f8f8] py-28">
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">

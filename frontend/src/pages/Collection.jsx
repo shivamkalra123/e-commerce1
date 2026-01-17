@@ -1,11 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { ShopContext } from '../context/ShopContext';
-import { assets } from '../assets/assets';
-import Title from '../components/Title';
-import ProductItem from '../components/ProductItem';
-import { getCategories } from '../api/categoriesApi';
-import { toast } from 'react-toastify';
+import React, { useContext, useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import { ShopContext } from "../context/ShopContext";
+import { assets } from "../assets/assets";
+import Title from "../components/Title";
+import ProductItem from "../components/ProductItem";
+import { getCategories } from "../api/categoriesApi";
+import { toast } from "react-toastify";
+import { Trans, t } from "@lingui/macro";
 
 const Collection = () => {
   const { products, search, showSearch, token } = useContext(ShopContext);
@@ -16,27 +17,24 @@ const Collection = () => {
   const [filterProducts, setFilterProducts] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedSubCategories, setSelectedSubCategories] = useState([]);
-  const [sortType, setSortType] = useState('relavent');
+  const [sortType, setSortType] = useState("relavent");
 
   const [categories, setCategories] = useState([]);
   const [loadingCategories, setLoadingCategories] = useState(false);
 
-  /* =========================
-     LOAD FILTERS FROM URL
-     ========================= */
-  useEffect(() => {
-    const cats = searchParams.get('categories');
-    const subs = searchParams.get('subcategories');
-    const sort = searchParams.get('sort');
 
-    if (cats) setSelectedCategories(cats.split(','));
-    if (subs) setSelectedSubCategories(subs.split(','));
+  useEffect(() => {
+    const cats = searchParams.get("categories");
+    const subs = searchParams.get("subcategories");
+    const sort = searchParams.get("sort");
+
+    if (cats) setSelectedCategories(cats.split(","));
+    if (subs) setSelectedSubCategories(subs.split(","));
     if (sort) setSortType(sort);
+    // eslint-disable-next-line
   }, []);
 
-  /* =========================
-     FETCH CATEGORIES
-     ========================= */
+
   useEffect(() => {
     const load = async () => {
       try {
@@ -44,7 +42,7 @@ const Collection = () => {
         const res = await getCategories(token);
         setCategories(res.data.categories || []);
       } catch (err) {
-        toast.error('Could not load categories');
+        toast.error(t`Could not load categories`);
       } finally {
         setLoadingCategories(false);
       }
@@ -55,9 +53,7 @@ const Collection = () => {
   const findCategoryByName = (name) =>
     categories.find((c) => c.name === name);
 
-  /* =========================
-     TOGGLES
-     ========================= */
+
   const toggleCategory = (value) => {
     if (selectedCategories.includes(value)) {
       setSelectedCategories((prev) =>
@@ -85,13 +81,11 @@ const Collection = () => {
     }
   };
 
-  /* =========================
-     APPLY FILTERS
-     ========================= */
+
   const applyFilter = () => {
     let productsCopy = products ? [...products] : [];
 
-    const urlSearch = searchParams.get('search');
+    const urlSearch = searchParams.get("search");
 
     if (showSearch && (search || urlSearch)) {
       const q = (search || urlSearch).toLowerCase();
@@ -115,15 +109,13 @@ const Collection = () => {
     setFilterProducts(productsCopy);
   };
 
-  /* =========================
-     SORT
-     ========================= */
+
   useEffect(() => {
     let sorted = [...filterProducts];
 
-    if (sortType === 'low-high') {
+    if (sortType === "low-high") {
       sorted.sort((a, b) => a.price - b.price);
-    } else if (sortType === 'high-low') {
+    } else if (sortType === "high-low") {
       sorted.sort((a, b) => b.price - a.price);
     }
 
@@ -131,11 +123,10 @@ const Collection = () => {
     // eslint-disable-next-line
   }, [sortType]);
 
-  /* =========================
-     APPLY FILTER ON CHANGE
-     ========================= */
+
   useEffect(() => {
     applyFilter();
+    // eslint-disable-next-line
   }, [
     selectedCategories,
     selectedSubCategories,
@@ -144,19 +135,17 @@ const Collection = () => {
     showSearch,
   ]);
 
-  /* =========================
-     SYNC FILTERS TO URL
-     ========================= */
+
   useEffect(() => {
     const params = {};
 
     if (selectedCategories.length)
-      params.categories = selectedCategories.join(',');
+      params.categories = selectedCategories.join(",");
 
     if (selectedSubCategories.length)
-      params.subcategories = selectedSubCategories.join(',');
+      params.subcategories = selectedSubCategories.join(",");
 
-    if (sortType !== 'relavent') params.sort = sortType;
+    if (sortType !== "relavent") params.sort = sortType;
 
     if (showSearch && search) params.search = search;
 
@@ -177,11 +166,9 @@ const Collection = () => {
           onClick={() => setShowFilter(!showFilter)}
           className="my-2 text-xl flex items-center cursor-pointer gap-2"
         >
-          FILTERS
+          <Trans>FILTERS</Trans>
           <img
-            className={`h-3 sm:hidden ${
-              showFilter ? 'rotate-90' : ''
-            }`}
+            className={`h-3 sm:hidden ${showFilter ? "rotate-90" : ""}`}
             src={assets.dropdown_icon}
             alt=""
           />
@@ -189,13 +176,17 @@ const Collection = () => {
 
         <div
           className={`border border-gray-300 pl-5 py-3 mt-6 ${
-            showFilter ? '' : 'hidden'
+            showFilter ? "" : "hidden"
           } sm:block`}
         >
-          <p className="mb-3 text-sm font-medium">CATEGORIES</p>
+          <p className="mb-3 text-sm font-medium">
+            <Trans>CATEGORIES</Trans>
+          </p>
 
           {loadingCategories ? (
-            <p className="text-sm text-gray-500">Loading...</p>
+            <p className="text-sm text-gray-500">
+              <Trans>Loading...</Trans>
+            </p>
           ) : (
             categories.map((cat) => {
               const isSelected = selectedCategories.includes(cat.name);
@@ -234,16 +225,22 @@ const Collection = () => {
       {/* PRODUCTS */}
       <div className="flex-1">
         <div className="flex justify-between mb-4">
-          <Title text1="ALL" text2="COLLECTIONS" />
+          <Title text1={t`ALL`} text2={t`COLLECTIONS`} />
 
           <select
             value={sortType}
             onChange={(e) => setSortType(e.target.value)}
             className="border-2 border-gray-300 text-sm px-2"
           >
-            <option value="relavent">Sort by: Relavent</option>
-            <option value="low-high">Sort by: Low to High</option>
-            <option value="high-low">Sort by: High to Low</option>
+            <option value="relavent">
+              {t`Sort by: Relavent`}
+            </option>
+            <option value="low-high">
+              {t`Sort by: Low to High`}
+            </option>
+            <option value="high-low">
+              {t`Sort by: High to Low`}
+            </option>
           </select>
         </div>
 
@@ -260,7 +257,7 @@ const Collection = () => {
             ))
           ) : (
             <p className="col-span-full text-center text-gray-500">
-              No products found
+              <Trans>No products found</Trans>
             </p>
           )}
         </div>

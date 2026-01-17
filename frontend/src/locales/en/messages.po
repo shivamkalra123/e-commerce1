@@ -62,6 +62,10 @@ msgstr "About us"
 msgid "ADD TO CART"
 msgstr "ADD TO CART"
 
+#: src/pages/Collection.jsx:228
+msgid "ALL"
+msgstr "ALL"
+
 #: src/pages/About.jsx:146
 msgid "All-day delivery (7am–8pm), 2 working days. From $20."
 msgstr "All-day delivery (7am–8pm), 2 working days. From $20."
@@ -86,10 +90,18 @@ msgstr "Built to last"
 msgid "Cash on delivery available"
 msgstr "Cash on delivery available"
 
+#: src/pages/Collection.jsx:183
+msgid "CATEGORIES"
+msgstr "CATEGORIES"
+
 #: src/components/Navbar.jsx:75
 #: src/components/Navbar.jsx:189
 msgid "COLLECTION"
 msgstr "COLLECTION"
+
+#: src/pages/Collection.jsx:228
+msgid "COLLECTIONS"
+msgstr "COLLECTIONS"
 
 #: src/components/Footer.jsx:22
 #: src/pages/About.jsx:101
@@ -109,6 +121,10 @@ msgstr "Contact Branded Parcels"
 #: src/components/Footer.jsx:48
 msgid "Copyright 2025 brandedparcels.com - All Right Reserved."
 msgstr "Copyright 2025 brandedparcels.com - All Right Reserved."
+
+#: src/pages/Collection.jsx:45
+msgid "Could not load categories"
+msgstr "Could not load categories"
 
 #: src/components/WhyUs.jsx:56
 msgid "Customer-first approach"
@@ -186,6 +202,10 @@ msgstr "Explore →"
 msgid "Fast, reliable shipping with transparent tracking from checkout to doorstep."
 msgstr "Fast, reliable shipping with transparent tracking from checkout to doorstep."
 
+#: src/pages/Collection.jsx:169
+msgid "FILTERS"
+msgstr "FILTERS"
+
 #: src/pages/About.jsx:113
 msgid "Founded in 2023 by <0>Daniel Eghan</0> and <1>Dorcas Out</1>."
 msgstr "Founded in 2023 by <0>Daniel Eghan</0> and <1>Dorcas Out</1>."
@@ -255,9 +275,9 @@ msgstr "Join our newsletter for style tips, special offers, and early access to 
 msgid "Kimberly Road, Judith Paarl, Johannesburg, South Africa"
 msgstr "Kimberly Road, Judith Paarl, Johannesburg, South Africa"
 
-#: src/main.jsx:29
-#~ msgid "Loading..."
-#~ msgstr "Loading..."
+#: src/pages/Collection.jsx:188
+msgid "Loading..."
+msgstr "Loading..."
 
 #: src/components/Navbar.jsx:125
 msgid "Logout"
@@ -286,6 +306,10 @@ msgstr "Next-Day Delivery"
 #: src/pages/About.jsx:221
 msgid "Next-day delivery depends on product type and your delivery address."
 msgstr "Next-day delivery depends on product type and your delivery address."
+
+#: src/pages/Collection.jsx:260
+msgid "No products found"
+msgstr "No products found"
 
 #: src/pages/About.jsx:140
 msgid "OPTIONS"
@@ -379,6 +403,18 @@ msgstr "Sign up and shop—our platform learns your preferences and recommends p
 #: src/pages/About.jsx:232
 msgid "Some items may require a signature, especially high-value or large appliances."
 msgstr "Some items may require a signature, especially high-value or large appliances."
+
+#: src/pages/Collection.jsx:242
+msgid "Sort by: High to Low"
+msgstr "Sort by: High to Low"
+
+#: src/pages/Collection.jsx:239
+msgid "Sort by: Low to High"
+msgstr "Sort by: Low to High"
+
+#: src/pages/Collection.jsx:236
+msgid "Sort by: Relavent"
+msgstr "Sort by: Relavent"
 
 #: src/pages/About.jsx:145
 msgid "Standard Delivery"

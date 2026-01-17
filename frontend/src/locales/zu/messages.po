@@ -54,6 +54,10 @@ msgstr "Mayelana nathi"
 msgid "ADD TO CART"
 msgstr "ENGEZA ENQOLENI"
 
+#: src/pages/Collection.jsx:228
+msgid "ALL"
+msgstr "KONKE"
+
 #: src/pages/About.jsx:146
 msgid "All-day delivery (7am–8pm), 2 working days. From $20."
 msgstr "Ukulethwa usuku lonke (7 ekuseni–8 kusihlwa), izinsuku zokusebenza ezi-2. Kusukela ku-$20."
@@ -78,10 +82,18 @@ msgstr "Yakhelwe ukuhlala isikhathi eside"
 msgid "Cash on delivery available"
 msgstr "Ukukhokha uma ulethwa kuyatholakala"
 
+#: src/pages/Collection.jsx:183
+msgid "CATEGORIES"
+msgstr "IZIGABA"
+
 #: src/components/Navbar.jsx:75
 #: src/components/Navbar.jsx:189
 msgid "COLLECTION"
 msgstr "IQOQO"
+
+#: src/pages/Collection.jsx:228
+msgid "COLLECTIONS"
+msgstr "AMAQOQO"
 
 #: src/components/Footer.jsx:22
 #: src/pages/About.jsx:101
@@ -101,6 +113,10 @@ msgstr "Xhumana ne-Branded Parcels"
 #: src/components/Footer.jsx:48
 msgid "Copyright 2025 brandedparcels.com - All Right Reserved."
 msgstr "Ilungelo lobunikazi 2025 brandedparcels.com – Wonke amalungelo agodliwe."
+
+#: src/pages/Collection.jsx:45
+msgid "Could not load categories"
+msgstr "Ayikwazanga ukulayisha izigaba"
 
 #: src/components/WhyUs.jsx:56
 msgid "Customer-first approach"
@@ -178,6 +194,10 @@ msgstr "Hlola →"
 msgid "Fast, reliable shipping with transparent tracking from checkout to doorstep."
 msgstr "Ukuthunyelwa okusheshayo nokuthembekile okunokulandeleka okusobala kusukela ekukhokheni kuze kufike emnyango wakho."
 
+#: src/pages/Collection.jsx:169
+msgid "FILTERS"
+msgstr "IZIHLUNGI"
+
 #: src/pages/About.jsx:113
 msgid "Founded in 2023 by <0>Daniel Eghan</0> and <1>Dorcas Out</1>."
 msgstr "Yasungulwa ngo-2023 ngu-<0>Daniel Eghan</0> no-<1>Dorcas Out</1>."
@@ -239,9 +259,17 @@ msgstr "Ingabe ukulethwa kosuku olulandelayo kuyatholakala kuwo wonke ama-oda?"
 msgid "IT WORKS"
 msgstr "KUYASEBENZA"
 
+#: src/components/NewsLetterBox.jsx:16
+msgid "Join our newsletter for style tips, special offers, and early access to new products."
+msgstr "Joyina incwadi yethu yezindaba ukuze uthole amathiphu esitayela, izipesheli ezikhethekile nokufinyelela kusenesikhathi emikhiqizweni emisha."
+
 #: src/pages/Contact.jsx:29
 msgid "Kimberly Road, Judith Paarl, Johannesburg, South Africa"
 msgstr "Kimberly Road, Judith Paarl, Johannesburg, eNingizimu Afrika"
+
+#: src/pages/Collection.jsx:188
+msgid "Loading..."
+msgstr "Iyalayisha..."
 
 #: src/components/Navbar.jsx:125
 msgid "Logout"
@@ -270,6 +298,10 @@ msgstr "Ukulethwa kosuku olulandelayo"
 #: src/pages/About.jsx:221
 msgid "Next-day delivery depends on product type and your delivery address."
 msgstr "Ukulethwa kosuku olulandelayo kuncike ohlotsheni lomkhiqizo nekheli lakho lokulethwa."
+
+#: src/pages/Collection.jsx:260
+msgid "No products found"
+msgstr "Ayikho imikhiqizo etholakele"
 
 #: src/pages/About.jsx:140
 msgid "OPTIONS"
@@ -319,6 +351,10 @@ msgstr "Ukubuyiselwa kwemali kwenziwa ngokuhambisana nemithetho esebenzayo."
 msgid "Reliable Delivery"
 msgstr "Ukulethwa okuthembekile"
 
+#: src/components/WhyUs.jsx:59
+msgid "Responsive support, easy returns, and policies designed around real customers."
+msgstr "Ukusekelwa okusheshayo, ukubuyisa okulula, nemigomo ehlelelwe amakhasimende angempela."
+
 #: src/pages/About.jsx:163
 msgid "RETURNS"
 msgstr "UKUBUYISA"
@@ -359,6 +395,18 @@ msgstr "Bhalisa futhi uthenge — ipulatifomu yethu ifunda okuthandayo futhi iph
 #: src/pages/About.jsx:232
 msgid "Some items may require a signature, especially high-value or large appliances."
 msgstr "Ezinye izinto zingadinga isignesha, ikakhulukazi izinto ezibizayo noma ezinkulu."
+
+#: src/pages/Collection.jsx:242
+msgid "Sort by: High to Low"
+msgstr "Hlela: phezulu kuye phansi"
+
+#: src/pages/Collection.jsx:239
+msgid "Sort by: Low to High"
+msgstr "Hlela: phansi kuye phezulu"
+
+#: src/pages/Collection.jsx:236
+msgid "Sort by: Relavent"
+msgstr "Hlela: ngokubaluleka"
 
 #: src/pages/About.jsx:145
 msgid "Standard Delivery"
