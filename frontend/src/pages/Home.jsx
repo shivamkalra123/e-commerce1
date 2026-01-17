@@ -7,6 +7,10 @@ import BestSeller from "../components/BestSeller";
 import NewsletterBox from "../components/NewsLetterBox";
 import WhyUs from "../components/WhyUs";
 import StatsCounter from "../components/StatsCounter";
+import CategoriesGrid from "../components/categoriesGrid";
+import CategoryMosaicGrid from "../components/categoriesGrid";
+import HomeBanners from "../components/HomeBanners";
+import LatestCollection from "../components/LatestCollection";
 
 const Home = () => {
 
@@ -17,26 +21,22 @@ const Home = () => {
       
       <Hero />
 
-      <section
-        data-aos="fade-up"
-        className="max-w-7xl mx-auto px-4 py-14"
-      >
-        <FlashSale />
-      </section>
+     
+
+     
+    <LatestCollection/>
 
       
-        <div data-aos="fade-up">
-  <WhyUs />
-</div>
-    
-      
 
+<CategoryMosaicGrid/>
+<HomeBanners/>
       <section
         data-aos="fade-up"
-        className="max-w-7xl mx-auto px-4 py-24"
+        className="max-w-7xl mx-auto py-10"
       >
         <BestSeller />
       </section>
+      
 
       <div data-aos="zoom-in">
         <StatsCounter />
