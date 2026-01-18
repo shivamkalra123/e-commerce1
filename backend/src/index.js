@@ -1,5 +1,250 @@
-import app from "../server.js"; // or wherever Express app is exported
+import { MongoClient } from "mongodb";
 
+// ✅ Product routes
+import {
+  listProducts,
+  singleProduct,
+  removeProduct,
+  addProduct,
+} from "./routes/productRoute.js";
+
+// ✅ User routes
+import {
+  userLogin,
+  userRegister,
+  userAdminLogin,
+} from "./routes/userRoute.js";
+
+// ✅ Cart routes
+import {
+  cartGet,
+  cartAdd,
+  cartUpdate,
+} from "./routes/cartRoute.js";
+
+// ✅ Category routes
+import { handleCategoryRoutes } from "./routes/categoryRoute.js";
+
+// ✅ Order routes
+import {
+  orderList,
+  orderStatus,
+  orderPlace,
+  orderStripe,
+  orderUserOrders,
+  orderVerifyStripe,
+} from "./routes/orderRoute.js";
+
+// ✅ Review routes
+import { handleReviewRoutes } from "./routes/reviewRoute.js";
+
+// --------------------
+// ✅ Mongo cache
+// --------------------
+let cachedClient = null;
+
+async function getDb(env) {
+  if (!cachedClient) {
+    cachedClient = new MongoClient(env.MONGODB_URI, {
+      maxPoolSize: 5,
+      minPoolSize: 0,
+      serverSelectionTimeoutMS: 5000,
+    });
+    await cachedClient.connect();
+  }
+  return cachedClient.db("E-Commerce");
+}
+
+// --------------------
+// ✅ CORS CONFIG
+// --------------------
+const allowedOrigins = [
+  "https://e-commerce1-lovat.vercel.app",
+  "https://e-commerce1-veng.vercel.app",
+  "https://e-commerce1-weme.onrender.com",
+  "https://brandedparcels.com",
+
+  "http://localhost:5173",
+  "http://localhost:5174",
+  "http://127.0.0.1:5173",
+  "http://127.0.0.1:5174",
+];
+
+
+
+function corsHeaders(origin) {
+  const isAllowed = allowedOrigins.includes(origin);
+
+  return {
+    "Access-Control-Allow-Origin": isAllowed ? origin : "",
+    "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization, token",
+    "Access-Control-Allow-Credentials": "true",
+  };
+}
+
+function withCors(res, origin) {
+  const headers = new Headers(res.headers);
+  const extra = corsHeaders(origin);
+
+  for (const [k, v] of Object.entries(extra)) {
+    if (v) headers.set(k, v);
+  }
+
+  return new Response(res.body, {
+    status: res.status,
+    statusText: res.statusText,
+    headers,
+  });
+}
+
+// --------------------
+// ✅ Worker Export
+// --------------------
 export default {
-  fetch: app.fetch,
+  async fetch(request, env, ctx) {
+    const url = new URL(request.url);
+    const origin = request.headers.get("Origin") || "";
+
+    // ✅ Preflight OPTIONS (VERY IMPORTANT FOR CORS)
+    if (request.method === "OPTIONS") {
+      return new Response(null, {
+        status: 204,
+        headers: corsHeaders(origin),
+      });
+    }
+
+    try {
+      // ✅ health
+      if (url.pathname === "/api/health") {
+        return withCors(
+          Response.json({
+            success: true,
+            message: "Worker API running ✅",
+            time: new Date().toISOString(),
+          }),
+          origin
+        );
+      }
+
+      // ✅ root
+      if (url.pathname === "/") {
+        return withCors(new Response("API working ✅"), origin);
+      }
+
+      const db = await getDb(env);
+
+      // --------------------
+      // ✅ PRODUCT ROUTES
+      // --------------------
+      if (url.pathname === "/api/product/list" && request.method === "GET") {
+        return withCors(await listProducts(db), origin);
+      }
+
+      if (url.pathname === "/api/product/single" && request.method === "POST") {
+        return withCors(await singleProduct(db, request), origin);
+      }
+
+      if (url.pathname === "/api/product/remove" && request.method === "POST") {
+        return withCors(await removeProduct(db, request), origin);
+      }
+
+      if (url.pathname === "/api/product/add" && request.method === "POST") {
+        return withCors(await addProduct(db, request), origin);
+      }
+
+      // --------------------
+      // ✅ USER ROUTES
+      // --------------------
+      if (url.pathname === "/api/user/register" && request.method === "POST") {
+        return withCors(await userRegister(db, request, env), origin);
+      }
+
+      if (url.pathname === "/api/user/login" && request.method === "POST") {
+        return withCors(await userLogin(db, request, env), origin);
+      }
+
+      if (url.pathname === "/api/user/admin" && request.method === "POST") {
+        return withCors(await userAdminLogin(request, env), origin);
+      }
+
+      // --------------------
+      // ✅ CART ROUTES
+      // --------------------
+      if (url.pathname === "/api/cart/get" && request.method === "POST") {
+        return withCors(await cartGet(db, request, env), origin);
+      }
+
+      if (url.pathname === "/api/cart/add" && request.method === "POST") {
+        return withCors(await cartAdd(db, request, env), origin);
+      }
+
+      if (url.pathname === "/api/cart/update" && request.method === "POST") {
+        return withCors(await cartUpdate(db, request, env), origin);
+      }
+
+      // --------------------
+      // ✅ CATEGORY ROUTES (HANDLER)
+      // --------------------
+      const catRes = await handleCategoryRoutes(db, request, env);
+      if (catRes) return withCors(catRes, origin);
+
+      // --------------------
+      // ✅ ORDER ROUTES
+      // --------------------
+      if (url.pathname === "/api/order/list" && request.method === "POST") {
+        return withCors(await orderList(db, request, env), origin);
+      }
+
+      if (url.pathname === "/api/order/status" && request.method === "POST") {
+        return withCors(await orderStatus(db, request, env), origin);
+      }
+
+      if (url.pathname === "/api/order/place" && request.method === "POST") {
+        return withCors(await orderPlace(db, request, env), origin);
+      }
+
+      if (url.pathname === "/api/order/stripe" && request.method === "POST") {
+        return withCors(await orderStripe(db, request, env), origin);
+      }
+
+      if (url.pathname === "/api/order/userorders" && request.method === "POST") {
+        return withCors(await orderUserOrders(db, request, env), origin);
+      }
+
+      if (url.pathname === "/api/order/verifyStripe" && request.method === "POST") {
+        return withCors(await orderVerifyStripe(db, request, env), origin);
+      }
+
+      // --------------------
+      // ✅ REVIEW ROUTES (HANDLER)
+      // --------------------
+      const reviewRes = await handleReviewRoutes(db, request, env);
+      if (reviewRes) return withCors(reviewRes, origin);
+
+      // --------------------
+      // ❌ Not Found
+      // --------------------
+      return withCors(
+        Response.json({ success: false, message: "Not Found" }, { status: 404 }),
+        origin
+      );
+    }  catch (err) {
+  console.error("Worker crash:", err);
+
+  // ✅ IMPORTANT: if middleware threw a Response, return it directly
+  if (err instanceof Response) {
+    return withCors(err, origin);
+  }
+
+  return withCors(
+    Response.json(
+      { success: false, message: err?.message || String(err) },
+      { status: 500 }
+    ),
+    origin
+  );
+}
+
+  },
 };

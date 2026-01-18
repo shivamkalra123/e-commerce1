@@ -1,5 +1,5 @@
 // controllers/bannerController.js
-import Banner from "../models/bannerModel.js";
+import Banner from "../../models/bannerModel.js";
 import cloudinary from "cloudinary";
 
 const getBanner = async (req, res) => {

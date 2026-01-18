@@ -1,0 +1,9 @@
+name = "e-commerce1"
+main = "src/index.js"
+compatibility_date = "2026-01-17"
+compatibility_flags = ["nodejs_compat"]
+
+[alias]
+"net" = "cf-mongodb-polyfills/net"
+"tls" = "cf-mongodb-polyfills/tls"
+"dns" = "cf-mongodb-polyfills/dns"
