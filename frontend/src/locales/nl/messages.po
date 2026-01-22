@@ -36,8 +36,8 @@ msgstr "100% origineel product"
 msgid "7 days easy return"
 msgstr "7 dagen eenvoudig retourneren"
 
-#: src/components/Navbar.jsx:76
-#: src/components/Navbar.jsx:190
+#: src/components/Navbar.jsx:146
+#: src/components/Navbar.jsx:316
 #: src/pages/About.jsx:22
 msgid "ABOUT"
 msgstr "OVER ONS"
@@ -54,7 +54,7 @@ msgstr "Over ons"
 msgid "ADD TO CART"
 msgstr "IN WINKELWAGEN"
 
-#: src/pages/Collection.jsx:228
+#: src/pages/Collection.jsx:203
 msgid "ALL"
 msgstr "ALLE"
 
@@ -74,7 +74,7 @@ msgstr "BESTE"
 msgid "Branded Parcels"
 msgstr "Branded Parcels"
 
-#: src/components/WhyUs.jsx:67
+#: src/components/WhyUs.jsx:64
 msgid "Built to last"
 msgstr "Gemaakt om lang mee te gaan"
 
@@ -82,16 +82,16 @@ msgstr "Gemaakt om lang mee te gaan"
 msgid "Cash on delivery available"
 msgstr "Betalen bij levering beschikbaar"
 
-#: src/pages/Collection.jsx:183
+#: src/pages/Collection.jsx:157
 msgid "CATEGORIES"
 msgstr "CATEGORIEËN"
 
-#: src/components/Navbar.jsx:75
-#: src/components/Navbar.jsx:189
+#: src/components/Navbar.jsx:143
+#: src/components/Navbar.jsx:309
 msgid "COLLECTION"
 msgstr "COLLECTIE"
 
-#: src/pages/Collection.jsx:228
+#: src/pages/Collection.jsx:203
 msgid "COLLECTIONS"
 msgstr "COLLECTIES"
 
@@ -100,8 +100,8 @@ msgstr "COLLECTIES"
 msgid "COMPANY"
 msgstr "BEDRIJF"
 
-#: src/components/Navbar.jsx:77
-#: src/components/Navbar.jsx:191
+#: src/components/Navbar.jsx:149
+#: src/components/Navbar.jsx:323
 #: src/pages/Contact.jsx:12
 msgid "CONTACT"
 msgstr "CONTACT"
@@ -114,11 +114,11 @@ msgstr "Contact Branded Parcels"
 msgid "Copyright 2025 brandedparcels.com - All Right Reserved."
 msgstr "Copyright 2025 brandedparcels.com – Alle rechten voorbehouden."
 
-#: src/pages/Collection.jsx:45
+#: src/components/Navbar.jsx:66
 msgid "Could not load categories"
 msgstr "Kan categorieën niet laden"
 
-#: src/components/WhyUs.jsx:56
+#: src/components/WhyUs.jsx:53
 msgid "Customer-first approach"
 msgstr "Klantgerichte aanpak"
 
@@ -150,7 +150,7 @@ msgstr "De beschikbaarheid van levering kan variëren per locatie en koerierssch
 msgid "Designed for the modern shopper. We blend simplicity with style to bring you everyday essentials you’ll love."
 msgstr "Ontworpen voor de moderne shopper. We combineren eenvoud met stijl om je dagelijkse essentials te bieden waar je van zult houden."
 
-#: src/components/WhyUs.jsx:17
+#: src/components/WhyUs.jsx:14
 msgid "Designed for the way <0/> you shop today"
 msgstr "Ontworpen voor de manier waarop je vandaag winkelt"
 
@@ -182,7 +182,7 @@ msgstr "Voer je e-mailadres in"
 msgid "Every delivery is covered by our Money Back Guarantee and supported by our customer care team."
 msgstr "Elke levering wordt gedekt door onze geld-terug-garantie en ondersteund door ons klantenserviceteam."
 
-#: src/components/WhyUs.jsx:23
+#: src/components/WhyUs.jsx:20
 msgid "Every detail is intentional — from the products we curate to the experience we deliver. We believe shopping should feel effortless, modern, and reliable."
 msgstr "Elk detail is bewust gekozen — van de producten die we selecteren tot de ervaring die we bieden. Winkelen moet moeiteloos, modern en betrouwbaar aanvoelen."
 
@@ -190,11 +190,11 @@ msgstr "Elk detail is bewust gekozen — van de producten die we selecteren tot 
 msgid "Explore →"
 msgstr "Ontdek →"
 
-#: src/components/WhyUs.jsx:48
+#: src/components/WhyUs.jsx:45
 msgid "Fast, reliable shipping with transparent tracking from checkout to doorstep."
 msgstr "Snelle en betrouwbare verzending met transparante tracking van afrekenen tot aan de deur."
 
-#: src/pages/Collection.jsx:169
+#: src/pages/Collection.jsx:142
 msgid "FILTERS"
 msgstr "FILTERS"
 
@@ -226,8 +226,8 @@ msgstr "Gevestigd in Johannesburg, Zuid-Afrika, met een visie op kantoren over d
 msgid "Home"
 msgstr "Home"
 
-#: src/components/Navbar.jsx:74
-#: src/components/Navbar.jsx:188
+#: src/components/Navbar.jsx:140
+#: src/components/Navbar.jsx:302
 msgid "HOME"
 msgstr "HOME"
 
@@ -267,15 +267,16 @@ msgstr "Meld je aan voor onze nieuwsbrief voor stijltips, speciale aanbiedingen 
 msgid "Kimberly Road, Judith Paarl, Johannesburg, South Africa"
 msgstr "Kimberly Road, Judith Paarl, Johannesburg, Zuid-Afrika"
 
-#: src/pages/Collection.jsx:188
+#: src/components/Navbar.jsx:244
+#: src/pages/Collection.jsx:162
 msgid "Loading..."
 msgstr "Laden..."
 
-#: src/components/Navbar.jsx:125
+#: src/components/Navbar.jsx:198
 msgid "Logout"
 msgstr "Uitloggen"
 
-#: src/components/Navbar.jsx:184
+#: src/components/Navbar.jsx:292
 msgid "Menu"
 msgstr "Menu"
 
@@ -287,7 +288,7 @@ msgstr "Meerdere betaalopties met een soepele checkout-ervaring."
 msgid "My order hasn’t arrived yet. Where is it?"
 msgstr "Mijn bestelling is nog niet aangekomen. Waar is deze?"
 
-#: src/components/Navbar.jsx:113
+#: src/components/Navbar.jsx:186
 msgid "My Profile"
 msgstr "Mijn profiel"
 
@@ -299,7 +300,7 @@ msgstr "Levering de volgende dag"
 msgid "Next-day delivery depends on product type and your delivery address."
 msgstr "Levering de volgende dag is afhankelijk van het producttype en je afleveradres."
 
-#: src/pages/Collection.jsx:260
+#: src/pages/Collection.jsx:229
 msgid "No products found"
 msgstr "Geen producten gevonden"
 
@@ -311,7 +312,7 @@ msgstr "OPTIES"
 msgid "Order by 7pm on weekdays. All-day from $30."
 msgstr "Bestel vóór 19.00 uur op werkdagen. Hele dag vanaf $30."
 
-#: src/components/Navbar.jsx:119
+#: src/components/Navbar.jsx:192
 msgid "Orders"
 msgstr "Bestellingen"
 
@@ -331,7 +332,7 @@ msgstr "Gepersonaliseerde ontdekking"
 msgid "Phone: +27 784 281 036"
 msgstr "Telefoon: +27 784 281 036"
 
-#: src/components/WhyUs.jsx:34
+#: src/components/WhyUs.jsx:31
 msgid "Premium curation"
 msgstr "Premium selectie"
 
@@ -351,10 +352,9 @@ msgstr "Terugbetalingen worden verwerkt volgens de geldende wetgeving."
 msgid "Reliable Delivery"
 msgstr "Betrouwbare levering"
 
-#: src/components/WhyUs.jsx:59
+#: src/components/WhyUs.jsx:56
 msgid "Responsive support, easy returns, and policies designed around real customers."
 msgstr "Snelle ondersteuning, eenvoudig retourneren en beleid gericht op echte klanten."
-
 
 #: src/pages/About.jsx:163
 msgid "RETURNS"
@@ -365,7 +365,7 @@ msgstr "RETOUREN"
 msgid "Reviews ({0})"
 msgstr "Beoordelingen ({0})"
 
-#: src/components/WhyUs.jsx:45
+#: src/components/WhyUs.jsx:42
 msgid "Seamless delivery"
 msgstr "Naadloze levering"
 
@@ -397,15 +397,15 @@ msgstr "Meld je aan en shop — ons platform leert je voorkeuren kennen en bevee
 msgid "Some items may require a signature, especially high-value or large appliances."
 msgstr "Sommige artikelen vereisen mogelijk een handtekening, vooral hoogwaardige of grote apparaten."
 
-#: src/pages/Collection.jsx:242
+#: src/pages/Collection.jsx:212
 msgid "Sort by: High to Low"
 msgstr "Sorteren op: hoog naar laag"
 
-#: src/pages/Collection.jsx:239
+#: src/pages/Collection.jsx:211
 msgid "Sort by: Low to High"
 msgstr "Sorteren op: laag naar hoog"
 
-#: src/pages/Collection.jsx:236
+#: src/pages/Collection.jsx:210
 msgid "Sort by: Relavent"
 msgstr "Sorteren op: relevantie"
 
@@ -425,7 +425,7 @@ msgstr "ABONNEREN"
 msgid "Subscribe now & get 20% off"
 msgstr "Abonneer je nu en ontvang 20% korting"
 
-#: src/components/WhyUs.jsx:37
+#: src/components/WhyUs.jsx:34
 msgid "Thoughtfully selected products that balance quality, design, and everyday practicality."
 msgstr "Zorgvuldig geselecteerde producten die kwaliteit, design en dagelijks gebruiksgemak combineren."
 
@@ -450,7 +450,7 @@ msgstr "ONS"
 msgid "Warranty card"
 msgstr "Garantiekaart"
 
-#: src/components/WhyUs.jsx:70
+#: src/components/WhyUs.jsx:67
 msgid "We prioritize durability and timeless style over fast trends."
 msgstr "Wij geven prioriteit aan duurzaamheid en tijdloze stijl boven snelle trends."
 

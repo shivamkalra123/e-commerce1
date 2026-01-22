@@ -36,8 +36,8 @@ msgstr "100 % Originalprodukt"
 msgid "7 days easy return"
 msgstr "7 Tage einfache Rückgabe"
 
-#: src/components/Navbar.jsx:76
-#: src/components/Navbar.jsx:190
+#: src/components/Navbar.jsx:146
+#: src/components/Navbar.jsx:316
 #: src/pages/About.jsx:22
 msgid "ABOUT"
 msgstr "ÜBER UNS"
@@ -54,10 +54,9 @@ msgstr "Über uns"
 msgid "ADD TO CART"
 msgstr "IN DEN WARENKORB"
 
-#: src/pages/Collection.jsx:228
+#: src/pages/Collection.jsx:203
 msgid "ALL"
 msgstr "ALLE"
-
 
 #: src/pages/About.jsx:146
 msgid "All-day delivery (7am–8pm), 2 working days. From $20."
@@ -75,7 +74,7 @@ msgstr "BESTE"
 msgid "Branded Parcels"
 msgstr "Branded Parcels"
 
-#: src/components/WhyUs.jsx:67
+#: src/components/WhyUs.jsx:64
 msgid "Built to last"
 msgstr "Für Langlebigkeit gemacht"
 
@@ -83,28 +82,26 @@ msgstr "Für Langlebigkeit gemacht"
 msgid "Cash on delivery available"
 msgstr "Nachnahme verfügbar"
 
-#: src/pages/Collection.jsx:183
+#: src/pages/Collection.jsx:157
 msgid "CATEGORIES"
 msgstr "KATEGORIEN"
 
-
-#: src/components/Navbar.jsx:75
-#: src/components/Navbar.jsx:189
+#: src/components/Navbar.jsx:143
+#: src/components/Navbar.jsx:309
 msgid "COLLECTION"
 msgstr "KOLLEKTION"
 
-#: src/pages/Collection.jsx:228
+#: src/pages/Collection.jsx:203
 msgid "COLLECTIONS"
 msgstr "KOLLEKTIONEN"
-
 
 #: src/components/Footer.jsx:22
 #: src/pages/About.jsx:101
 msgid "COMPANY"
 msgstr "UNTERNEHMEN"
 
-#: src/components/Navbar.jsx:77
-#: src/components/Navbar.jsx:191
+#: src/components/Navbar.jsx:149
+#: src/components/Navbar.jsx:323
 #: src/pages/Contact.jsx:12
 msgid "CONTACT"
 msgstr "KONTAKT"
@@ -117,12 +114,11 @@ msgstr "Kontakt Branded Parcels"
 msgid "Copyright 2025 brandedparcels.com - All Right Reserved."
 msgstr "Copyright 2025 brandedparcels.com – Alle Rechte vorbehalten."
 
-#: src/pages/Collection.jsx:45
+#: src/components/Navbar.jsx:66
 msgid "Could not load categories"
 msgstr "Kategorien konnten nicht geladen werden"
 
-
-#: src/components/WhyUs.jsx:56
+#: src/components/WhyUs.jsx:53
 msgid "Customer-first approach"
 msgstr "Kundenorientierter Ansatz"
 
@@ -154,7 +150,7 @@ msgstr "Die Lieferverfügbarkeit kann je nach Standort und Kurierdienst variiere
 msgid "Designed for the modern shopper. We blend simplicity with style to bring you everyday essentials you’ll love."
 msgstr "Entwickelt für den modernen Käufer. Wir verbinden Schlichtheit mit Stil, um Ihnen alltägliche Essentials zu bieten, die Sie lieben werden."
 
-#: src/components/WhyUs.jsx:17
+#: src/components/WhyUs.jsx:14
 msgid "Designed for the way <0/> you shop today"
 msgstr "Entwickelt für die Art, wie Sie heute einkaufen"
 
@@ -186,7 +182,7 @@ msgstr "E-Mail-Adresse eingeben"
 msgid "Every delivery is covered by our Money Back Guarantee and supported by our customer care team."
 msgstr "Jede Lieferung ist durch unsere Geld-zurück-Garantie abgesichert und wird von unserem Kundenservice unterstützt."
 
-#: src/components/WhyUs.jsx:23
+#: src/components/WhyUs.jsx:20
 msgid "Every detail is intentional — from the products we curate to the experience we deliver. We believe shopping should feel effortless, modern, and reliable."
 msgstr "Jedes Detail ist bewusst gewählt – von den Produkten, die wir kuratieren, bis hin zum Erlebnis, das wir bieten. Einkaufen sollte sich mühelos, modern und zuverlässig anfühlen."
 
@@ -194,14 +190,13 @@ msgstr "Jedes Detail ist bewusst gewählt – von den Produkten, die wir kuratie
 msgid "Explore →"
 msgstr "Entdecken →"
 
-#: src/components/WhyUs.jsx:48
+#: src/components/WhyUs.jsx:45
 msgid "Fast, reliable shipping with transparent tracking from checkout to doorstep."
 msgstr "Schneller, zuverlässiger Versand mit transparenter Sendungsverfolgung vom Checkout bis zur Haustür."
 
-#: src/pages/Collection.jsx:169
+#: src/pages/Collection.jsx:142
 msgid "FILTERS"
 msgstr "FILTER"
-
 
 #: src/pages/About.jsx:113
 msgid "Founded in 2023 by <0>Daniel Eghan</0> and <1>Dorcas Out</1>."
@@ -231,8 +226,8 @@ msgstr "Hauptsitz in Johannesburg, Südafrika, mit einer Vision für Standorte w
 msgid "Home"
 msgstr "Startseite"
 
-#: src/components/Navbar.jsx:74
-#: src/components/Navbar.jsx:188
+#: src/components/Navbar.jsx:140
+#: src/components/Navbar.jsx:302
 msgid "HOME"
 msgstr "STARTSEITE"
 
@@ -268,20 +263,20 @@ msgstr "ES FUNKTIONIERT"
 msgid "Join our newsletter for style tips, special offers, and early access to new products."
 msgstr "Abonnieren Sie unseren Newsletter für Styling-Tipps, exklusive Angebote und frühen Zugang zu neuen Produkten."
 
-
 #: src/pages/Contact.jsx:29
 msgid "Kimberly Road, Judith Paarl, Johannesburg, South Africa"
 msgstr "Kimberly Road, Judith Paarl, Johannesburg, Südafrika"
 
-#: src/pages/Collection.jsx:188
+#: src/components/Navbar.jsx:244
+#: src/pages/Collection.jsx:162
 msgid "Loading..."
 msgstr ""
 
-#: src/components/Navbar.jsx:125
+#: src/components/Navbar.jsx:198
 msgid "Logout"
 msgstr "Abmelden"
 
-#: src/components/Navbar.jsx:184
+#: src/components/Navbar.jsx:292
 msgid "Menu"
 msgstr "Menü"
 
@@ -293,7 +288,7 @@ msgstr "Mehrere Zahlungsmöglichkeiten mit einem reibungslosen Checkout-Erlebnis
 msgid "My order hasn’t arrived yet. Where is it?"
 msgstr "Meine Bestellung ist noch nicht angekommen. Wo ist sie?"
 
-#: src/components/Navbar.jsx:113
+#: src/components/Navbar.jsx:186
 msgid "My Profile"
 msgstr "Mein Profil"
 
@@ -305,10 +300,9 @@ msgstr "Lieferung am nächsten Tag"
 msgid "Next-day delivery depends on product type and your delivery address."
 msgstr "Die Lieferung am nächsten Tag hängt vom Produkttyp und Ihrer Lieferadresse ab."
 
-#: src/pages/Collection.jsx:260
+#: src/pages/Collection.jsx:229
 msgid "No products found"
 msgstr "Keine Produkte gefunden"
-
 
 #: src/pages/About.jsx:140
 msgid "OPTIONS"
@@ -318,7 +312,7 @@ msgstr "OPTIONEN"
 msgid "Order by 7pm on weekdays. All-day from $30."
 msgstr "Bestellung bis 19 Uhr an Werktagen. Ganztägig ab 30 $."
 
-#: src/components/Navbar.jsx:119
+#: src/components/Navbar.jsx:192
 msgid "Orders"
 msgstr "Bestellungen"
 
@@ -338,7 +332,7 @@ msgstr "Personalisierte Entdeckung"
 msgid "Phone: +27 784 281 036"
 msgstr "Telefon: +27 784 281 036"
 
-#: src/components/WhyUs.jsx:34
+#: src/components/WhyUs.jsx:31
 msgid "Premium curation"
 msgstr "Premium-Auswahl"
 
@@ -358,10 +352,9 @@ msgstr "Rückerstattungen erfolgen gemäß den geltenden gesetzlichen Bestimmung
 msgid "Reliable Delivery"
 msgstr "Zuverlässige Lieferung"
 
-#: src/components/WhyUs.jsx:59
+#: src/components/WhyUs.jsx:56
 msgid "Responsive support, easy returns, and policies designed around real customers."
 msgstr "Reaktionsschneller Support, einfache Rückgaben und Richtlinien, die auf echte Kunden zugeschnitten sind."
-
 
 #: src/pages/About.jsx:163
 msgid "RETURNS"
@@ -372,7 +365,7 @@ msgstr "RÜCKGABEN"
 msgid "Reviews ({0})"
 msgstr "Bewertungen ({0})"
 
-#: src/components/WhyUs.jsx:45
+#: src/components/WhyUs.jsx:42
 msgid "Seamless delivery"
 msgstr "Reibungslose Lieferung"
 
@@ -404,18 +397,17 @@ msgstr "Registrieren Sie sich und shoppen Sie – unsere Plattform lernt Ihre Vo
 msgid "Some items may require a signature, especially high-value or large appliances."
 msgstr "Einige Artikel erfordern möglicherweise eine Unterschrift, insbesondere hochwertige oder große Geräte."
 
-#: src/pages/Collection.jsx:242
+#: src/pages/Collection.jsx:212
 msgid "Sort by: High to Low"
 msgstr "Sortieren nach: Hoch zu Niedrig"
 
-#: src/pages/Collection.jsx:239
+#: src/pages/Collection.jsx:211
 msgid "Sort by: Low to High"
 msgstr "Sortieren nach: Niedrig zu Hoch"
 
-#: src/pages/Collection.jsx:236
+#: src/pages/Collection.jsx:210
 msgid "Sort by: Relavent"
 msgstr "Sortieren nach: Relevanz"
-
 
 #: src/pages/About.jsx:145
 msgid "Standard Delivery"
@@ -433,7 +425,7 @@ msgstr "ABONNIEREN"
 msgid "Subscribe now & get 20% off"
 msgstr "Jetzt abonnieren und 20 % Rabatt erhalten"
 
-#: src/components/WhyUs.jsx:37
+#: src/components/WhyUs.jsx:34
 msgid "Thoughtfully selected products that balance quality, design, and everyday practicality."
 msgstr "Sorgfältig ausgewählte Produkte, die Qualität, Design und Alltagstauglichkeit vereinen."
 
@@ -458,7 +450,7 @@ msgstr "UNS"
 msgid "Warranty card"
 msgstr "Garantiekarte"
 
-#: src/components/WhyUs.jsx:70
+#: src/components/WhyUs.jsx:67
 msgid "We prioritize durability and timeless style over fast trends."
 msgstr "Wir setzen auf Langlebigkeit und zeitlosen Stil statt kurzlebiger Trends."
 

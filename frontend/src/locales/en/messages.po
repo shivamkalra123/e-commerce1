@@ -44,8 +44,8 @@ msgstr "100% Original product"
 msgid "7 days easy return"
 msgstr "7 days easy return"
 
-#: src/components/Navbar.jsx:76
-#: src/components/Navbar.jsx:190
+#: src/components/Navbar.jsx:146
+#: src/components/Navbar.jsx:316
 #: src/pages/About.jsx:22
 msgid "ABOUT"
 msgstr "ABOUT"
@@ -62,7 +62,7 @@ msgstr "About us"
 msgid "ADD TO CART"
 msgstr "ADD TO CART"
 
-#: src/pages/Collection.jsx:228
+#: src/pages/Collection.jsx:203
 msgid "ALL"
 msgstr "ALL"
 
@@ -82,7 +82,7 @@ msgstr "BEST"
 msgid "Branded Parcels"
 msgstr "Branded Parcels"
 
-#: src/components/WhyUs.jsx:67
+#: src/components/WhyUs.jsx:64
 msgid "Built to last"
 msgstr "Built to last"
 
@@ -90,16 +90,16 @@ msgstr "Built to last"
 msgid "Cash on delivery available"
 msgstr "Cash on delivery available"
 
-#: src/pages/Collection.jsx:183
+#: src/pages/Collection.jsx:157
 msgid "CATEGORIES"
 msgstr "CATEGORIES"
 
-#: src/components/Navbar.jsx:75
-#: src/components/Navbar.jsx:189
+#: src/components/Navbar.jsx:143
+#: src/components/Navbar.jsx:309
 msgid "COLLECTION"
 msgstr "COLLECTION"
 
-#: src/pages/Collection.jsx:228
+#: src/pages/Collection.jsx:203
 msgid "COLLECTIONS"
 msgstr "COLLECTIONS"
 
@@ -108,8 +108,8 @@ msgstr "COLLECTIONS"
 msgid "COMPANY"
 msgstr "COMPANY"
 
-#: src/components/Navbar.jsx:77
-#: src/components/Navbar.jsx:191
+#: src/components/Navbar.jsx:149
+#: src/components/Navbar.jsx:323
 #: src/pages/Contact.jsx:12
 msgid "CONTACT"
 msgstr "CONTACT"
@@ -122,11 +122,11 @@ msgstr "Contact Branded Parcels"
 msgid "Copyright 2025 brandedparcels.com - All Right Reserved."
 msgstr "Copyright 2025 brandedparcels.com - All Right Reserved."
 
-#: src/pages/Collection.jsx:45
+#: src/components/Navbar.jsx:66
 msgid "Could not load categories"
 msgstr "Could not load categories"
 
-#: src/components/WhyUs.jsx:56
+#: src/components/WhyUs.jsx:53
 msgid "Customer-first approach"
 msgstr "Customer-first approach"
 
@@ -158,7 +158,7 @@ msgstr "Delivery availability may vary by location and courier schedules."
 msgid "Designed for the modern shopper. We blend simplicity with style to bring you everyday essentials you’ll love."
 msgstr "Designed for the modern shopper. We blend simplicity with style to bring you everyday essentials you’ll love."
 
-#: src/components/WhyUs.jsx:17
+#: src/components/WhyUs.jsx:14
 msgid "Designed for the way <0/> you shop today"
 msgstr "Designed for the way <0/> you shop today"
 
@@ -190,7 +190,7 @@ msgstr "Enter your email"
 msgid "Every delivery is covered by our Money Back Guarantee and supported by our customer care team."
 msgstr "Every delivery is covered by our Money Back Guarantee and supported by our customer care team."
 
-#: src/components/WhyUs.jsx:23
+#: src/components/WhyUs.jsx:20
 msgid "Every detail is intentional — from the products we curate to the experience we deliver. We believe shopping should feel effortless, modern, and reliable."
 msgstr "Every detail is intentional — from the products we curate to the experience we deliver. We believe shopping should feel effortless, modern, and reliable."
 
@@ -198,11 +198,11 @@ msgstr "Every detail is intentional — from the products we curate to the exper
 msgid "Explore →"
 msgstr "Explore →"
 
-#: src/components/WhyUs.jsx:48
+#: src/components/WhyUs.jsx:45
 msgid "Fast, reliable shipping with transparent tracking from checkout to doorstep."
 msgstr "Fast, reliable shipping with transparent tracking from checkout to doorstep."
 
-#: src/pages/Collection.jsx:169
+#: src/pages/Collection.jsx:142
 msgid "FILTERS"
 msgstr "FILTERS"
 
@@ -234,8 +234,8 @@ msgstr "Headquartered in Johannesburg, South Africa, with a vision for offices a
 msgid "Home"
 msgstr "Home"
 
-#: src/components/Navbar.jsx:74
-#: src/components/Navbar.jsx:188
+#: src/components/Navbar.jsx:140
+#: src/components/Navbar.jsx:302
 msgid "HOME"
 msgstr "HOME"
 
@@ -275,15 +275,16 @@ msgstr "Join our newsletter for style tips, special offers, and early access to 
 msgid "Kimberly Road, Judith Paarl, Johannesburg, South Africa"
 msgstr "Kimberly Road, Judith Paarl, Johannesburg, South Africa"
 
-#: src/pages/Collection.jsx:188
+#: src/components/Navbar.jsx:244
+#: src/pages/Collection.jsx:162
 msgid "Loading..."
 msgstr "Loading..."
 
-#: src/components/Navbar.jsx:125
+#: src/components/Navbar.jsx:198
 msgid "Logout"
 msgstr "Logout"
 
-#: src/components/Navbar.jsx:184
+#: src/components/Navbar.jsx:292
 msgid "Menu"
 msgstr "Menu"
 
@@ -295,7 +296,7 @@ msgstr "Multiple payment options with a smooth checkout experience."
 msgid "My order hasn’t arrived yet. Where is it?"
 msgstr "My order hasn’t arrived yet. Where is it?"
 
-#: src/components/Navbar.jsx:113
+#: src/components/Navbar.jsx:186
 msgid "My Profile"
 msgstr "My Profile"
 
@@ -307,7 +308,7 @@ msgstr "Next-Day Delivery"
 msgid "Next-day delivery depends on product type and your delivery address."
 msgstr "Next-day delivery depends on product type and your delivery address."
 
-#: src/pages/Collection.jsx:260
+#: src/pages/Collection.jsx:229
 msgid "No products found"
 msgstr "No products found"
 
@@ -319,7 +320,7 @@ msgstr "OPTIONS"
 msgid "Order by 7pm on weekdays. All-day from $30."
 msgstr "Order by 7pm on weekdays. All-day from $30."
 
-#: src/components/Navbar.jsx:119
+#: src/components/Navbar.jsx:192
 msgid "Orders"
 msgstr "Orders"
 
@@ -339,7 +340,7 @@ msgstr "Personalized Discovery"
 msgid "Phone: +27 784 281 036"
 msgstr "Phone: +27 784 281 036"
 
-#: src/components/WhyUs.jsx:34
+#: src/components/WhyUs.jsx:31
 msgid "Premium curation"
 msgstr "Premium curation"
 
@@ -359,7 +360,7 @@ msgstr "Refunds are processed according to applicable legislation."
 msgid "Reliable Delivery"
 msgstr "Reliable Delivery"
 
-#: src/components/WhyUs.jsx:59
+#: src/components/WhyUs.jsx:56
 msgid "Responsive support, easy returns, and policies designed around real customers."
 msgstr "Responsive support, easy returns, and policies designed around real customers."
 
@@ -372,7 +373,7 @@ msgstr "RETURNS"
 msgid "Reviews ({0})"
 msgstr "Reviews ({0})"
 
-#: src/components/WhyUs.jsx:45
+#: src/components/WhyUs.jsx:42
 msgid "Seamless delivery"
 msgstr "Seamless delivery"
 
@@ -404,15 +405,15 @@ msgstr "Sign up and shop—our platform learns your preferences and recommends p
 msgid "Some items may require a signature, especially high-value or large appliances."
 msgstr "Some items may require a signature, especially high-value or large appliances."
 
-#: src/pages/Collection.jsx:242
+#: src/pages/Collection.jsx:212
 msgid "Sort by: High to Low"
 msgstr "Sort by: High to Low"
 
-#: src/pages/Collection.jsx:239
+#: src/pages/Collection.jsx:211
 msgid "Sort by: Low to High"
 msgstr "Sort by: Low to High"
 
-#: src/pages/Collection.jsx:236
+#: src/pages/Collection.jsx:210
 msgid "Sort by: Relavent"
 msgstr "Sort by: Relavent"
 
@@ -432,7 +433,7 @@ msgstr "SUBSCRIBE"
 msgid "Subscribe now & get 20% off"
 msgstr "Subscribe now & get 20% off"
 
-#: src/components/WhyUs.jsx:37
+#: src/components/WhyUs.jsx:34
 msgid "Thoughtfully selected products that balance quality, design, and everyday practicality."
 msgstr "Thoughtfully selected products that balance quality, design, and everyday practicality."
 
@@ -457,7 +458,7 @@ msgstr "US"
 msgid "Warranty card"
 msgstr "Warranty card"
 
-#: src/components/WhyUs.jsx:70
+#: src/components/WhyUs.jsx:67
 msgid "We prioritize durability and timeless style over fast trends."
 msgstr "We prioritize durability and timeless style over fast trends."
 

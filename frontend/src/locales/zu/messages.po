@@ -36,8 +36,8 @@ msgstr "Umkhiqizo wokuqala ngo-100%"
 msgid "7 days easy return"
 msgstr "Ukubuyiselwa okulula kwezinsuku eziyi-7"
 
-#: src/components/Navbar.jsx:76
-#: src/components/Navbar.jsx:190
+#: src/components/Navbar.jsx:146
+#: src/components/Navbar.jsx:316
 #: src/pages/About.jsx:22
 msgid "ABOUT"
 msgstr "MAYELANA NATHI"
@@ -54,7 +54,7 @@ msgstr "Mayelana nathi"
 msgid "ADD TO CART"
 msgstr "ENGEZA ENQOLENI"
 
-#: src/pages/Collection.jsx:228
+#: src/pages/Collection.jsx:203
 msgid "ALL"
 msgstr "KONKE"
 
@@ -74,7 +74,7 @@ msgstr "EZINGCONO"
 msgid "Branded Parcels"
 msgstr "Branded Parcels"
 
-#: src/components/WhyUs.jsx:67
+#: src/components/WhyUs.jsx:64
 msgid "Built to last"
 msgstr "Yakhelwe ukuhlala isikhathi eside"
 
@@ -82,16 +82,16 @@ msgstr "Yakhelwe ukuhlala isikhathi eside"
 msgid "Cash on delivery available"
 msgstr "Ukukhokha uma ulethwa kuyatholakala"
 
-#: src/pages/Collection.jsx:183
+#: src/pages/Collection.jsx:157
 msgid "CATEGORIES"
 msgstr "IZIGABA"
 
-#: src/components/Navbar.jsx:75
-#: src/components/Navbar.jsx:189
+#: src/components/Navbar.jsx:143
+#: src/components/Navbar.jsx:309
 msgid "COLLECTION"
 msgstr "IQOQO"
 
-#: src/pages/Collection.jsx:228
+#: src/pages/Collection.jsx:203
 msgid "COLLECTIONS"
 msgstr "AMAQOQO"
 
@@ -100,8 +100,8 @@ msgstr "AMAQOQO"
 msgid "COMPANY"
 msgstr "INKAMPANI"
 
-#: src/components/Navbar.jsx:77
-#: src/components/Navbar.jsx:191
+#: src/components/Navbar.jsx:149
+#: src/components/Navbar.jsx:323
 #: src/pages/Contact.jsx:12
 msgid "CONTACT"
 msgstr "XHUMANA"
@@ -114,11 +114,11 @@ msgstr "Xhumana ne-Branded Parcels"
 msgid "Copyright 2025 brandedparcels.com - All Right Reserved."
 msgstr "Ilungelo lobunikazi 2025 brandedparcels.com – Wonke amalungelo agodliwe."
 
-#: src/pages/Collection.jsx:45
+#: src/components/Navbar.jsx:66
 msgid "Could not load categories"
 msgstr "Ayikwazanga ukulayisha izigaba"
 
-#: src/components/WhyUs.jsx:56
+#: src/components/WhyUs.jsx:53
 msgid "Customer-first approach"
 msgstr "Indlela egxile kumakhasimende"
 
@@ -150,7 +150,7 @@ msgstr "Ukutholakala kokulethwa kungahluka ngokuya ngendawo nezinhlelo zezithuth
 msgid "Designed for the modern shopper. We blend simplicity with style to bring you everyday essentials you’ll love."
 msgstr "Yakhelwe umthengi wanamuhla. Sihlanganisa ubulula nesitayela ukuze sikulethele izinto zansuku zonke ozothanda."
 
-#: src/components/WhyUs.jsx:17
+#: src/components/WhyUs.jsx:14
 msgid "Designed for the way <0/> you shop today"
 msgstr "Yakhelwe indlela othenga ngayo namuhla"
 
@@ -182,7 +182,7 @@ msgstr "Faka ikheli lakho le-imeyili"
 msgid "Every delivery is covered by our Money Back Guarantee and supported by our customer care team."
 msgstr "Konke ukulethwa kugunyazwe isiqinisekiso sethu sokubuyiselwa kwemali futhi kusekelwa ithimba lethu lokunakekela amakhasimende."
 
-#: src/components/WhyUs.jsx:23
+#: src/components/WhyUs.jsx:20
 msgid "Every detail is intentional — from the products we curate to the experience we deliver. We believe shopping should feel effortless, modern, and reliable."
 msgstr "Yonke imininingwane icatshangwe kahle — kusukela emikhiqizweni esiyikhethayo kuya kulwazi esikunikeza lona. Sikholelwa ukuthi ukuthenga kufanele kube lula, kwesimanje futhi kuthembeke."
 
@@ -190,11 +190,11 @@ msgstr "Yonke imininingwane icatshangwe kahle — kusukela emikhiqizweni esiyikh
 msgid "Explore →"
 msgstr "Hlola →"
 
-#: src/components/WhyUs.jsx:48
+#: src/components/WhyUs.jsx:45
 msgid "Fast, reliable shipping with transparent tracking from checkout to doorstep."
 msgstr "Ukuthunyelwa okusheshayo nokuthembekile okunokulandeleka okusobala kusukela ekukhokheni kuze kufike emnyango wakho."
 
-#: src/pages/Collection.jsx:169
+#: src/pages/Collection.jsx:142
 msgid "FILTERS"
 msgstr "IZIHLUNGI"
 
@@ -226,8 +226,8 @@ msgstr "Izinhloko zenkampani ziseJohannesburg, eNingizimu Afrika, zinombono wama
 msgid "Home"
 msgstr "Ikhaya"
 
-#: src/components/Navbar.jsx:74
-#: src/components/Navbar.jsx:188
+#: src/components/Navbar.jsx:140
+#: src/components/Navbar.jsx:302
 msgid "HOME"
 msgstr "IKHAYA"
 
@@ -267,15 +267,16 @@ msgstr "Joyina incwadi yethu yezindaba ukuze uthole amathiphu esitayela, izipesh
 msgid "Kimberly Road, Judith Paarl, Johannesburg, South Africa"
 msgstr "Kimberly Road, Judith Paarl, Johannesburg, eNingizimu Afrika"
 
-#: src/pages/Collection.jsx:188
+#: src/components/Navbar.jsx:244
+#: src/pages/Collection.jsx:162
 msgid "Loading..."
 msgstr "Iyalayisha..."
 
-#: src/components/Navbar.jsx:125
+#: src/components/Navbar.jsx:198
 msgid "Logout"
 msgstr "Phuma"
 
-#: src/components/Navbar.jsx:184
+#: src/components/Navbar.jsx:292
 msgid "Menu"
 msgstr "Imenyu"
 
@@ -287,7 +288,7 @@ msgstr "Izindlela zokukhokha eziningi ezinolwazi lokukhokha olushelelayo."
 msgid "My order hasn’t arrived yet. Where is it?"
 msgstr "I-oda lami alikafiki. Likuphi?"
 
-#: src/components/Navbar.jsx:113
+#: src/components/Navbar.jsx:186
 msgid "My Profile"
 msgstr "Iphrofayela yami"
 
@@ -299,7 +300,7 @@ msgstr "Ukulethwa kosuku olulandelayo"
 msgid "Next-day delivery depends on product type and your delivery address."
 msgstr "Ukulethwa kosuku olulandelayo kuncike ohlotsheni lomkhiqizo nekheli lakho lokulethwa."
 
-#: src/pages/Collection.jsx:260
+#: src/pages/Collection.jsx:229
 msgid "No products found"
 msgstr "Ayikho imikhiqizo etholakele"
 
@@ -311,7 +312,7 @@ msgstr "IZINKETHO"
 msgid "Order by 7pm on weekdays. All-day from $30."
 msgstr "Oda ngaphambi kuka-7 kusihlwa ngezinsuku zomsebenzi. Usuku lonke kusukela ku-$30."
 
-#: src/components/Navbar.jsx:119
+#: src/components/Navbar.jsx:192
 msgid "Orders"
 msgstr "Ama-oda"
 
@@ -331,7 +332,7 @@ msgstr "Ukutholakala okuqondene nawe"
 msgid "Phone: +27 784 281 036"
 msgstr "Ucingo: +27 784 281 036"
 
-#: src/components/WhyUs.jsx:34
+#: src/components/WhyUs.jsx:31
 msgid "Premium curation"
 msgstr "Ukukhethwa kwe-premium"
 
@@ -351,7 +352,7 @@ msgstr "Ukubuyiselwa kwemali kwenziwa ngokuhambisana nemithetho esebenzayo."
 msgid "Reliable Delivery"
 msgstr "Ukulethwa okuthembekile"
 
-#: src/components/WhyUs.jsx:59
+#: src/components/WhyUs.jsx:56
 msgid "Responsive support, easy returns, and policies designed around real customers."
 msgstr "Ukusekelwa okusheshayo, ukubuyisa okulula, nemigomo ehlelelwe amakhasimende angempela."
 
@@ -364,7 +365,7 @@ msgstr "UKUBUYISA"
 msgid "Reviews ({0})"
 msgstr "Izibuyekezo ({0})"
 
-#: src/components/WhyUs.jsx:45
+#: src/components/WhyUs.jsx:42
 msgid "Seamless delivery"
 msgstr "Ukulethwa okushelelayo"
 
@@ -396,15 +397,15 @@ msgstr "Bhalisa futhi uthenge — ipulatifomu yethu ifunda okuthandayo futhi iph
 msgid "Some items may require a signature, especially high-value or large appliances."
 msgstr "Ezinye izinto zingadinga isignesha, ikakhulukazi izinto ezibizayo noma ezinkulu."
 
-#: src/pages/Collection.jsx:242
+#: src/pages/Collection.jsx:212
 msgid "Sort by: High to Low"
 msgstr "Hlela: phezulu kuye phansi"
 
-#: src/pages/Collection.jsx:239
+#: src/pages/Collection.jsx:211
 msgid "Sort by: Low to High"
 msgstr "Hlela: phansi kuye phezulu"
 
-#: src/pages/Collection.jsx:236
+#: src/pages/Collection.jsx:210
 msgid "Sort by: Relavent"
 msgstr "Hlela: ngokubaluleka"
 
@@ -424,7 +425,7 @@ msgstr "BHALISA"
 msgid "Subscribe now & get 20% off"
 msgstr "Bhalisa manje uthole isaphulelo esingu-20%"
 
-#: src/components/WhyUs.jsx:37
+#: src/components/WhyUs.jsx:34
 msgid "Thoughtfully selected products that balance quality, design, and everyday practicality."
 msgstr "Imikhiqizo ekhethwe ngokucophelela ehlanganisa ikhwalithi, umklamo nokusebenza kwansuku zonke."
 
@@ -449,7 +450,7 @@ msgstr "THINA"
 msgid "Warranty card"
 msgstr "Ikhadi lewaranti"
 
-#: src/components/WhyUs.jsx:70
+#: src/components/WhyUs.jsx:67
 msgid "We prioritize durability and timeless style over fast trends."
 msgstr "Sigxila ekuqineni nasezitayeleni ezingaphelelwa yisikhathi kunokulandela amathrendi asheshayo."
 
