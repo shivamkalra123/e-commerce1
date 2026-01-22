@@ -7,10 +7,8 @@ import {
   useSearchParams,
 } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
-import { Trans, t } from "@lingui/macro";
+import { Trans } from "@lingui/macro";
 import LanguageSwitcher from "./LanguageSwitcher";
-import { getCategories } from "../api/categoriesApi";
-import { toast } from "react-toastify";
 
 const Navbar = () => {
   const [visible, setVisible] = useState(false);
@@ -29,11 +27,12 @@ const Navbar = () => {
     token,
     setToken,
     setCartItems,
-  } = useContext(ShopContext);
 
-  // ✅ Categories
-  const [categories, setCategories] = useState([]);
-  const [loadingCategories, setLoadingCategories] = useState(false);
+    // ✅ categories from context (localStorage cached)
+    categories,
+    loadingCategories,
+    getCategoriesData,
+  } = useContext(ShopContext);
 
   const selectedCategories = searchParams.get("categories")
     ? searchParams.get("categories").split(",")
@@ -46,35 +45,22 @@ const Navbar = () => {
     setCartItems({});
   };
 
-  // ✅ Scroll effect on ALL pages (not just home)
+  // ✅ Scroll effect on ALL pages
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // ✅ Fetch categories ONCE (or whenever token changes)
+  // ✅ If categories not in memory, load them (this checks localStorage first)
   useEffect(() => {
-    const loadCats = async () => {
-      try {
-        setLoadingCategories(true);
-        const res = await getCategories(token);
-        const fetched = res?.data?.categories || [];
-        setCategories(fetched);
-      } catch (err) {
-        console.log("❌ Categories Fetch Error:", err);
-        toast.error(t`Could not load categories`);
-      } finally {
-        setLoadingCategories(false);
-      }
-    };
+    if (!categories.length) {
+      getCategoriesData(); // ✅ loads from localStorage first, else backend
+    }
+    // eslint-disable-next-line
+  }, [categories.length]);
 
-    loadCats();
-  }, [token]);
-
-  // ✅ Category bar should appear:
-  // 1) Always on collection page
-  // 2) OR when scrolled down (on any page)
+  // ✅ category bar visible on collection OR when scrolled
   const showCategoryBar = isCollection || scrolled;
 
   const toggleCategoryInUrl = (catName) => {
@@ -93,9 +79,7 @@ const Navbar = () => {
 
     delete params.subcategories;
 
-    // ✅ ensure user is in collection page when selecting
     navigate("/collection");
-
     setSearchParams(params);
   };
 
@@ -235,7 +219,7 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* ✅ CATEGORY BAR (VISIBLE ON COLLECTION OR WHEN SCROLLED) */}
+        {/* ✅ CATEGORY BAR */}
         {showCategoryBar && (
           <div className="w-full border-t border-b bg-white">
             <div className="px-6 py-2 flex gap-3 overflow-x-auto whitespace-nowrap">
@@ -245,7 +229,7 @@ const Navbar = () => {
                 </p>
               ) : categories.length === 0 ? (
                 <p className="text-sm text-gray-500">
-                  No categories found
+                  <Trans>No categories found</Trans>
                 </p>
               ) : (
                 categories.map((cat) => {
@@ -294,32 +278,16 @@ const Navbar = () => {
           </div>
 
           <nav className="flex flex-col text-sm text-gray-600">
-            <NavLink
-              onClick={() => setVisible(false)}
-              to="/"
-              className="px-6 py-3 border-b"
-            >
+            <NavLink onClick={() => setVisible(false)} to="/" className="px-6 py-3 border-b">
               <Trans>HOME</Trans>
             </NavLink>
-            <NavLink
-              onClick={() => setVisible(false)}
-              to="/collection"
-              className="px-6 py-3 border-b"
-            >
+            <NavLink onClick={() => setVisible(false)} to="/collection" className="px-6 py-3 border-b">
               <Trans>COLLECTION</Trans>
             </NavLink>
-            <NavLink
-              onClick={() => setVisible(false)}
-              to="/about"
-              className="px-6 py-3 border-b"
-            >
+            <NavLink onClick={() => setVisible(false)} to="/about" className="px-6 py-3 border-b">
               <Trans>ABOUT</Trans>
             </NavLink>
-            <NavLink
-              onClick={() => setVisible(false)}
-              to="/contact"
-              className="px-6 py-3 border-b"
-            >
+            <NavLink onClick={() => setVisible(false)} to="/contact" className="px-6 py-3 border-b">
               <Trans>CONTACT</Trans>
             </NavLink>
 
