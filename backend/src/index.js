@@ -42,45 +42,119 @@ import { handleReviewRoutes } from "./routes/reviewRoute.js";
 // ✅ Mongo cache
 // --------------------
 let cachedClient = null;
+let connectPromise = null;
+
+// ✅ sleep helper
+const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
+
+// ✅ Retry wrapper
+async function connectWithRetry(env, retries = 3) {
+  let lastErr = null;
+
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    try {
+      const client = new MongoClient(env.MONGODB_URI, {
+        maxPoolSize: 5,
+        minPoolSize: 0,
+        serverSelectionTimeoutMS: 10000,
+        connectTimeoutMS: 10000,
+        socketTimeoutMS: 10000,
+      });
+
+      // ✅ Hard timeout so request never hangs
+      const timeout = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error("Mongo connect hard timeout")), 15000)
+      );
+
+      await Promise.race([client.connect(), timeout]);
+
+      return client; // ✅ success
+    } catch (err) {
+      lastErr = err;
+
+      console.log(
+        `❌ Mongo connect attempt ${attempt}/${retries} failed:`,
+        err?.message || err
+      );
+
+      // ✅ backoff: 500ms, 1500ms, 3000ms...
+      const wait = attempt === 1 ? 500 : attempt === 2 ? 1500 : 3000;
+      await sleep(wait);
+    }
+  }
+
+  throw lastErr;
+}
 
 async function getDb(env) {
-  if (!cachedClient) {
-    cachedClient = new MongoClient(env.MONGODB_URI, {
-      maxPoolSize: 5,
-      minPoolSize: 0,
-      serverSelectionTimeoutMS: 5000,
-    });
-    await cachedClient.connect();
+  if (!env.MONGODB_URI) {
+    throw new Error("MONGODB_URI missing in Worker secrets");
   }
+
+  // ✅ If cached and alive use it
+  if (cachedClient) {
+    try {
+      // ✅ ping test (very important)
+      await cachedClient.db("admin").command({ ping: 1 });
+      return cachedClient.db("E-Commerce");
+    } catch (err) {
+      console.log("⚠️ Cached Mongo connection dead, reconnecting...");
+      cachedClient = null;
+    }
+  }
+
+  // ✅ Only 1 connection attempt at a time
+  if (!connectPromise) {
+    connectPromise = (async () => {
+      const client = await connectWithRetry(env, 3);
+      cachedClient = client;
+      return client;
+    })().finally(() => {
+      connectPromise = null;
+    });
+  }
+
+  await connectPromise;
   return cachedClient.db("E-Commerce");
 }
 
 // --------------------
-// ✅ CORS CONFIG
+// ✅ CORS CONFIG (FIXED)
 // --------------------
 const allowedOrigins = [
+  // ✅ production
+  "https://brandedparcels.com",
+  "https://www.brandedparcels.com",
+   // ✅ IMPORTANT
+
+  // ✅ deployed frontends
   "https://e-commerce1-lovat.vercel.app",
   "https://e-commerce1-veng.vercel.app",
   "https://e-commerce1-weme.onrender.com",
-  "https://brandedparcels.com",
 
+  // ✅ local dev
   "http://localhost:5173",
   "http://localhost:5174",
   "http://127.0.0.1:5173",
   "http://127.0.0.1:5174",
 ];
 
-
-
+// ✅ NEVER return Access-Control-Allow-Origin as empty string.
+// If not allowed, don't set it at all.
 function corsHeaders(origin) {
   const isAllowed = allowedOrigins.includes(origin);
 
-  return {
-    "Access-Control-Allow-Origin": isAllowed ? origin : "",
+  const headers = {
     "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type, Authorization, token",
     "Access-Control-Allow-Credentials": "true",
   };
+
+  if (isAllowed && origin) {
+    headers["Access-Control-Allow-Origin"] = origin;
+  }
+
+  return headers;
 }
 
 function withCors(res, origin) {
@@ -229,22 +303,21 @@ export default {
         Response.json({ success: false, message: "Not Found" }, { status: 404 }),
         origin
       );
-    }  catch (err) {
-  console.error("Worker crash:", err);
+    } catch (err) {
+      console.error("Worker crash:", err);
 
-  // ✅ IMPORTANT: if middleware threw a Response, return it directly
-  if (err instanceof Response) {
-    return withCors(err, origin);
-  }
+      // ✅ IMPORTANT: if middleware threw a Response, return it directly
+      if (err instanceof Response) {
+        return withCors(err, origin);
+      }
 
-  return withCors(
-    Response.json(
-      { success: false, message: err?.message || String(err) },
-      { status: 500 }
-    ),
-    origin
-  );
-}
-
+      return withCors(
+        Response.json(
+          { success: false, message: err?.message || String(err) },
+          { status: 500 }
+        ),
+        origin
+      );
+    }
   },
 };

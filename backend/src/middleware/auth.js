@@ -1,18 +1,32 @@
 import jwt from "jsonwebtoken";
 
-/**
- * Worker auth middleware (replacement of Express next())
- * Usage:
- *   const user = await requireUser(request, env);
- *   user.id -> userId
- */
-export async function requireUser(request, env) {
+export function getTokenFromHeaders(request) {
+  const auth = request.headers.get("Authorization") || request.headers.get("authorization");
   const tokenHeader = request.headers.get("token");
-  const authHeader = request.headers.get("authorization");
 
-  const token = tokenHeader || authHeader;
+  // priority: Authorization: Bearer xxx
+  if (auth && auth.startsWith("Bearer ")) {
+    return auth.slice(7).trim();
+  }
+
+  // if Authorization directly contains token
+  if (auth && auth.length > 10) {
+    return auth.trim();
+  }
+
+  // fallback: token header
+  if (tokenHeader && tokenHeader.length > 10) {
+    return tokenHeader.trim();
+  }
+
+  return null;
+}
+
+export function requireUser(request, env) {
+  const token = getTokenFromHeaders(request);
 
   if (!token) {
+    // ❌ return 401 (NOT 500)
     throw Response.json(
       { success: false, message: "Not Authorized. Login Again." },
       { status: 401 }
@@ -20,20 +34,16 @@ export async function requireUser(request, env) {
   }
 
   try {
-    const rawToken = token.startsWith("Bearer ") ? token.slice(7) : token;
+    const decoded = jwt.verify(token, env.JWT_SECRET);
 
-    const decoded = jwt.verify(rawToken, env.JWT_SECRET);
-
-    // return user object
     return {
       id: decoded.id,
-      userId: decoded.id, // backward compatibility with old code
+      userId: decoded.id,
       ...decoded,
     };
-  } catch (error) {
-    console.error("auth error:", error);
+  } catch (err) {
     throw Response.json(
-      { success: false, message: error.message },
+      { success: false, message: "Invalid token" },
       { status: 401 }
     );
   }

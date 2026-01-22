@@ -4,12 +4,17 @@ import { ShopContext } from "../context/ShopContext";
 import { assets } from "../assets/assets";
 import Title from "../components/Title";
 import ProductItem from "../components/ProductItem";
-import { getCategories } from "../api/categoriesApi";
-import { toast } from "react-toastify";
 import { Trans, t } from "@lingui/macro";
 
 const Collection = () => {
-  const { products, search, showSearch, token } = useContext(ShopContext);
+  // ✅ categories now from context (cached in localStorage)
+  const {
+    products,
+    search,
+    showSearch,
+    categories,
+    loadingCategories,
+  } = useContext(ShopContext);
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -18,10 +23,6 @@ const Collection = () => {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedSubCategories, setSelectedSubCategories] = useState([]);
   const [sortType, setSortType] = useState("relavent");
-
-  const [categories, setCategories] = useState([]);
-  const [loadingCategories, setLoadingCategories] = useState(false);
-
 
   useEffect(() => {
     const cats = searchParams.get("categories");
@@ -34,31 +35,11 @@ const Collection = () => {
     // eslint-disable-next-line
   }, []);
 
-
-  useEffect(() => {
-    const load = async () => {
-      try {
-        setLoadingCategories(true);
-        const res = await getCategories(token);
-        setCategories(res.data.categories || []);
-      } catch (err) {
-        toast.error(t`Could not load categories`);
-      } finally {
-        setLoadingCategories(false);
-      }
-    };
-    load();
-  }, [token]);
-
-  const findCategoryByName = (name) =>
-    categories.find((c) => c.name === name);
-
+  const findCategoryByName = (name) => categories.find((c) => c.name === name);
 
   const toggleCategory = (value) => {
     if (selectedCategories.includes(value)) {
-      setSelectedCategories((prev) =>
-        prev.filter((item) => item !== value)
-      );
+      setSelectedCategories((prev) => prev.filter((item) => item !== value));
 
       const cat = findCategoryByName(value);
       if (cat?.subcategories?.length) {
@@ -73,20 +54,18 @@ const Collection = () => {
 
   const toggleSubCategory = (value) => {
     if (selectedSubCategories.includes(value)) {
-      setSelectedSubCategories((prev) =>
-        prev.filter((item) => item !== value)
-      );
+      setSelectedSubCategories((prev) => prev.filter((item) => item !== value));
     } else {
       setSelectedSubCategories((prev) => [...prev, value]);
     }
   };
-
 
   const applyFilter = () => {
     let productsCopy = products ? [...products] : [];
 
     const urlSearch = searchParams.get("search");
 
+    // ✅ Search Filter
     if (showSearch && (search || urlSearch)) {
       const q = (search || urlSearch).toLowerCase();
       productsCopy = productsCopy.filter((item) =>
@@ -94,12 +73,14 @@ const Collection = () => {
       );
     }
 
+    // ✅ Category Filter
     if (selectedCategories.length) {
       productsCopy = productsCopy.filter((item) =>
         selectedCategories.includes(item.category)
       );
     }
 
+    // ✅ Subcategory Filter
     if (selectedSubCategories.length) {
       productsCopy = productsCopy.filter((item) =>
         selectedSubCategories.includes(item.subCategory)
@@ -109,33 +90,24 @@ const Collection = () => {
     setFilterProducts(productsCopy);
   };
 
-
+  // ✅ Sort
   useEffect(() => {
     let sorted = [...filterProducts];
 
-    if (sortType === "low-high") {
-      sorted.sort((a, b) => a.price - b.price);
-    } else if (sortType === "high-low") {
-      sorted.sort((a, b) => b.price - a.price);
-    }
+    if (sortType === "low-high") sorted.sort((a, b) => a.price - b.price);
+    else if (sortType === "high-low") sorted.sort((a, b) => b.price - a.price);
 
     setFilterProducts(sorted);
     // eslint-disable-next-line
   }, [sortType]);
 
-
+  // ✅ Apply filter when things change
   useEffect(() => {
     applyFilter();
     // eslint-disable-next-line
-  }, [
-    selectedCategories,
-    selectedSubCategories,
-    products,
-    search,
-    showSearch,
-  ]);
+  }, [selectedCategories, selectedSubCategories, products, search, showSearch]);
 
-
+  // ✅ Update URL params
   useEffect(() => {
     const params = {};
 
@@ -156,6 +128,7 @@ const Collection = () => {
     sortType,
     search,
     showSearch,
+    setSearchParams,
   ]);
 
   return (
@@ -174,10 +147,11 @@ const Collection = () => {
           />
         </p>
 
+        {/* ✅ Scrollbar added here */}
         <div
           className={`border border-gray-300 pl-5 py-3 mt-6 ${
             showFilter ? "" : "hidden"
-          } sm:block`}
+          } sm:block max-h-[70vh] overflow-y-auto pr-3`}
         >
           <p className="mb-3 text-sm font-medium">
             <Trans>CATEGORIES</Trans>
@@ -190,6 +164,7 @@ const Collection = () => {
           ) : (
             categories.map((cat) => {
               const isSelected = selectedCategories.includes(cat.name);
+
               return (
                 <div key={cat._id}>
                   <label className="flex gap-2 text-sm">
@@ -232,15 +207,9 @@ const Collection = () => {
             onChange={(e) => setSortType(e.target.value)}
             className="border-2 border-gray-300 text-sm px-2"
           >
-            <option value="relavent">
-              {t`Sort by: Relavent`}
-            </option>
-            <option value="low-high">
-              {t`Sort by: Low to High`}
-            </option>
-            <option value="high-low">
-              {t`Sort by: High to Low`}
-            </option>
+            <option value="relavent">{t`Sort by: Relavent`}</option>
+            <option value="low-high">{t`Sort by: Low to High`}</option>
+            <option value="high-low">{t`Sort by: High to Low`}</option>
           </select>
         </div>
 

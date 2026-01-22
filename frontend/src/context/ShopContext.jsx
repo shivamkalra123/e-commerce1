@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { getCategories } from "../api/categoriesApi"; // ✅ ADD
 
 export const ShopContext = createContext(null);
 
@@ -17,6 +18,10 @@ const ShopContextProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState({});
   const [products, setProducts] = useState([]); // always array
   const [token, setToken] = useState("");
+
+  // ✅ CATEGORIES (LOCALSTORAGE CACHE)
+  const [categories, setCategories] = useState([]);
+  const [loadingCategories, setLoadingCategories] = useState(false);
 
   /* ===================== PRODUCTS ===================== */
   const getProductsData = async () => {
@@ -35,6 +40,46 @@ const ShopContextProvider = ({ children }) => {
     }
   };
 
+  /* ===================== CATEGORIES (LOAD ONCE + CACHE) ===================== */
+  const getCategoriesData = async (force = false) => {
+    try {
+      // ✅ If already in state and not forcing, don't refetch
+      if (categories.length && !force) return;
+
+      // ✅ Check localStorage cache
+      const cached = localStorage.getItem("categories_cache");
+      const cachedTime = localStorage.getItem("categories_cache_time");
+
+      // ✅ cache valid for 24 hours
+      const oneDay = 24 * 60 * 60 * 1000;
+
+      if (!force && cached && cachedTime) {
+        const isValid = Date.now() - Number(cachedTime) < oneDay;
+
+        if (isValid) {
+          setCategories(JSON.parse(cached));
+          return;
+        }
+      }
+
+      // ✅ Fetch from backend only if cache missing/expired
+      setLoadingCategories(true);
+      const res = await getCategories(token);
+
+      const data = res?.data?.categories || [];
+      setCategories(data);
+
+      // ✅ Save in localStorage
+      localStorage.setItem("categories_cache", JSON.stringify(data));
+      localStorage.setItem("categories_cache_time", Date.now().toString());
+    } catch (err) {
+      console.error("❌ Categories fetch failed:", err);
+      toast.error("Could not load categories");
+    } finally {
+      setLoadingCategories(false);
+    }
+  };
+
   /* ===================== CART ===================== */
   const addToCart = async (itemId, size) => {
     if (!size) {
@@ -43,7 +88,7 @@ const ShopContextProvider = ({ children }) => {
     }
 
     // optimistic update
-    setCartItems(prev => {
+    setCartItems((prev) => {
       const updated = structuredClone(prev);
       updated[itemId] ??= {};
       updated[itemId][size] = (updated[itemId][size] || 0) + 1;
@@ -66,7 +111,7 @@ const ShopContextProvider = ({ children }) => {
   };
 
   const updateQuantity = async (itemId, size, quantity) => {
-    setCartItems(prev => {
+    setCartItems((prev) => {
       const updated = structuredClone(prev);
       if (!updated[itemId]) return prev;
 
@@ -115,8 +160,7 @@ const ShopContextProvider = ({ children }) => {
 
   const getCartCount = () =>
     Object.values(cartItems).reduce(
-      (sum, sizes) =>
-        sum + Object.values(sizes).reduce((a, b) => a + b, 0),
+      (sum, sizes) => sum + Object.values(sizes).reduce((a, b) => a + b, 0),
       0
     );
 
@@ -125,7 +169,7 @@ const ShopContextProvider = ({ children }) => {
 
     let total = 0;
     for (const id in cartItems) {
-      const product = products.find(p => p._id === id);
+      const product = products.find((p) => p._id === id);
       if (!product) continue;
 
       for (const size in cartItems[id]) {
@@ -138,6 +182,12 @@ const ShopContextProvider = ({ children }) => {
   /* ===================== EFFECTS ===================== */
   useEffect(() => {
     getProductsData();
+  }, []);
+
+  // ✅ Load categories once when app starts
+  useEffect(() => {
+    getCategoriesData();
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -167,13 +217,14 @@ const ShopContextProvider = ({ children }) => {
     backendUrl,
     token,
     setToken,
+
+    // ✅ categories
+    categories,
+    loadingCategories,
+    getCategoriesData, // optional refresh => getCategoriesData(true)
   };
 
-  return (
-    <ShopContext.Provider value={value}>
-      {children}
-    </ShopContext.Provider>
-  );
+  return <ShopContext.Provider value={value}>{children}</ShopContext.Provider>;
 };
 
 export default ShopContextProvider;
