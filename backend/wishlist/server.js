@@ -18,6 +18,7 @@ app.use(
 );
 
 app.use(express.json());
+console.log("ahah");
 
 /* ---------- ROUTES ---------- */
 
