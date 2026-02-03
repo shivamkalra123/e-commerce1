@@ -11,6 +11,9 @@ import CategoriesGrid from "../components/categoriesGrid";
 import CategoryMosaicGrid from "../components/categoriesGrid";
 import HomeBanners from "../components/HomeBanners";
 import LatestCollection from "../components/LatestCollection";
+import ShopByMood from "../components/ShopByMood";
+import AdPopup from "../components/AdPopup";
+import SecondHome from "../components/HomeBanner2";
 
 const Home = () => {
 
@@ -18,26 +21,32 @@ const Home = () => {
 
   return (
     <div className="w-full">
-      
+      <AdPopup />
+
       <Hero />
 
-     
+     <CategoryMosaicGrid/>
 
-     
-    <LatestCollection/>
+     <section
+        data-aos="fade-up"
+        className="max-w-7xl mx-auto"
+      >
+       <BestSeller/>
+      </section>
+<SecondHome/>
 
       
 
-<CategoryMosaicGrid/>
-<HomeBanners/>
+
+
       <section
         data-aos="fade-up"
-        className="max-w-7xl mx-auto py-10"
+
       >
-        <BestSeller />
+      <LatestCollection/>
       </section>
       
-
+<HomeBanners/>
       <div data-aos="zoom-in">
         <StatsCounter />
       </div>

@@ -1,24 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
-import { assets } from "../assets/assets";
 import Title from "../components/Title";
 import ProductItem from "../components/ProductItem";
 import { Trans, t } from "@lingui/macro";
 
 const Collection = () => {
-  // ✅ categories now from context (cached in localStorage)
-  const {
-    products,
-    search,
-    showSearch,
-    categories,
-    loadingCategories,
-  } = useContext(ShopContext);
+  const { products, search, showSearch } = useContext(ShopContext);
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const [showFilter, setShowFilter] = useState(false);
   const [filterProducts, setFilterProducts] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedSubCategories, setSelectedSubCategories] = useState([]);
@@ -35,37 +26,10 @@ const Collection = () => {
     // eslint-disable-next-line
   }, []);
 
-  const findCategoryByName = (name) => categories.find((c) => c.name === name);
-
-  const toggleCategory = (value) => {
-    if (selectedCategories.includes(value)) {
-      setSelectedCategories((prev) => prev.filter((item) => item !== value));
-
-      const cat = findCategoryByName(value);
-      if (cat?.subcategories?.length) {
-        setSelectedSubCategories((prev) =>
-          prev.filter((s) => !cat.subcategories.includes(s))
-        );
-      }
-    } else {
-      setSelectedCategories((prev) => [...prev, value]);
-    }
-  };
-
-  const toggleSubCategory = (value) => {
-    if (selectedSubCategories.includes(value)) {
-      setSelectedSubCategories((prev) => prev.filter((item) => item !== value));
-    } else {
-      setSelectedSubCategories((prev) => [...prev, value]);
-    }
-  };
-
   const applyFilter = () => {
     let productsCopy = products ? [...products] : [];
-
     const urlSearch = searchParams.get("search");
 
-    // ✅ Search Filter
     if (showSearch && (search || urlSearch)) {
       const q = (search || urlSearch).toLowerCase();
       productsCopy = productsCopy.filter((item) =>
@@ -73,14 +37,12 @@ const Collection = () => {
       );
     }
 
-    // ✅ Category Filter
     if (selectedCategories.length) {
       productsCopy = productsCopy.filter((item) =>
         selectedCategories.includes(item.category)
       );
     }
 
-    // ✅ Subcategory Filter
     if (selectedSubCategories.length) {
       productsCopy = productsCopy.filter((item) =>
         selectedSubCategories.includes(item.subCategory)
@@ -90,7 +52,6 @@ const Collection = () => {
     setFilterProducts(productsCopy);
   };
 
-  // ✅ Sort
   useEffect(() => {
     let sorted = [...filterProducts];
 
@@ -101,13 +62,11 @@ const Collection = () => {
     // eslint-disable-next-line
   }, [sortType]);
 
-  // ✅ Apply filter when things change
   useEffect(() => {
     applyFilter();
     // eslint-disable-next-line
   }, [selectedCategories, selectedSubCategories, products, search, showSearch]);
 
-  // ✅ Update URL params
   useEffect(() => {
     const params = {};
 
@@ -132,73 +91,10 @@ const Collection = () => {
   ]);
 
   return (
-    <div className="flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t">
-      {/* FILTERS */}
-      <div className="min-w-60">
-        <p
-          onClick={() => setShowFilter(!showFilter)}
-          className="my-2 text-xl flex items-center cursor-pointer gap-2"
-        >
-          <Trans>FILTERS</Trans>
-          <img
-            className={`h-3 sm:hidden ${showFilter ? "rotate-90" : ""}`}
-            src={assets.dropdown_icon}
-            alt=""
-          />
-        </p>
-
-        {/* ✅ Scrollbar added here */}
-        <div
-          className={`border border-gray-300 pl-5 py-3 mt-6 ${
-            showFilter ? "" : "hidden"
-          } sm:block max-h-[70vh] overflow-y-auto pr-3`}
-        >
-          <p className="mb-3 text-sm font-medium">
-            <Trans>CATEGORIES</Trans>
-          </p>
-
-          {loadingCategories ? (
-            <p className="text-sm text-gray-500">
-              <Trans>Loading...</Trans>
-            </p>
-          ) : (
-            categories.map((cat) => {
-              const isSelected = selectedCategories.includes(cat.name);
-
-              return (
-                <div key={cat._id}>
-                  <label className="flex gap-2 text-sm">
-                    <input
-                      type="checkbox"
-                      checked={isSelected}
-                      onChange={() => toggleCategory(cat.name)}
-                    />
-                    {cat.name}
-                  </label>
-
-                  {isSelected &&
-                    cat.subcategories?.map((sub) => (
-                      <label
-                        key={sub}
-                        className="flex gap-2 text-sm ml-6 mt-1"
-                      >
-                        <input
-                          type="checkbox"
-                          checked={selectedSubCategories.includes(sub)}
-                          onChange={() => toggleSubCategory(sub)}
-                        />
-                        {sub}
-                      </label>
-                    ))}
-                </div>
-              );
-            })
-          )}
-        </div>
-      </div>
-
+    // ✅ page scroll enabled
+    <div className="min-h-screen overflow-y-auto pb-20 flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t">
       {/* PRODUCTS */}
-      <div className="flex-1">
+      <div className="flex-1 pr-2">
         <div className="flex justify-between mb-4">
           <Title text1={t`ALL`} text2={t`COLLECTIONS`} />
 

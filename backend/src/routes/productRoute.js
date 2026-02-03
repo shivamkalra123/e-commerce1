@@ -29,6 +29,27 @@ export async function singleProduct(db, request) {
 
   return Response.json({ success: true, product });
 }
+export async function productMeta(db) {
+  // total products count
+  const count = await db.collection("products").countDocuments();
+
+  // latest updated (preferred)
+  const latestDoc = await db
+    .collection("products")
+    .find({})
+    .project({ updatedAt: 1, date: 1 }) // keep lightweight
+    .sort({ updatedAt: -1, date: -1 })  // fallback to date
+    .limit(1)
+    .toArray();
+
+  const latest = latestDoc?.[0] || null;
+
+  return Response.json({
+    success: true,
+    count,
+    latestUpdatedAt: latest?.updatedAt || latest?.date || null,
+  });
+}
 
 /**
  * POST /api/product/remove

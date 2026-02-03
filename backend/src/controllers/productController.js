@@ -67,6 +67,27 @@ const addProduct = async (req, res) => {
     res.json({ success: false, message: error.message })
   }
 }
+// ✅ function for product meta (count + latest updatedAt)
+const productMeta = async (req, res) => {
+  try {
+    const count = await productModel.countDocuments();
+
+    // latest updated product
+    const latest = await productModel
+      .findOne()
+      .sort({ updatedAt: -1 })
+      .select("updatedAt");
+
+    res.json({
+      success: true,
+      count,
+      latestUpdatedAt: latest?.updatedAt || null,
+    });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
 
 // function for list product
 const listProducts = async (req, res) => {
@@ -108,4 +129,4 @@ const singleProduct = async (req, res) => {
     }
 }
 
-export { listProducts, addProduct, removeProduct, singleProduct }
+export { listProducts, addProduct, removeProduct, singleProduct,productMeta }

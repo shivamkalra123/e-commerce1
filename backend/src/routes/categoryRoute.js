@@ -5,19 +5,52 @@ import * as ctrl from "../controllers/categoryController.js";
  * CATEGORY ROUTES (Workers)
  *
  * GET    /api/categories
+ * GET    /api/categories/meta              ✅ NEW
  * POST   /api/categories
  * POST   /api/categories/:id/subcategories
  * PUT    /api/categories/:id
  * DELETE /api/categories/:id
  * DELETE /api/categories/:id/subcategories/:sub
+ * 
  */
+
+async function cachedGET(request, ttlSeconds, handlerFn) {
+  const cache = caches.default;
+
+  if (request.method !== "GET") return handlerFn();
+
+  const cacheKey = new Request(request.url, request);
+
+  const cached = await cache.match(cacheKey);
+  if (cached) return cached;
+
+  const res = await handlerFn();
+
+  if (!res || !(res instanceof Response)) return res;
+
+  if (res.status === 200) {
+    const headers = new Headers(res.headers);
+    headers.set("Cache-Control", `public, max-age=${ttlSeconds}`);
+    headers.set("CDN-Cache-Control", `public, max-age=${ttlSeconds}`);
+
+    const cachedRes = new Response(res.body, {
+      status: res.status,
+      statusText: res.statusText,
+      headers,
+    });
+
+    await cache.put(cacheKey, cachedRes.clone());
+    return cachedRes;
+  }
+
+  return res;
+}
+
 export async function handleCategoryRoutes(db, request, env) {
   const url = new URL(request.url);
   const path = url.pathname;
 
-  // We assume categories base path:
-  // /api/categories
-  // /api/categories/...
+  // only handle category routes
   if (!path.startsWith("/api/categories")) return null;
 
   const method = request.method.toUpperCase();
@@ -25,20 +58,21 @@ export async function handleCategoryRoutes(db, request, env) {
   // Split path parts
   // "/api/categories/123/subcategories/abc"
   const parts = path.split("/").filter(Boolean);
-  // parts example:
-  // ["api","categories"]
-  // ["api","categories",":id"]
-  // ["api","categories",":id","subcategories"]
-  // ["api","categories",":id","subcategories",":sub"]
 
   // ✅ GET /api/categories
   if (parts.length === 2 && method === "GET") {
     return ctrl.getAll(db, request, env);
   }
 
+  // ✅ GET /api/categories/meta  ✅✅✅
+  // IMPORTANT: must be before treating parts[2] as an ID
+if (parts.length === 3 && parts[2] === "meta" && method === "GET") {
+  return cachedGET(request, 60, async () => ctrl.categoriesMeta(db));
+}
+
   // ✅ POST /api/categories (auth)
   if (parts.length === 2 && method === "POST") {
-    await requireUser(request, env); // just validate token
+    await requireUser(request, env); // validate token only
     return ctrl.createCategory(db, request, env);
   }
 
@@ -50,6 +84,7 @@ export async function handleCategoryRoutes(db, request, env) {
     await requireUser(request, env);
     return ctrl.updateCategory(db, request, env, id);
   }
+// ✅ GET /api/categories/meta
 
   // ✅ DELETE /api/categories/:id (auth)
   if (parts.length === 3 && method === "DELETE") {
@@ -74,5 +109,8 @@ export async function handleCategoryRoutes(db, request, env) {
     return ctrl.deleteSubcategory(db, request, env, id, sub);
   }
 
-  return Response.json({ success: false, message: "Not Found" }, { status: 404 });
+  return Response.json(
+    { success: false, message: "Not Found" },
+    { status: 404 }
+  );
 }

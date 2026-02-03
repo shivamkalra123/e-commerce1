@@ -10,7 +10,7 @@ const categoryData = [
   {
     title: "Women",
     query: "Women",
-    img: "https://images.unsplash.com/photo-1584998316204-3b1e3b1895ae?q=80&w=987&auto=format&fit=crop",
+    img: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     title: "Fashion",
@@ -20,7 +20,7 @@ const categoryData = [
   {
     title: "Shoes",
     query: "Shoes",
-    img: "https://images.unsplash.com/photo-1512374382149-233c42b6a83b?w=900&auto=format&fit=crop&q=60",
+    img: "https://images.unsplash.com/photo-1608231387042-66d1773070a5?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     imgClass: "object-bottom",
   },
   {
@@ -28,20 +28,39 @@ const categoryData = [
     query: "Beauty",
     img: "https://images.unsplash.com/photo-1643185450492-6ba77dea00f6?q=80&w=987&auto=format&fit=crop",
   },
+
+  // ✅ NEW
+  {
+    title: "Easy Life",
+    query: "Easy Life",
+    img: "https://images.unsplash.com/photo-1734599317961-d73bb9c2f3ee?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+  {
+    title: "Style",
+    query: "Style",
+    img: "https://plus.unsplash.com/premium_photo-1695575593603-1f42ca27bb6d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+  {
+    title: "Kids",
+    query: "Kids",
+    img: "https://images.unsplash.com/photo-1607453998774-d533f65dac99?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
 ];
+
 
 const Tile = ({ title, query, img, className = "", imgClass = "" }) => {
   return (
     <Link
       to={`/collection?categories=${encodeURIComponent(query)}`}
-      className={`relative overflow-hidden rounded-2xl group ${className}`}
+      className={`relative overflow-hidden group ${className}`}
     >
       {/* Image */}
       <img
         src={img}
         alt={title}
-        className={`w-full h-full object-cover ${imgClass || "object-center"} 
-        group-hover:scale-110 transition duration-700`}
+        className={`w-full h-full object-cover ${
+          imgClass || "object-center"
+        } group-hover:scale-110 transition duration-700`}
       />
 
       {/* Overlay */}
@@ -59,27 +78,19 @@ const Tile = ({ title, query, img, className = "", imgClass = "" }) => {
 
 const CategoryMosaicGrid = () => {
   return (
-    <section className="max-w-7xl mx-auto px-4 py-10">
-      <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-6">
-        SHOP BY CATEGORY
-      </h2>
+    <section className="w-screen overflow-hidden -ml-[50vw] left-1/2 relative">
 
-      {/* ✅ GRID */}
-      <div className="grid gap-4 auto-rows-[250px] md:auto-rows-[310px] md:grid-cols-3">
 
-        {/* Left Big */}
-        <Tile {...categoryData[0]} />
-
-        {/* Right Top Row */}
-        <Tile {...categoryData[1]} />
-        <Tile {...categoryData[2]} />
-
-        {/* Right Bottom Row */}
-        <Tile {...categoryData[3]} />
-        <Tile {...categoryData[4]} />
+      {/* GRID */}
+      <div className="grid auto-rows-[250px] md:auto-rows-[310px] md:grid-cols-3">
+        {categoryData.map((item, i) => (
+          <Tile key={i} {...item} />
+        ))}
       </div>
+
     </section>
   );
 };
+
 
 export default CategoryMosaicGrid;

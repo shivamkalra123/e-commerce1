@@ -11,8 +11,7 @@ const Product = () => {
   const { productId } = useParams();
   const backend = import.meta.env.VITE_BACKEND_URL;
 
-  const { products, currency, addToCart, token } =
-    useContext(ShopContext);
+  const { products, currency, addToCart, token } = useContext(ShopContext);
 
   const [productData, setProductData] = useState(null);
   const [image, setImage] = useState("");
@@ -31,16 +30,15 @@ const Product = () => {
     const product = products.find((p) => p._id === productId);
     if (product) {
       setProductData(product);
-      setImage(product.image[0]);
+      setImage(product.image?.[0] || "");
+      setSize(""); // reset size when product changes
     }
   }, [productId, products]);
 
   /* ===================== FETCH REVIEWS ===================== */
   const fetchReviews = async () => {
     try {
-      const res = await axios.get(
-        `${backend}/api/reviews/${productId}`
-      );
+      const res = await axios.get(`${backend}/api/reviews/${productId}`);
       setReviews(res.data.reviews || []);
     } catch (err) {
       console.error(err);
@@ -77,17 +75,21 @@ const Product = () => {
 
   if (!productData) return <div className="opacity-0" />;
 
+  // ✅ If product has sizes
+  const hasSizes = Array.isArray(productData.sizes) && productData.sizes.length > 0;
+
+  // ✅ Final size to send to cart
+  const finalSize = hasSizes ? size : "NOSIZE";
+
   return (
     <>
       <div className="border-t-2 pt-10 transition-opacity duration-500 opacity-100">
-
         {/* ===================== PRODUCT DATA ===================== */}
         <div className="flex flex-col sm:flex-row gap-12">
-
           {/* IMAGES */}
           <div className="flex-1 flex flex-col-reverse sm:flex-row gap-3">
             <div className="flex sm:flex-col sm:w-[18%] overflow-x-auto sm:overflow-y-auto">
-              {productData.image.map((img, i) => (
+              {productData.image?.map((img, i) => (
                 <img
                   key={i}
                   src={img}
@@ -97,6 +99,7 @@ const Product = () => {
                 />
               ))}
             </div>
+
             <div className="sm:w-[80%]">
               <img src={image} className="w-full h-auto" alt="" />
             </div>
@@ -104,18 +107,14 @@ const Product = () => {
 
           {/* INFO */}
           <div className="flex-1">
-            <h1 className="text-2xl font-medium">
-              {productData.name}
-            </h1>
+            <h1 className="text-2xl font-medium">{productData.name}</h1>
 
             <div className="flex items-center gap-1 mt-2">
               {[...Array(4)].map((_, i) => (
                 <img key={i} src={assets.star_icon} className="w-3" />
               ))}
               <img src={assets.star_dull_icon} className="w-3" />
-              <p className="pl-2 text-sm">
-                ( {reviews.length} )
-              </p>
+              <p className="pl-2 text-sm">( {reviews.length} )</p>
             </div>
 
             <p className="mt-5 text-3xl font-medium">
@@ -123,33 +122,42 @@ const Product = () => {
               {productData.price}
             </p>
 
-            <p className="mt-5 text-gray-500 md:w-4/5">
-              {productData.description}
-            </p>
+            <p className="mt-5 text-gray-500 md:w-4/5">{productData.description}</p>
 
-            {/* SIZE */}
-            <div className="my-8">
-              <p className="mb-2">
-                <Trans>Select Size</Trans>
-              </p>
-              <div className="flex gap-2">
-                {productData.sizes.map((s) => (
-                  <button
-                    key={s}
-                    onClick={() => setSize(s)}
-                    className={`border px-4 py-2 ${
-                      size === s ? "border-orange-500" : "bg-gray-100"
-                    }`}
-                  >
-                    {s}
-                  </button>
-                ))}
+            {/* ✅ SIZE SECTION (ONLY IF SIZES EXIST) */}
+            {hasSizes && (
+              <div className="my-8">
+                <p className="mb-2">
+                  <Trans>Select Size</Trans>
+                </p>
+
+                <div className="flex gap-2 flex-wrap">
+                  {productData.sizes.map((s) => (
+                    <button
+                      key={s}
+                      onClick={() => setSize(s)}
+                      className={`border px-4 py-2 transition ${
+                        size === s
+                          ? "border-black bg-white"
+                          : "bg-gray-100 border-gray-200 hover:bg-gray-200"
+                      }`}
+                    >
+                      {s}
+                    </button>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
 
+            {/* ✅ ADD TO CART */}
             <button
-              onClick={() => addToCart(productData._id, size)}
-              className="bg-black text-white px-8 py-3 text-sm"
+              onClick={() => addToCart(productData._id, finalSize)}
+              disabled={hasSizes && !size}
+              className={`px-8 py-3 text-sm transition ${
+                hasSizes && !size
+                  ? "bg-gray-300 text-gray-600 cursor-not-allowed"
+                  : "bg-black text-white hover:opacity-90"
+              }`}
             >
               <Trans>ADD TO CART</Trans>
             </button>
@@ -157,9 +165,15 @@ const Product = () => {
             <hr className="mt-8 sm:w-4/5" />
 
             <div className="text-sm text-gray-500 mt-5 space-y-1">
-              <p><Trans>100% Original product</Trans></p>
-              <p><Trans>Cash on delivery available</Trans></p>
-              <p><Trans>7 days easy return</Trans></p>
+              <p>
+                <Trans>100% Original product</Trans>
+              </p>
+              <p>
+                <Trans>Cash on delivery available</Trans>
+              </p>
+              <p>
+                <Trans>7 days easy return</Trans>
+              </p>
             </div>
           </div>
         </div>
@@ -180,9 +194,7 @@ const Product = () => {
                   <p className="font-medium">{rev.userName}</p>
                   <p className="text-sm">⭐ {rev.rating}/5</p>
                 </div>
-                <p className="mt-2 text-sm text-gray-600">
-                  {rev.comment}
-                </p>
+                <p className="mt-2 text-sm text-gray-600">{rev.comment}</p>
               </div>
             ))}
           </div>
@@ -212,27 +224,18 @@ const Product = () => {
               className="border w-full p-3 mb-3"
             />
 
-            <button
-              onClick={submitReview}
-              className="bg-black text-white px-6 py-2"
-            >
+            <button onClick={submitReview} className="bg-black text-white px-6 py-2">
               <Trans>Submit Review</Trans>
             </button>
           </div>
         </div>
 
         {/* RELATED */}
-        <RelatedProducts
-          category={productData.category}
-          subCategory={productData.subCategory}
-        />
+        <RelatedProducts category={productData.category} subCategory={productData.subCategory} />
       </div>
 
       {/* AUTH MODAL */}
-      <AuthModal
-        open={showAuthModal}
-        onClose={() => setShowAuthModal(false)}
-      />
+      <AuthModal open={showAuthModal} onClose={() => setShowAuthModal(false)} />
     </>
   );
 };

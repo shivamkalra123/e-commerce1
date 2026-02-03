@@ -18,6 +18,7 @@ import SearchBar from "./components/SearchBar";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Wishlist from "./pages/Wishlist";
 
 export const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -52,6 +53,7 @@ const App = () => {
           <Route path="/place-order" element={<PlaceOrder />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/verify" element={<Verify />} />
+          <Route path="/wishlist" element={<Wishlist />} />
         </Route>
       </Routes>
 

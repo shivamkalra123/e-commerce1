@@ -15,20 +15,17 @@ const BestSeller = () => {
 
   return (
     <div className="my-10">
-      <div className="text-center text-3xl py-8">
+      <div className="text-center text-3xl">
       <Title
   text1={<Trans>BEST</Trans>}
   text2={<Trans>SELLERS</Trans>}
 />
 
-        <p className="w-3/4 m-auto text-xs sm:text-sm md:text-base text-gray-600">
-          <Trans>
-            Discover our most popular products, loved by customers for their quality, value, and style. Handpicked favorites you don't want to miss.
-          </Trans>
-        </p>
+    
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 gap-y-6">
+<div className="grid grid-cols-2 gap-1 sm:grid-cols-3 sm:gap-3 md:grid-cols-4 md:gap-4 lg:grid-cols-5 lg:gap-5">
+
         {bestSeller.map((item, index) => (
           <ProductItem
             key={index}

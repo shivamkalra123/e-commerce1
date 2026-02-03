@@ -9,6 +9,7 @@ import {
 import { ShopContext } from "../context/ShopContext";
 import { Trans } from "@lingui/macro";
 import LanguageSwitcher from "./LanguageSwitcher";
+import { Heart } from "lucide-react";
 
 const Navbar = () => {
   const [visible, setVisible] = useState(false);
@@ -27,11 +28,11 @@ const Navbar = () => {
     token,
     setToken,
     setCartItems,
-
-    // ✅ categories from context (localStorage cached)
     categories,
     loadingCategories,
     getCategoriesData,
+    wishlist,
+    toggleWishlist,
   } = useContext(ShopContext);
 
   const selectedCategories = searchParams.get("categories")
@@ -45,34 +46,24 @@ const Navbar = () => {
     setCartItems({});
   };
 
-  // ✅ Scroll effect on ALL pages
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // ✅ If categories not in memory, load them (this checks localStorage first)
   useEffect(() => {
-    if (!categories.length) {
-      getCategoriesData(); // ✅ loads from localStorage first, else backend
-    }
-    // eslint-disable-next-line
+    if (!categories.length) getCategoriesData();
   }, [categories.length]);
 
-  // ✅ category bar visible on collection OR when scrolled
   const showCategoryBar = isCollection || scrolled;
 
   const toggleCategoryInUrl = (catName) => {
     const params = Object.fromEntries([...searchParams]);
-
     let current = params.categories ? params.categories.split(",") : [];
 
-    if (current.includes(catName)) {
-      current = current.filter((c) => c !== catName);
-    } else {
-      current = [...current, catName];
-    }
+    if (current.includes(catName)) current = current.filter((c) => c !== catName);
+    else current = [...current, catName];
 
     if (current.length) params.categories = current.join(",");
     else delete params.categories;
@@ -107,9 +98,8 @@ const Navbar = () => {
             : "bg-white shadow-sm"
         }`}
       >
-        {/* TOP NAV */}
         <div className="flex items-center justify-between px-6 py-3">
-          {/* LOGO */}
+
           <Link to="/">
             <img
               src="/logo.png"
@@ -118,24 +108,16 @@ const Navbar = () => {
             />
           </Link>
 
-          {/* DESKTOP LINKS */}
           <ul className="hidden sm:flex gap-8">
-            <NavLink to="/" className={navLinkClass}>
-              <Trans>HOME</Trans>
-            </NavLink>
-            <NavLink to="/collection" className={navLinkClass}>
-              <Trans>COLLECTION</Trans>
-            </NavLink>
-            <NavLink to="/about" className={navLinkClass}>
-              <Trans>ABOUT</Trans>
-            </NavLink>
-            <NavLink to="/contact" className={navLinkClass}>
-              <Trans>CONTACT</Trans>
-            </NavLink>
+            <NavLink to="/" className={navLinkClass}><Trans>HOME</Trans></NavLink>
+            <NavLink to="/collection" className={navLinkClass}><Trans>COLLECTION</Trans></NavLink>
+            <NavLink to="/about" className={navLinkClass}><Trans>ABOUT</Trans></NavLink>
+            <NavLink to="/contact" className={navLinkClass}><Trans>CONTACT</Trans></NavLink>
           </ul>
 
-          {/* ICONS */}
           <div className="flex items-center gap-5">
+
+            {/* SEARCH */}
             <img
               src={assets.search_icon}
               onClick={() => {
@@ -150,41 +132,85 @@ const Navbar = () => {
               alt=""
             />
 
-            {/* PROFILE */}
-            <div className="relative group flex items-center">
-              <img
-                src={assets.profile_icon}
-                onClick={() => (!token ? navigate("/login") : null)}
-                className={`w-5 cursor-pointer transition ${
-                  isHome && !scrolled
-                    ? "invert opacity-90"
-                    : "opacity-70 hover:opacity-100"
-                }`}
-                alt=""
-              />
+            {/* WISHLIST */}
+            <div className="relative group">
 
-              {token && (
-                <div className="absolute right-0 top-full pt-2 hidden group-hover:block">
-                  <div className="w-40 rounded-md bg-white shadow-lg border text-sm text-gray-600">
-                    <p className="px-4 py-2 hover:bg-gray-50 cursor-pointer">
-                      <Trans>My Profile</Trans>
-                    </p>
-                    <p
-                      onClick={() => navigate("/orders")}
-                      className="px-4 py-2 hover:bg-gray-50 cursor-pointer"
-                    >
-                      <Trans>Orders</Trans>
-                    </p>
-                    <p
-                      onClick={logout}
-                      className="px-4 py-2 hover:bg-gray-50 cursor-pointer text-red-500"
-                    >
-                      <Trans>Logout</Trans>
-                    </p>
-                  </div>
+              <button className="relative">
+                <Heart
+                  size={20}
+                  className={`cursor-pointer transition ${
+                    isHome && !scrolled
+                      ? "text-white"
+                      : "text-gray-600 hover:text-black"
+                  }`}
+                />
+
+                {wishlist?.length > 0 && (
+                  <span className="absolute -right-2 -bottom-2 w-4 h-4 text-[9px] flex items-center justify-center rounded-full bg-black text-white">
+                    {wishlist.length}
+                  </span>
+                )}
+              </button>
+
+              <div className="absolute right-0 top-full pt-3 hidden group-hover:block z-40">
+                <div className="w-72 bg-white shadow-xl rounded-xl border">
+
+                  {!wishlist?.length ? (
+                    <p className="p-4 text-sm text-gray-500">Wishlist is empty 🤍</p>
+                  ) : (
+                    <div className="max-h-80 overflow-y-auto">
+
+                      {wishlist.map((item) => (
+                        <div
+                          key={item._id}
+                          className="flex items-center gap-3 p-3 border-b last:border-none"
+                        >
+                          <img
+                            src={item.image?.[0]}
+                            className="w-12 h-14 object-cover rounded"
+                          />
+
+                          <div
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              navigate(`/product/${item._id}`);
+                            }}
+                            className="flex-1 cursor-pointer"
+                          >
+                            <p className="text-sm line-clamp-1">{item.name}</p>
+                            <p className="text-xs text-gray-500">{item.price}</p>
+                          </div>
+
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              toggleWishlist(item._id);
+                            }}
+                            className="text-xs text-red-500"
+                          >
+                            Remove
+                          </button>
+
+                        </div>
+                      ))}
+
+                    </div>
+                  )}
                 </div>
-              )}
+              </div>
             </div>
+
+            {/* PROFILE */}
+            <img
+              src={assets.profile_icon}
+              onClick={() => (!token ? navigate("/login") : null)}
+              className={`w-5 cursor-pointer transition ${
+                isHome && !scrolled
+                  ? "invert opacity-90"
+                  : "opacity-70 hover:opacity-100"
+              }`}
+              alt=""
+            />
 
             {/* CART */}
             <Link to="/cart" className="relative">
@@ -202,12 +228,6 @@ const Navbar = () => {
               </span>
             </Link>
 
-            {/* LANGUAGE SWITCHER */}
-            <div className="hidden sm:block">
-              <LanguageSwitcher />
-            </div>
-
-            {/* MOBILE MENU ICON */}
             <img
               src={assets.menu_icon}
               onClick={() => setVisible(true)}
@@ -219,84 +239,22 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* ✅ CATEGORY BAR */}
         {showCategoryBar && (
-          <div className="w-full border-t border-b bg-white">
-            <div className="px-6 py-2 flex gap-3 overflow-x-auto whitespace-nowrap">
-              {loadingCategories ? (
-                <p className="text-sm text-gray-500">
-                  <Trans>Loading...</Trans>
-                </p>
-              ) : categories.length === 0 ? (
-                <p className="text-sm text-gray-500">
-                  <Trans>No categories found</Trans>
-                </p>
-              ) : (
-                categories.map((cat) => {
-                  const active = selectedCategories.includes(cat.name);
-                  return (
-                    <button
-                      key={cat._id}
-                      onClick={() => toggleCategoryInUrl(cat.name)}
-                      className={`px-4 py-2 rounded-full border text-sm transition ${
-                        active
-                          ? "bg-black text-white border-black"
-                          : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
-                      }`}
-                    >
-                      {cat.name}
-                    </button>
-                  );
-                })
-              )}
+          <div className="w-full border-t bg-white/95 backdrop-blur-md">
+            <div className="flex gap-8 overflow-x-auto py-3 px-6">
+              {categories.map((cat) => (
+                <button
+                  key={cat._id}
+                  onClick={() => toggleCategoryInUrl(cat.name)}
+                  className="text-sm text-gray-500 hover:text-black"
+                >
+                  {cat.name}
+                </button>
+              ))}
             </div>
           </div>
         )}
       </header>
-
-      {/* MOBILE MENU */}
-      <div
-        className={`fixed inset-0 z-40 bg-black/30 transition ${
-          visible ? "opacity-100" : "opacity-0 pointer-events-none"
-        }`}
-      >
-        <div
-          className={`absolute top-0 right-0 h-full w-3/4 max-w-xs bg-white transition-transform ${
-            visible ? "translate-x-0" : "translate-x-full"
-          }`}
-        >
-          <div className="flex items-center gap-3 px-5 py-4 border-b">
-            <img
-              src={assets.dropdown_icon}
-              className="h-4 rotate-180 cursor-pointer"
-              onClick={() => setVisible(false)}
-              alt=""
-            />
-            <p className="text-sm">
-              <Trans>Menu</Trans>
-            </p>
-          </div>
-
-          <nav className="flex flex-col text-sm text-gray-600">
-            <NavLink onClick={() => setVisible(false)} to="/" className="px-6 py-3 border-b">
-              <Trans>HOME</Trans>
-            </NavLink>
-            <NavLink onClick={() => setVisible(false)} to="/collection" className="px-6 py-3 border-b">
-              <Trans>COLLECTION</Trans>
-            </NavLink>
-            <NavLink onClick={() => setVisible(false)} to="/about" className="px-6 py-3 border-b">
-              <Trans>ABOUT</Trans>
-            </NavLink>
-            <NavLink onClick={() => setVisible(false)} to="/contact" className="px-6 py-3 border-b">
-              <Trans>CONTACT</Trans>
-            </NavLink>
-
-            <div className="px-6 py-4">
-              <LanguageSwitcher className="w-full" />
-            </div>
-          </nav>
-        </div>
-      </div>
     </>
   );
 };

@@ -6,6 +6,7 @@ import {
   singleProduct,
   removeProduct,
   addProduct,
+  productMeta,
 } from "./routes/productRoute.js";
 
 // ✅ User routes
@@ -226,6 +227,12 @@ export default {
       if (url.pathname === "/api/product/add" && request.method === "POST") {
         return withCors(await addProduct(db, request), origin);
       }
+if (url.pathname === "/api/product/meta" && request.method === "GET") {
+  const res = await cachedGET(request, 60, async () => productMeta(db));
+  return withCors(res, origin);
+}
+
+
 
       // --------------------
       // ✅ USER ROUTES
@@ -262,6 +269,50 @@ export default {
       // --------------------
       const catRes = await handleCategoryRoutes(db, request, env);
       if (catRes) return withCors(catRes, origin);
+      // ✅ GET /api/categories/meta
+
+// ✅ Edge cache helper (Cloudflare)
+async function cachedGET(request, ttlSeconds, handlerFn) {
+  const cache = caches.default;
+
+  // Cache only GET
+  if (request.method !== "GET") return handlerFn();
+
+  const cacheKey = new Request(request.url, request);
+
+  // 1) Try cache
+  const cached = await cache.match(cacheKey);
+  if (cached) return cached;
+
+  // 2) Fetch fresh
+  const res = await handlerFn();
+
+  // If handler returns null or invalid
+  if (!res || !(res instanceof Response)) return res;
+
+  // Cache only successful responses
+  if (res.status === 200) {
+    const headers = new Headers(res.headers);
+
+    // Cache at edge
+    headers.set("Cache-Control", `public, max-age=${ttlSeconds}`);
+    headers.set("CDN-Cache-Control", `public, max-age=${ttlSeconds}`);
+
+    const cachedRes = new Response(res.body, {
+      status: res.status,
+      statusText: res.statusText,
+      headers,
+    });
+
+    // Put in edge cache (async)
+    await cache.put(cacheKey, cachedRes.clone());
+
+    return cachedRes;
+  }
+
+  return res;
+}
+
 
       // --------------------
       // ✅ ORDER ROUTES

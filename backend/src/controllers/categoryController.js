@@ -10,6 +10,37 @@ function normalizeName(name) {
   return parts.map(p => p[0].toUpperCase() + p.slice(1)).join(" ");
 }
 
+/**
+ * GET /api/categories/meta
+ * returns: { count, latestUpdatedAt }
+ */
+export async function categoriesMeta(db) {
+  try {
+    const count = await db.collection(COLLECTION).countDocuments();
+
+    const latestDoc = await db
+      .collection(COLLECTION)
+      .find({})
+      .project({ updatedAt: 1 })
+      .sort({ updatedAt: -1 })
+      .limit(1)
+      .toArray();
+
+    const latest = latestDoc?.[0] || null;
+
+    return Response.json({
+      success: true,
+      count,
+      latestUpdatedAt: latest?.updatedAt || null,
+    });
+  } catch (err) {
+    console.error("❌ categoriesMeta error:", err);
+    return Response.json(
+      { success: false, message: err?.message || "Server error" },
+      { status: 500 }
+    );
+  }
+}
 
 /**
  * Normalize subcategory - Title Case like your code
