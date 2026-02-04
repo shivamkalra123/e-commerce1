@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import wishlistRoutes from "./routes/wishlist.js";
+import productWishlist from "./routes/productwishlist.js"
 
 dotenv.config();
 
@@ -27,6 +28,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/wishlist", wishlistRoutes);
+app.use('/api/products', productWishlist ); 
 
 /* ---------- MONGO ---------- */
 

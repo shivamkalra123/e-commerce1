@@ -18,6 +18,13 @@ const ShopContextProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState({});
   const [products, setProducts] = useState([]);
   const [token, setToken] = useState("");
+  // ❤️ WISHLIST
+const [wishlist, setWishlist] = useState([]);
+const wishlistCount = wishlist.length;
+
+// Render wishlist backend
+const WISHLIST_API = "https://e-commerce1-1-cd8g.onrender.com";
+
 
   // ✅ CATEGORIES
   const [categories, setCategories] = useState([]);
@@ -41,6 +48,20 @@ const ShopContextProvider = ({ children }) => {
     if (!a || !b) return false;
     return a.count === b.count && String(a.latestUpdatedAt) === String(b.latestUpdatedAt);
   };
+  // =====================
+// ❤️ Wishlist helpers
+// =====================
+const getGuestId = () => {
+  let id = localStorage.getItem("guestId");
+  if (!id) {
+    id = crypto.randomUUID();
+    localStorage.setItem("guestId", id);
+  }
+  return id;
+};
+
+const getWishlistUserId = () => token || getGuestId();
+
 
   /* ===================== PRODUCTS (META CHECK + CACHE) ===================== */
   const getProductsData = async (force = false) => {
@@ -239,12 +260,50 @@ const ShopContextProvider = ({ children }) => {
     }
     return total;
   };
+  /* ===================== ❤️ WISHLIST ===================== */
+
+const fetchWishlist = async () => {
+  try {
+    const userId = getWishlistUserId();
+
+    const res = await axios.get(`${WISHLIST_API}/api/wishlist/${userId}`);
+
+    if (res.data.success) setWishlist(res.data.wishlist || []);
+  } catch (err) {
+    console.error("❌ Wishlist fetch failed:", err);
+  }
+};
+
+const toggleWishlist = async (productId) => {
+  console.log("🔥 toggleWishlist called with:", productId);
+
+  try {
+    const userId = getWishlistUserId();
+
+    console.log("👤 wishlist userId:", userId);
+
+    const res = await axios.post(`${WISHLIST_API}/api/wishlist/toggle`, {
+      userId,
+      productId,
+    });
+
+    console.log("✅ Wishlist toggle response:", res.data);
+
+    fetchWishlist();
+  } catch (err) {
+    console.error("❌ Wishlist toggle failed FULL:", err);
+    toast.error("Wishlist failed");
+  }
+};
+
+
 
   /* ===================== EFFECTS ===================== */
   useEffect(() => {
     // ✅ load cache + verify meta
     getProductsData();
     getCategoriesData();
+    fetchWishlist();
     // eslint-disable-next-line
   }, []);
 
@@ -285,6 +344,10 @@ const ShopContextProvider = ({ children }) => {
     backendUrl,
     token,
     setToken,
+    wishlist,
+toggleWishlist,
+fetchWishlist,
+wishlistCount: wishlist.length,
   };
 
   return <ShopContext.Provider value={value}>{children}</ShopContext.Provider>;
