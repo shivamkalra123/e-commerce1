@@ -8,19 +8,18 @@ import {
 } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
 import { Trans } from "@lingui/macro";
-import LanguageSwitcher from "./LanguageSwitcher";
-import { Heart } from "lucide-react";
+import { Heart, Loader2 } from "lucide-react";
 
 const Navbar = () => {
   const [visible, setVisible] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [wishlistOpen, setWishlistOpen] = useState(false);
+  const [wishlistProducts, setWishlistProducts] = useState([]);
+  const [loadingWishlist, setLoadingWishlist] = useState(false);
 
   const location = useLocation();
   const isHome = location.pathname === "/";
   const isCollection = location.pathname === "/collection";
-  const [wishlistOpen, setWishlistOpen] = useState(false);
-
-
   const [searchParams, setSearchParams] = useSearchParams();
 
   const {
@@ -33,19 +32,105 @@ const Navbar = () => {
     categories,
     loadingCategories,
     getCategoriesData,
-    wishlist,
-    toggleWishlist,
+    fetchWishlist, // Use the context function
+    wishlist, // Wishlist IDs from context
+    toggleWishlist, // Toggle function from context
   } = useContext(ShopContext);
 
   const selectedCategories = searchParams.get("categories")
     ? searchParams.get("categories").split(",")
     : [];
 
+  // API Base URL
+  const WISHLIST_API = "https://e-commerce1-1-cd8g.onrender.com";
+
+  // Fetch wishlist with product details
+  const fetchWishlistWithProducts = async () => {
+    if (!token) {
+      setWishlistProducts([]);
+      return;
+    }
+
+    try {
+      setLoadingWishlist(true);
+      
+      // First, fetch the wishlist IDs from context or directly
+      // The context already fetches wishlist, but we need product details
+      
+      if (!wishlist || wishlist.length === 0) {
+        setWishlistProducts([]);
+        setLoadingWishlist(false);
+        return;
+      }
+      
+      // Fetch product details for all product IDs in wishlist
+      const productsRes = await fetch(`${WISHLIST_API}/api/products/by-ids`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ productIds: wishlist }),
+      });
+      
+      const productsData = await productsRes.json();
+      
+      if (productsData.success) {
+        setWishlistProducts(productsData.products || []);
+      } else {
+        setWishlistProducts([]);
+      }
+    } catch (error) {
+      console.error('Error fetching wishlist products:', error);
+      setWishlistProducts([]);
+    } finally {
+      setLoadingWishlist(false);
+    }
+  };
+
+  // Handle wishlist item removal
+  const handleRemoveFromWishlist = async (productId, e) => {
+    if (e) {
+      e.stopPropagation();
+    }
+    
+    try {
+      // Optimistic update: remove from local state immediately
+      setWishlistProducts(prev => prev.filter(item => item._id !== productId));
+      
+      // Call the toggle function from context
+      await toggleWishlist(productId);
+      
+      // Refresh the context wishlist
+      fetchWishlist();
+    } catch (error) {
+      console.error('Error removing from wishlist:', error);
+      // Re-fetch on error
+      fetchWishlistWithProducts();
+    }
+  };
+
+  // Initialize and refresh wishlist when token or wishlist changes
+  useEffect(() => {
+    if (token && wishlist && wishlist.length > 0) {
+      fetchWishlistWithProducts();
+    } else {
+      setWishlistProducts([]);
+    }
+  }, [token, wishlist]);
+
+  // Refresh wishlist when dropdown opens
+  useEffect(() => {
+    if (wishlistOpen && token) {
+      fetchWishlistWithProducts();
+    }
+  }, [wishlistOpen]);
+
   const logout = () => {
     navigate("/login");
     localStorage.removeItem("token");
     setToken("");
     setCartItems({});
+    setWishlistProducts([]);
   };
 
   useEffect(() => {
@@ -135,89 +220,161 @@ const Navbar = () => {
             />
 
             {/* WISHLIST */}
-            {/* WISHLIST */}
-<div className="relative">
+            <div className="relative">
+              <button
+                onClick={() => {
+                  if (!token) {
+                    navigate("/login");
+                    return;
+                  }
+                  setWishlistOpen((p) => !p);
+                }}
+                className="relative"
+                disabled={loadingWishlist}
+              >
+                {loadingWishlist ? (
+                  <Loader2 size={20} className="animate-spin text-gray-500" />
+                ) : (
+                  <Heart
+                    size={20}
+                    className={`cursor-pointer transition ${
+                      isHome && !scrolled
+                        ? "text-white"
+                        : wishlistProducts.length > 0
+                        ? "text-red-500 fill-red-500"
+                        : "text-gray-600 hover:text-black"
+                    }`}
+                  />
+                )}
 
-  <button
-    onClick={() => setWishlistOpen((p) => !p)}
-    className="relative"
-  >
-    <Heart
-      size={20}
-      className={`cursor-pointer transition ${
-        isHome && !scrolled
-          ? "text-white"
-          : "text-gray-600 hover:text-black"
-      }`}
-    />
+                {wishlistProducts.length > 0 && (
+                  <span className="absolute -right-2 -bottom-2 w-4 h-4 text-[9px] flex items-center justify-center rounded-full bg-black text-white">
+                    {wishlistProducts.length}
+                  </span>
+                )}
+              </button>
 
-    {!!wishlist?.length && (
-      <span className="absolute -right-2 -bottom-2 w-4 h-4 text-[9px] flex items-center justify-center rounded-full bg-black text-white">
-        {wishlist.length}
-      </span>
-    )}
-  </button>
-
-  {wishlistOpen && (
-    <>
-      {/* backdrop click close */}
-      <div
-        onClick={() => setWishlistOpen(false)}
-        className="fixed inset-0 z-30"
-      />
-
-      <div className="absolute right-0 top-full pt-3 z-40">
-        <div className="w-72 bg-white shadow-xl rounded-xl border">
-
-          {!wishlist?.length ? (
-            <p className="p-4 text-sm text-gray-500">
-              Wishlist is empty 🤍
-            </p>
-          ) : (
-            <div className="max-h-80 overflow-y-auto">
-
-              {wishlist.map((item) => (
-                <div
-                  key={item._id || item.productId}
-
-                  className="flex items-center gap-3 p-3 border-b last:border-none"
-                >
-                  <img
-                    src={item.image?.[0]}
-                    className="w-12 h-14 object-cover rounded"
-                    alt=""
+              {wishlistOpen && (
+                <>
+                  {/* backdrop click close */}
+                  <div
+                    onClick={() => setWishlistOpen(false)}
+                    className="fixed inset-0 z-30"
                   />
 
-                  <div
-                    onClick={() => {
-                      setWishlistOpen(false);
-                      navigate(`/product/${item._id}`);
-                    }}
-                    className="flex-1 cursor-pointer"
-                  >
-                    <p className="text-sm line-clamp-1">{item.name}</p>
-                    <p className="text-xs text-gray-500">${item.price}</p>
+                  <div className="absolute right-0 top-full pt-3 z-40">
+                    <div className="w-80 bg-white shadow-xl rounded-xl border">
+                      <div className="p-3 border-b">
+                        <h3 className="font-medium">My Wishlist</h3>
+                        <p className="text-xs text-gray-500">
+                          {wishlistProducts.length} items
+                        </p>
+                      </div>
+                      
+                      {!token ? (
+                        <div className="p-4">
+                          <p className="text-sm text-gray-500 mb-2">
+                            Please login to view wishlist
+                          </p>
+                          <button
+                            onClick={() => {
+                              setWishlistOpen(false);
+                              navigate("/login");
+                            }}
+                            className="text-sm text-blue-600 hover:text-blue-800 font-medium"
+                          >
+                            Login
+                          </button>
+                        </div>
+                      ) : loadingWishlist ? (
+                        <div className="p-6 flex flex-col items-center justify-center">
+                          <Loader2 className="animate-spin text-gray-400 mb-2" size={24} />
+                          <p className="text-sm text-gray-500">Loading wishlist...</p>
+                        </div>
+                      ) : wishlistProducts.length === 0 ? (
+                        <div className="p-6 text-center">
+                          <Heart className="mx-auto text-gray-300 mb-2" size={32} />
+                          <p className="text-sm text-gray-500">Your wishlist is empty</p>
+                          <p className="text-xs text-gray-400 mt-1">
+                            Save items you love for later
+                          </p>
+                          <button
+                            onClick={() => {
+                              setWishlistOpen(false);
+                              navigate("/collection");
+                            }}
+                            className="mt-3 text-sm text-blue-600 hover:text-blue-800 font-medium"
+                          >
+                            Browse Collection
+                          </button>
+                        </div>
+                      ) : (
+                        <div className="max-h-80 overflow-y-auto">
+                          {wishlistProducts.map((product) => (
+                            <div
+                              key={product._id}
+                              className="flex items-center gap-3 p-3 border-b last:border-none hover:bg-gray-50 group"
+                            >
+                              <div className="w-14 h-14 flex-shrink-0">
+                                <img
+                                  src={product.image?.[0] || "/placeholder.jpg"}
+                                  className="w-full h-full object-cover rounded"
+                                  alt={product.name}
+                                  onError={(e) => {
+                                    e.target.src = "/placeholder.jpg";
+                                  }}
+                                />
+                              </div>
+
+                              <div
+                                onClick={() => {
+                                  setWishlistOpen(false);
+                                  navigate(`/product/${product._id}`);
+                                }}
+                                className="flex-1 cursor-pointer min-w-0"
+                              >
+                                <p className="text-sm font-medium line-clamp-1">
+                                  {product.name}
+                                </p>
+                                <p className="text-sm font-semibold text-gray-900">
+                                  ${product.price?.toFixed(2) || "0.00"}
+                                </p>
+                                {product.category && (
+                                  <p className="text-xs text-gray-500 mt-1">
+                                    {product.category}
+                                    {product.subCategory && ` • ${product.subCategory}`}
+                                  </p>
+                                )}
+                              </div>
+
+                              <button
+                                onClick={(e) => handleRemoveFromWishlist(product._id, e)}
+                                className="opacity-0 group-hover:opacity-100 transition-opacity text-xs text-red-500 hover:text-red-700 px-2 py-1 rounded hover:bg-red-50"
+                                title="Remove from wishlist"
+                              >
+                                Remove
+                              </button>
+                            </div>
+                          ))}
+                          
+                          <div className="p-3 border-t">
+                            <button
+                              onClick={() => {
+                                setWishlistOpen(false);
+                                navigate("/collection");
+                              }}
+                              className="w-full text-sm text-blue-600 hover:text-blue-800 font-medium py-2"
+                            >
+                              View All Items →
+                            </button>
+                          </div>
+                        </div>
+                      )}
+                    </div>
                   </div>
-
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      toggleWishlist(item._id);
-                    }}
-                    className="text-xs text-red-500"
-                  >
-                    Remove
-                  </button>
-                </div>
-              ))}
-
+                </>
+              )}
             </div>
-          )}
-        </div>
-      </div>
-    </>
-  )}
-</div>
 
             {/* PROFILE */}
             <img
