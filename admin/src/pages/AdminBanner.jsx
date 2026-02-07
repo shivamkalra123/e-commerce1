@@ -17,7 +17,7 @@ const AdminBanner = () => {
   // fetch all banners
   const fetchBanners = async () => {
     try {
-      const res = await axios.get(`${backend}/api/banner`);
+      const res = await axios.get(`${backend}/api/admin/banner`);
       if (res.data?.success && Array.isArray(res.data.banners)) {
         setBanners(res.data.banners);
       } else {

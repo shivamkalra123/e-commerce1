@@ -7,6 +7,7 @@ import { MongoClient } from "mongodb";
 import adminCategoryRoutes from "./routes/categoryAdminRoute.js";
 import adminProductRoutes from "./routes/productAdminRoute.js";
 import adminOrderRoutes from "./routes/orderAdminRoute.js";
+import adminAuthRoutes from "./routes/adminAuthRoute.js";
 
 // 🌍 Load env
 dotenv.config();
@@ -54,7 +55,7 @@ app.use((req, res, next) => {
 app.use("/api/admin", adminCategoryRoutes);
 app.use("/api/admin", adminProductRoutes);
 app.use("/api/admin", adminOrderRoutes);
-
+app.use("/api/admin", adminAuthRoutes);
 // --------------------
 // Health Check
 // --------------------

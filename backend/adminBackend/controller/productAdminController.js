@@ -187,3 +187,22 @@ export const removeProduct = async (req, res) => {
     res.status(500).json({ success: false, message: err.message });
   }
 };
+export const listProducts = async (req, res) => {
+  try {
+    const products = await productModel
+      .find({})
+      .sort({ updatedAt: -1, date: -1 });
+
+    res.json({
+      success: true,
+      count: products.length,
+      products,
+    });
+  } catch (err) {
+    console.error("listProducts error:", err);
+    res.status(500).json({
+      success: false,
+      message: err.message,
+    });
+  }
+};

@@ -92,7 +92,7 @@ const Add = ({ token }) => {
       image4 && formData.append("image4", image4)
 
       const res = await axios.post(
-        `${backendUrl}/api/product/add`,
+        `${backendUrl}/api/admin/product/add`,
         formData,
         { headers: { token } }
       )
