@@ -107,12 +107,10 @@ const getWishlistUserId = () => token || getGuestId();
         // ✅ update cache
         localStorage.setItem("products_cache", JSON.stringify(data));
         localStorage.setItem("products_cache_meta", JSON.stringify(serverMeta));
-      } else {
-        toast.error(res.data.message || "Failed to load products");
       }
     } catch (err) {
       console.error("❌ Product fetch failed:", err);
-      toast.error("Failed to load products");
+     
     } finally {
       setLoadingProducts(false);
     }
@@ -162,7 +160,7 @@ const getWishlistUserId = () => token || getGuestId();
       localStorage.setItem("categories_cache_meta", JSON.stringify(serverMeta));
     } catch (err) {
       console.error("❌ Categories fetch failed:", err);
-      toast.error("Could not load categories");
+      
     } finally {
       setLoadingCategories(false);
     }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Routes, Route, Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ShopContextProvider from "./context/ShopContext"; // Add this import
 
 // Pages
 import Home from "./pages/Home";
@@ -33,6 +34,38 @@ const PaddedLayout = () => {
   );
 };
 
+// Debug Component to show user info
+const UserDebug = () => {
+  useEffect(() => {
+    // Check localStorage for token
+    const token = localStorage.getItem("token");
+    const guestId = localStorage.getItem("guestId");
+    
+    console.log("🔍 DEBUG - User Information:");
+    console.log("Token from localStorage:", token ? `${token.substring(0, 20)}...` : "No token");
+    console.log("Guest ID from localStorage:", guestId);
+    console.log("Token length:", token?.length || 0);
+    console.log("Token exists:", !!token);
+    
+    if (token) {
+      try {
+        // Try to decode JWT if it's a JWT token
+        const base64Url = token.split('.')[1];
+        if (base64Url) {
+          const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+          const payload = JSON.parse(window.atob(base64));
+          console.log("📋 JWT Payload:", payload);
+          console.log("👤 User ID from JWT:", payload.id || payload.userId || payload.sub);
+        }
+      } catch (error) {
+        console.log("Token is not a JWT or cannot be decoded");
+      }
+    }
+  }, []);
+
+  return null; // This component doesn't render anything
+};
+
 const App = () => {
   const [loading, setLoading] = useState(true);
 
@@ -45,27 +78,49 @@ const App = () => {
           method: 'HEAD',
           mode: 'cors'
         }).catch(() => {
-          // Ignore errors - we just want to trigger the cold start
-          console.log("Warming up APIs...");
+          console.log("🔥 Warming up wishlist API...");
         });
       } catch (error) {
         // Ignore all errors
       }
     };
 
+    // Log initial state
+    console.log("🚀 App component mounted");
+    console.log("⏳ Loading state:", loading);
+    
+    const token = localStorage.getItem("token");
+    console.log("🔑 Initial token from localStorage:", token ? "Exists" : "None");
+    
+    if (token) {
+      console.log("🔐 Token preview:", token.substring(0, 50) + "...");
+    }
+
     // Start warming immediately
     warmApis();
 
-    // Set minimum loader time (2 seconds)
+    // Set minimum loader time (6.5 seconds to match loader animation)
     const timer = setTimeout(() => {
+      console.log("⏰ Loader timeout reached, hiding loader");
       setLoading(false);
     }, 6500);
 
-    return () => clearTimeout(timer);
+    return () => {
+      console.log("🧹 Cleaning up App component");
+      clearTimeout(timer);
+    };
   }, []);
 
+  // Log when loading state changes
+  useEffect(() => {
+    console.log("🔄 Loading state changed to:", loading);
+  }, [loading]);
+
   return (
-    <div>
+    <ShopContextProvider>
+      {/* Debug component */}
+      <UserDebug />
+      
       {/* Show Loader */}
       {loading && <Loader />}
 
@@ -96,7 +151,7 @@ const App = () => {
 
         <Footer />
       </div>
-    </div>
+    </ShopContextProvider>
   );
 };
 
