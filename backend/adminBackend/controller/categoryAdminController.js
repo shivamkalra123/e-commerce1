@@ -83,6 +83,30 @@ export async function createCategory(db, request) {
     );
   }
 }
+/**
+ * ADMIN: Get all categories
+ * GET /api/admin/categories
+ */
+export const getCategories = async (req, res) => {
+  try {
+    const categories = await req.db
+      .collection(COLLECTION)
+      .find({})
+      .sort({ name: 1 })
+      .toArray();
+
+    res.json({
+      success: true,
+      categories,
+    });
+  } catch (err) {
+    console.error("getCategories error:", err);
+    res.status(500).json({
+      success: false,
+      message: err.message,
+    });
+  }
+};
 
 /**
  * ADMIN: Add subcategory(s)

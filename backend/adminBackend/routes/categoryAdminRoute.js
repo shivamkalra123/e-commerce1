@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  getCategories,
   createCategory,
   addSubcategory,
   updateCategory,
@@ -10,41 +11,50 @@ import { requireAdmin } from "../middleware/adminAuth.js";
 
 const router = express.Router();
 
-// 🔐 Admin-only
+/**
+ * GET /api/admin/categories
+ */
+router.get("/categories", requireAdmin, getCategories);
+
+/**
+ * POST /api/admin/categories
+ */
 router.post("/categories", requireAdmin, createCategory);
 
+/**
+ * POST /api/admin/categories/:id/subcategories
+ */
 router.post(
   "/categories/:id/subcategories",
   requireAdmin,
-  (req, res) =>
-    addSubcategory(req.db, req, process.env, req.params.id)
+  addSubcategory
 );
 
+/**
+ * PUT /api/admin/categories/:id
+ */
 router.put(
   "/categories/:id",
   requireAdmin,
-  (req, res) =>
-    updateCategory(req.db, req, process.env, req.params.id)
+  updateCategory
 );
 
+/**
+ * DELETE /api/admin/categories/:id
+ */
 router.delete(
   "/categories/:id",
   requireAdmin,
-  (req, res) =>
-    deleteCategory(req.db, req, process.env, req.params.id)
+  deleteCategory
 );
 
+/**
+ * DELETE /api/admin/categories/:id/subcategories/:sub
+ */
 router.delete(
   "/categories/:id/subcategories/:sub",
   requireAdmin,
-  (req, res) =>
-    deleteSubcategory(
-      req.db,
-      req,
-      process.env,
-      req.params.id,
-      req.params.sub
-    )
+  deleteSubcategory
 );
 
 export default router;
