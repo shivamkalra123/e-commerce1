@@ -2,35 +2,33 @@ import jwt from "jsonwebtoken";
 
 export const requireAdmin = (req, res, next) => {
   try {
-    const token =
-      req.headers.authorization?.startsWith("Bearer ")
-        ? req.headers.authorization.split(" ")[1]
-        : req.headers.token;
+    const authHeader = req.headers.authorization;
 
-    if (!token) {
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
       return res.status(401).json({
         success: false,
         message: "Not Authorized. Login Again.",
       });
     }
+
+    const token = authHeader.split(" ")[1];
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    const expected = process.env.ADMIN_EMAIL + process.env.ADMIN_PASSWORD;
-
-    if (decoded !== expected) {
-      return res.status(401).json({
+    if (decoded.role !== "admin") {
+      return res.status(403).json({
         success: false,
-        message: "Not Authorized. Login Again.",
+        message: "Admin access required",
       });
     }
 
+    req.admin = decoded; // optional
     next();
   } catch (err) {
-    console.error("Admin auth error:", err);
+    console.error("requireAdmin error:", err.message);
     return res.status(401).json({
       success: false,
-      message: "Invalid or expired token",
+      message: "Not Authorized. Login Again.",
     });
   }
 };

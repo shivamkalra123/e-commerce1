@@ -1,40 +1,66 @@
 import axios from "axios";
 import { backendUrl } from "../App";
 
+// helper
+const authHeader = (token) => ({
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+});
+
+/**
+ * GET all categories (ADMIN)
+ */
 export const getCategories = async (token) => {
-  return axios.get(`${backendUrl}/api/admin/categories`, {
-    headers: { token }
-  });
+  return axios.get(
+    `${backendUrl}/api/admin/categories`,
+    authHeader(token)
+  );
 };
 
+/**
+ * ADD category (ADMIN)
+ */
 export const addCategory = async (name, token) => {
   return axios.post(
     `${backendUrl}/api/admin/categories`,
     { name },
-    { headers: { token } }
+    authHeader(token)
   );
 };
 
-// src/api/categoriesApi.js
+/**
+ * ADD subcategory(s) (ADMIN)
+ * subOrSubs → string | string[]
+ */
 export const addSubcategory = async (categoryId, subOrSubs, token) => {
-  // subOrSubs can be string or array
-  const payload = Array.isArray(subOrSubs) ? { names: subOrSubs } : { name: subOrSubs };
+  const payload = Array.isArray(subOrSubs)
+    ? { names: subOrSubs }
+    : { name: subOrSubs };
+
   return axios.post(
-    `${backendUrl}/api/admin/categories/${encodeURIComponent(categoryId)}/subcategories`,
+    `${backendUrl}/api/admin/categories/${categoryId}/subcategories`,
     payload,
-    { headers: { token } }
+    authHeader(token)
   );
 };
-export const deleteCategory = (categoryId, token) => {
+
+/**
+ * DELETE category (ADMIN)
+ */
+export const deleteCategory = async (categoryId, token) => {
   return axios.delete(
     `${backendUrl}/api/admin/categories/${categoryId}`,
-    { headers: { token } }
+    authHeader(token)
   );
 };
 
-export const deleteSubcategory = (categoryId, sub, token) => {
+/**
+ * DELETE subcategory (ADMIN)
+ */
+export const deleteSubcategory = async (categoryId, sub, token) => {
   return axios.delete(
     `${backendUrl}/api/admin/categories/${categoryId}/subcategories/${encodeURIComponent(sub)}`,
-    { headers: { token } }
+    authHeader(token)
   );
 };

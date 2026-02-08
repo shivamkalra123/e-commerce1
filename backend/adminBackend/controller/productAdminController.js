@@ -1,5 +1,6 @@
-import { v2 as cloudinary } from "cloudinary";
-import productModel from "../../models/productmodel.js";
+import cloudinary from "../config/cloudinary.js";
+
+import productModel from "../models/productModel.js";
 
 /**
  * Helper: calculate discount
@@ -189,17 +190,124 @@ export const removeProduct = async (req, res) => {
 };
 export const listProducts = async (req, res) => {
   try {
-    const products = await productModel
+    console.log("🔍 [listProducts] Starting...");
+    
+    let products = await productModel
       .find({})
       .sort({ updatedAt: -1, date: -1 });
+
+    console.log(`📦 [listProducts] Found ${products.length} products from database`);
+    
+    // ✅ PROCESS PRODUCTS TO ENSURE ALL FIELDS EXIST
+    products = products.map((product, index) => {
+      console.log(`\n🎯 [listProducts] Processing product ${index + 1}/${products.length}:`, {
+        id: product._id,
+        name: product.name,
+        rawPrice: product.price,
+        rawDiscount: product.discount,
+        rawDiscountedPrice: product.discountedPrice,
+        rawHasDiscount: product.hasDiscount,
+      });
+      
+      const productObj = product.toObject ? product.toObject() : product;
+      
+      console.log(`📋 [listProducts] Product object keys:`, Object.keys(productObj));
+      
+      // Ensure discount field exists (might be missing in old products)
+      const discount = productObj.discount || 0;
+      const price = productObj.price || 0;
+      
+      console.log(`💰 [listProducts] Price: ${price}, Discount: ${discount}%`);
+      
+      // Calculate discounted price if not present
+      let discountedPrice = productObj.discountedPrice;
+      let hasDiscount = productObj.hasDiscount;
+      
+      console.log(`🧮 [listProducts] Initial values - discountedPrice: ${discountedPrice}, hasDiscount: ${hasDiscount}`);
+      
+      if (discount > 0 && discount <= 100) {
+        console.log(`✅ [listProducts] Product HAS discount: ${discount}%`);
+        
+        // Recalculate if not present or if price/discount changed
+        if (!discountedPrice || discountedPrice === price) {
+          const calculatedDiscount = Math.round(price - (price * discount / 100));
+          console.log(`🧮 [listProducts] Calculating discounted price: ${price} - (${price} * ${discount}%) = ${calculatedDiscount}`);
+          discountedPrice = calculatedDiscount;
+        }
+        hasDiscount = true;
+      } else {
+        console.log(`❌ [listProducts] Product has NO discount (or invalid: ${discount}%)`);
+        discountedPrice = price;
+        hasDiscount = false;
+      }
+      
+      console.log(`🎯 [listProducts] Final values:`);
+      console.log(`   - Discount: ${discount}%`);
+      console.log(`   - Price: $${price}`);
+      console.log(`   - Discounted Price: $${discountedPrice}`);
+      console.log(`   - Has Discount: ${hasDiscount}`);
+      console.log(`   - Should show ribbon: ${hasDiscount && discount > 0 ? 'YES 🎀' : 'NO'}`);
+      
+      const processedProduct = {
+        ...productObj,
+        discount,
+        discountedPrice,
+        hasDiscount,
+        // Ensure other fields exist with defaults
+        image: productObj.image || [],
+        sizes: productObj.sizes || [],
+        bestseller: productObj.bestseller || false,
+        isActive: productObj.isActive !== false, // default to true
+      };
+      
+      return processedProduct;
+    });
+
+    // 🎯 DEBUG: Summary of all products
+    console.log("\n📊 [listProducts] SUMMARY OF ALL PRODUCTS:");
+    console.log(`Total products: ${products.length}`);
+    
+    const productsWithDiscount = products.filter(p => p.hasDiscount && p.discount > 0);
+    console.log(`Products with discount: ${productsWithDiscount.length}`);
+    
+    if (productsWithDiscount.length > 0) {
+      console.log("📋 Products with discount details:");
+      productsWithDiscount.forEach((p, i) => {
+        console.log(`${i + 1}. ${p.name}: $${p.price} → $${p.discountedPrice} (${p.discount}% off)`);
+      });
+    } else {
+      console.log("⚠️ WARNING: No products have discounts!");
+      
+      // Show first 3 products for debugging
+      console.log("\n🔍 Sample products (first 3):");
+      products.slice(0, 3).forEach((p, i) => {
+        console.log(`${i + 1}. ${p.name}:`);
+        console.log(`   Price: $${p.price}`);
+        console.log(`   Discount: ${p.discount}%`);
+        console.log(`   Discounted Price: $${p.discountedPrice}`);
+        console.log(`   Has Discount: ${p.hasDiscount}`);
+      });
+    }
 
     res.json({
       success: true,
       count: products.length,
       products,
+      debug: { // Add debug info to response
+        total: products.length,
+        withDiscount: productsWithDiscount.length,
+        sample: products.slice(0, 3).map(p => ({
+          name: p.name,
+          price: p.price,
+          discount: p.discount,
+          discountedPrice: p.discountedPrice,
+          hasDiscount: p.hasDiscount
+        }))
+      }
     });
   } catch (err) {
-    console.error("listProducts error:", err);
+    console.error("❌ [listProducts] Error:", err);
+    console.error("❌ [listProducts] Error stack:", err.stack);
     res.status(500).json({
       success: false,
       message: err.message,

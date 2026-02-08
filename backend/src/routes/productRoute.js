@@ -1,11 +1,82 @@
 import { ObjectId } from "mongodb";
 
+
+
+
 /**
  * GET /api/product/list
  */
 export async function listProducts(db) {
   const products = await db.collection("products").find({}).toArray();
-  return Response.json({ success: true, products });
+  
+  // ✅ ADD DISCOUNT PROCESSING HERE
+  const processedProducts = products.map(product => {
+    const discount = product.discount || 0;
+    const price = product.price || 0;
+    
+    let discountedPrice = price;
+    let hasDiscount = false;
+    
+    if (discount > 0 && discount <= 100) {
+      discountedPrice = Math.round(price - (price * discount / 100));
+      hasDiscount = true;
+    }
+    
+    return {
+      ...product,
+      discount,
+      discountedPrice,
+      hasDiscount,
+      // Ensure other fields exist
+      image: product.image || [],
+      sizes: product.sizes || [],
+      bestseller: product.bestseller || false,
+      subCategory: product.subCategory || "",
+    };
+  });
+  
+  // 🎯 DEBUG LOGGING
+  console.log("🔍 [API Backend] listProducts:");
+  console.log(`📦 Total products: ${processedProducts.length}`);
+  
+  const productsWithDiscount = processedProducts.filter(p => p.hasDiscount);
+  console.log(`🎯 Products with discount: ${productsWithDiscount.length}`);
+  
+  if (productsWithDiscount.length > 0) {
+    console.log("📋 Discounted products:");
+    productsWithDiscount.forEach((p, i) => {
+      console.log(`${i + 1}. ${p.name}: $${p.price} → $${p.discountedPrice} (${p.discount}% off)`);
+    });
+  } else {
+    console.log("⚠️ No products have discounts in API backend!");
+    
+    // Show first 3 products structure
+    console.log("\n🔍 Sample products (first 3):");
+    processedProducts.slice(0, 3).forEach((p, i) => {
+      console.log(`${i + 1}. ${p.name}:`);
+      console.log(`   Price: $${p.price}`);
+      console.log(`   Discount: ${p.discount}%`);
+      console.log(`   Discounted Price: $${p.discountedPrice}`);
+      console.log(`   Has Discount: ${p.hasDiscount}`);
+      console.log(`   All fields:`, Object.keys(p));
+    });
+  }
+  
+  return Response.json({ 
+    success: true, 
+    products: processedProducts,
+    debug: { // Add debug info
+      total: processedProducts.length,
+      withDiscount: productsWithDiscount.length,
+      sample: processedProducts.slice(0, 3).map(p => ({
+        name: p.name,
+        price: p.price,
+        discount: p.discount,
+        discountedPrice: p.discountedPrice,
+        hasDiscount: p.hasDiscount
+      }))
+    }
+  });
 }
 
 /**

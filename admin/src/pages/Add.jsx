@@ -22,6 +22,8 @@ const Add = ({ token }) => {
   const [category, setCategory] = useState("")
   const [subCategory, setSubCategory] = useState("")
   const [bestseller, setBestseller] = useState(false)
+  const [discount, setDiscount] = useState("") // 👈 NEW
+
 
   /* ================= SIZES (OPTIONAL) ================= */
   const [sizeType, setSizeType] = useState("none") // none | tshirt | shoes
@@ -80,6 +82,7 @@ const Add = ({ token }) => {
       formData.append("subCategory", subCategory)
       formData.append("bestseller", bestseller)
       formData.append("sizeType", sizeType)
+formData.append("discount", discount) // 👈 NEW
 
       // ✅ Sizes are OPTIONAL
       if (sizeType !== "none" && sizes.length > 0) {
@@ -92,10 +95,15 @@ const Add = ({ token }) => {
       image4 && formData.append("image4", image4)
 
       const res = await axios.post(
-        `${backendUrl}/api/admin/product/add`,
-        formData,
-        { headers: { token } }
-      )
+  `${backendUrl}/api/admin/products/add`,
+  formData,
+  {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+)
+
 
       if (res.data.success) {
         toast.success("Product added successfully")
@@ -110,6 +118,8 @@ const Add = ({ token }) => {
         setImage2(null)
         setImage3(null)
         setImage4(null)
+        setDiscount("") // 👈 NEW
+
       } else {
         toast.error(res.data.message)
       }
@@ -125,6 +135,11 @@ const Add = ({ token }) => {
       : sizeType === "shoes"
       ? SHOE_SIZES
       : []
+      const discountedPrice =
+  discount && price
+    ? Math.round(price - (price * discount) / 100)
+    : price
+
 
   return (
     <form onSubmit={onSubmitHandler} className="flex flex-col w-full gap-3">
@@ -197,6 +212,28 @@ const Add = ({ token }) => {
         placeholder="Price"
         className="px-3 py-2 w-[120px]"
       />
+      {/* ================= DISCOUNT ================= */}
+<div className="flex items-center gap-3">
+  <input
+    type="number"
+    min="0"
+    max="100"
+    value={discount}
+    onChange={(e) => setDiscount(e.target.value)}
+    placeholder="Discount %"
+    className="px-3 py-2 w-[120px]"
+  />
+
+  {discount && price && (
+    <p className="text-sm text-green-600">
+      Final: ₹{discountedPrice}
+      <span className="ml-2 text-xs text-red-500 line-through">
+        ₹{price}
+      </span>
+    </p>
+  )}
+</div>
+
 
       {/* ================= SIZE TYPE ================= */}
       <div>

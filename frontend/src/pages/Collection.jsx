@@ -118,6 +118,10 @@ const Collection = () => {
                 name={item.name}
                 price={item.price}
                 image={item.image}
+                  discountedPrice={item.discountedPrice}
+  discount={item.discount}
+  hasDiscount={item.hasDiscount}
+
               />
             ))
           ) : (

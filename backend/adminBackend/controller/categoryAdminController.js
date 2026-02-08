@@ -1,99 +1,12 @@
-import { ObjectId } from "mongodb";
+import Category from "../models/categoryModel.js";
 
-const COLLECTION = "categories";
-
-/**
- * Normalize category name (Title Case)
- */
-function normalizeName(name) {
-  const parts = String(name || "")
-    .trim()
-    .toLowerCase()
-    .split(/\s+/)
-    .filter(Boolean);
-
-  return parts.map(p => p[0].toUpperCase() + p.slice(1)).join(" ");
-}
-
-/**
- * Normalize subcategory
- */
-function normalizeSubcategory(s) {
-  const parts = String(s)
-    .trim()
-    .toLowerCase()
-    .split(/\s+/)
-    .filter(Boolean);
-
-  return parts.map(p => p[0].toUpperCase() + p.slice(1)).join(" ");
-}
-
-/**
- * Helper: escape regex chars
- */
-function escapeRegExp(str) {
-  return String(str).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-}
-
-/**
- * ADMIN: Create category
- * POST /api/categories
- */
-export async function createCategory(db, request) {
-  try {
-    const { name } = await request.json();
-
-    const normalized = normalizeName(name);
-    if (!normalized) {
-      return Response.json(
-        { success: false, message: "Invalid name" },
-        { status: 400 }
-      );
-    }
-
-    const exists = await db.collection(COLLECTION).findOne({
-      name: { $regex: `^${escapeRegExp(normalized)}$`, $options: "i" },
-    });
-
-    if (exists) {
-      return Response.json(
-        { success: false, message: "Category exists" },
-        { status: 400 }
-      );
-    }
-
-    const doc = {
-      name: normalized,
-      subcategories: [],
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
-
-    const result = await db.collection(COLLECTION).insertOne(doc);
-    const category = await db
-      .collection(COLLECTION)
-      .findOne({ _id: result.insertedId });
-
-    return Response.json({ success: true, category });
-  } catch (err) {
-    console.error("createCategory error:", err);
-    return Response.json(
-      { success: false, message: "Server error" },
-      { status: 500 }
-    );
-  }
-}
-/**
- * ADMIN: Get all categories
- * GET /api/admin/categories
- */
+/* ================================
+   GET ALL CATEGORIES (ADMIN)
+   GET /api/admin/categories
+================================ */
 export const getCategories = async (req, res) => {
   try {
-    const categories = await req.db
-      .collection(COLLECTION)
-      .find({})
-      .sort({ name: 1 })
-      .toArray();
+    const categories = await Category.find({}).sort({ name: 1 });
 
     res.json({
       success: true,
@@ -108,201 +21,232 @@ export const getCategories = async (req, res) => {
   }
 };
 
-/**
- * ADMIN: Add subcategory(s)
- * POST /api/categories/:id/subcategories
- */
-export async function addSubcategory(db, request, env, categoryId) {
+/* ================================
+   CREATE CATEGORY (ADMIN)
+   POST /api/admin/categories
+================================ */
+export const createCategory = async (req, res) => {
   try {
-    const body = await request.json();
-    let { name, names } = body;
+    const { name } = req.body;
+
+    if (!name || !name.trim()) {
+      return res.status(400).json({
+        success: false,
+        message: "Category name is required",
+      });
+    }
+
+    const normalized = name.trim();
+
+    const exists = await Category.findOne({
+      name: new RegExp(`^${normalized}$`, "i"),
+    });
+
+    if (exists) {
+      return res.status(400).json({
+        success: false,
+        message: "Category already exists",
+      });
+    }
+
+    const category = await Category.create({
+      name: normalized,
+    });
+
+    res.json({ success: true, category });
+  } catch (err) {
+    console.error("createCategory error:", err);
+    res.status(500).json({
+      success: false,
+      message: err.message,
+    });
+  }
+};
+
+/* ================================
+   ADD SUBCATEGORY(S) (ADMIN)
+   POST /api/admin/categories/:id/subcategories
+================================ */
+export const addSubcategory = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name, names } = req.body;
 
     let incoming = [];
+
     if (Array.isArray(names)) incoming = names;
-    else if (typeof name === "string" && name.trim()) incoming = [name];
-    else {
-      return Response.json(
-        { success: false, message: "No subcategory provided" },
-        { status: 400 }
-      );
+    else if (typeof name === "string") incoming = [name];
+
+    incoming = [...new Set(incoming.map((s) => s.trim()))];
+
+    if (!incoming.length) {
+      return res.status(400).json({
+        success: false,
+        message: "No subcategory provided",
+      });
     }
 
-    incoming = [...new Set(incoming.map(normalizeSubcategory))];
-
-    const cat = await db
-      .collection(COLLECTION)
-      .findOne({ _id: new ObjectId(categoryId) });
-
-    if (!cat) {
-      return Response.json(
-        { success: false, message: "Category not found" },
-        { status: 404 }
-      );
+    const category = await Category.findById(id);
+    if (!category) {
+      return res.status(404).json({
+        success: false,
+        message: "Category not found",
+      });
     }
 
-    const existingLower = new Set(
-      (cat.subcategories || []).map(s => s.toLowerCase())
+    const existing = new Set(
+      category.subcategories.map((s) => s.toLowerCase())
     );
 
     const toAdd = incoming.filter(
-      s => !existingLower.has(s.toLowerCase())
+      (s) => !existing.has(s.toLowerCase())
     );
 
-    if (toAdd.length === 0) {
-      return Response.json(
-        { success: false, message: "No new subcategories to add" },
-        { status: 400 }
-      );
+    if (!toAdd.length) {
+      return res.status(400).json({
+        success: false,
+        message: "No new subcategories to add",
+      });
     }
 
-    await db.collection(COLLECTION).updateOne(
-      { _id: new ObjectId(categoryId) },
-      {
-        $push: { subcategories: { $each: toAdd } },
-        $set: { updatedAt: new Date() },
-      }
-    );
+    category.subcategories.push(...toAdd);
+    await category.save();
 
-    const fresh = await db
-      .collection(COLLECTION)
-      .findOne({ _id: new ObjectId(categoryId) });
-
-    return Response.json({ success: true, added: toAdd, category: fresh });
+    res.json({
+      success: true,
+      added: toAdd,
+      category,
+    });
   } catch (err) {
     console.error("addSubcategory error:", err);
-    return Response.json(
-      { success: false, message: "Server error" },
-      { status: 500 }
-    );
+    res.status(500).json({
+      success: false,
+      message: err.message,
+    });
   }
-}
+};
 
-/**
- * ADMIN: Update category name
- * PUT /api/categories/:id
- */
-export async function updateCategory(db, request, env, id) {
+/* ================================
+   UPDATE CATEGORY (ADMIN)
+   PUT /api/admin/categories/:id
+================================ */
+export const updateCategory = async (req, res) => {
   try {
-    const { name } = await request.json();
+    const { id } = req.params;
+    const { name } = req.body;
 
-    const newName = normalizeName(name);
-    if (!newName) {
-      return Response.json(
-        { success: false, message: "Invalid name" },
-        { status: 400 }
-      );
+    if (!name || !name.trim()) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid category name",
+      });
     }
 
-    const existing = await db.collection(COLLECTION).findOne({
-      _id: { $ne: new ObjectId(id) },
-      name: { $regex: `^${escapeRegExp(newName)}$`, $options: "i" },
+    const exists = await Category.findOne({
+      _id: { $ne: id },
+      name: new RegExp(`^${name}$`, "i"),
     });
 
-    if (existing) {
-      return Response.json(
-        { success: false, message: "Another category with same name exists" },
-        { status: 400 }
-      );
+    if (exists) {
+      return res.status(400).json({
+        success: false,
+        message: "Category with same name exists",
+      });
     }
 
-    const result = await db.collection(COLLECTION).findOneAndUpdate(
-      { _id: new ObjectId(id) },
-      { $set: { name: newName, updatedAt: new Date() } },
-      { returnDocument: "after" }
+    const category = await Category.findByIdAndUpdate(
+      id,
+      { name: name.trim() },
+      { new: true }
     );
 
-    if (!result.value) {
-      return Response.json(
-        { success: false, message: "Category not found" },
-        { status: 404 }
-      );
+    if (!category) {
+      return res.status(404).json({
+        success: false,
+        message: "Category not found",
+      });
     }
 
-    return Response.json({ success: true, category: result.value });
+    res.json({ success: true, category });
   } catch (err) {
     console.error("updateCategory error:", err);
-    return Response.json(
-      { success: false, message: "Server error" },
-      { status: 500 }
-    );
+    res.status(500).json({
+      success: false,
+      message: err.message,
+    });
   }
-}
+};
 
-/**
- * ADMIN: Delete category
- * DELETE /api/categories/:id
- */
-export async function deleteCategory(db, request, env, id) {
+/* ================================
+   DELETE CATEGORY (ADMIN)
+   DELETE /api/admin/categories/:id
+================================ */
+export const deleteCategory = async (req, res) => {
   try {
-    const result = await db
-      .collection(COLLECTION)
-      .deleteOne({ _id: new ObjectId(id) });
+    const { id } = req.params;
 
-    if (result.deletedCount === 0) {
-      return Response.json(
-        { success: false, message: "Category not found" },
-        { status: 404 }
-      );
+    const category = await Category.findByIdAndDelete(id);
+    if (!category) {
+      return res.status(404).json({
+        success: false,
+        message: "Category not found",
+      });
     }
 
-    return Response.json({ success: true, message: "Category deleted" });
+    res.json({
+      success: true,
+      message: "Category deleted",
+    });
   } catch (err) {
     console.error("deleteCategory error:", err);
-    return Response.json(
-      { success: false, message: "Server error" },
-      { status: 500 }
-    );
+    res.status(500).json({
+      success: false,
+      message: err.message,
+    });
   }
-}
+};
 
-/**
- * ADMIN: Delete subcategory
- * DELETE /api/categories/:id/subcategories/:sub
- */
-export async function deleteSubcategory(db, request, env, id, sub) {
+/* ================================
+   DELETE SUBCATEGORY (ADMIN)
+   DELETE /api/admin/categories/:id/subcategories/:sub
+================================ */
+export const deleteSubcategory = async (req, res) => {
   try {
+    const { id, sub } = req.params;
     const decodedSub = decodeURIComponent(sub);
 
-    const cat = await db
-      .collection(COLLECTION)
-      .findOne({ _id: new ObjectId(id) });
-
-    if (!cat) {
-      return Response.json(
-        { success: false, message: "Category not found" },
-        { status: 404 }
-      );
+    const category = await Category.findById(id);
+    if (!category) {
+      return res.status(404).json({
+        success: false,
+        message: "Category not found",
+      });
     }
 
-    const subs = cat.subcategories || [];
-    const idx = subs.findIndex(
-      s => s.toLowerCase() === decodedSub.toLowerCase()
+    const before = category.subcategories.length;
+
+    category.subcategories = category.subcategories.filter(
+      (s) => s.toLowerCase() !== decodedSub.toLowerCase()
     );
 
-    if (idx === -1) {
-      return Response.json(
-        { success: false, message: "Subcategory not found" },
-        { status: 404 }
-      );
+    if (before === category.subcategories.length) {
+      return res.status(404).json({
+        success: false,
+        message: "Subcategory not found",
+      });
     }
 
-    subs.splice(idx, 1);
+    await category.save();
 
-    await db.collection(COLLECTION).updateOne(
-      { _id: new ObjectId(id) },
-      { $set: { subcategories: subs, updatedAt: new Date() } }
-    );
-
-    const fresh = await db
-      .collection(COLLECTION)
-      .findOne({ _id: new ObjectId(id) });
-
-    return Response.json({ success: true, category: fresh });
+    res.json({
+      success: true,
+      category,
+    });
   } catch (err) {
     console.error("deleteSubcategory error:", err);
-    return Response.json(
-      { success: false, message: "Server error" },
-      { status: 500 }
-    );
+    res.status(500).json({
+      success: false,
+      message: err.message,
+    });
   }
-}
+};

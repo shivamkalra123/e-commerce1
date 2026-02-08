@@ -18,13 +18,13 @@ const ShopContextProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState({});
   const [products, setProducts] = useState([]);
   const [token, setToken] = useState("");
+  
   // ❤️ WISHLIST
-const [wishlist, setWishlist] = useState([]);
-const wishlistCount = wishlist.length;
+  const [wishlist, setWishlist] = useState([]);
+  const wishlistCount = wishlist.length;
 
-// Render wishlist backend
-const WISHLIST_API = "https://e-commerce1-1-cd8g.onrender.com";
-
+  // Render wishlist backend
+  const WISHLIST_API = "https://e-commerce1-1-cd8g.onrender.com";
 
   // ✅ CATEGORIES
   const [categories, setCategories] = useState([]);
@@ -48,20 +48,57 @@ const WISHLIST_API = "https://e-commerce1-1-cd8g.onrender.com";
     if (!a || !b) return false;
     return a.count === b.count && String(a.latestUpdatedAt) === String(b.latestUpdatedAt);
   };
+
+  // =============================
+  // ✅ DISCOUNT CALCULATION FUNCTION
+  // =============================
+  const calculateProductDiscount = (product) => {
+    if (!product) return product;
+    
+    const price = Number(product.price) || 0;
+    const discount = Number(product.discount) || 0;
+    
+    // Calculate discounted price
+    let discountedPrice = price;
+    let hasDiscount = false;
+    
+    if (discount > 0 && discount <= 100) {
+      discountedPrice = price - (price * discount / 100);
+      // Round to 2 decimal places
+      discountedPrice = Math.round(discountedPrice * 100) / 100;
+      hasDiscount = true;
+    }
+    
+    return {
+      ...product,
+      price,
+      discount,
+      discountedPrice,
+      hasDiscount,
+      originalPrice: price, // Keep original for reference
+    };
+  };
+
+  // Process products to add discount fields
+  const processProductsWithDiscount = (productsArray) => {
+    if (!Array.isArray(productsArray)) return [];
+    
+    return productsArray.map(product => calculateProductDiscount(product));
+  };
+
   // =====================
-// ❤️ Wishlist helpers
-// =====================
-const getGuestId = () => {
-  let id = localStorage.getItem("guestId");
-  if (!id) {
-    id = crypto.randomUUID();
-    localStorage.setItem("guestId", id);
-  }
-  return id;
-};
+  // ❤️ Wishlist helpers
+  // =====================
+  const getGuestId = () => {
+    let id = localStorage.getItem("guestId");
+    if (!id) {
+      id = crypto.randomUUID();
+      localStorage.setItem("guestId", id);
+    }
+    return id;
+  };
 
-const getWishlistUserId = () => token || getGuestId();
-
+  const getWishlistUserId = () => token || getGuestId();
 
   /* ===================== PRODUCTS (META CHECK + CACHE) ===================== */
   const getProductsData = async (force = false) => {
@@ -72,7 +109,9 @@ const getWishlistUserId = () => token || getGuestId();
         if (cached) {
           const parsed = safeJSONParse(cached, []);
           if (Array.isArray(parsed) && parsed.length) {
-            setProducts(parsed);
+            // Process cached products with discount calculation
+            const processedProducts = processProductsWithDiscount(parsed);
+            setProducts(processedProducts);
           }
         }
       }
@@ -101,8 +140,31 @@ const getWishlistUserId = () => token || getGuestId();
 
       if (res.data.success) {
         const data = (res.data.products || []).reverse();
-
-        setProducts(data);
+        
+        // 🔍 DEBUG: Check what fields are coming from backend
+     console.log("🎯 Raw data from backend - First product:", data[0] ? {
+    name: data[0].name,
+    price: data[0].price,
+    discount: data[0].discount,
+    discountedPrice: data[0].discountedPrice,
+    hasDiscount: data[0].hasDiscount,
+    hasDiscountType: typeof data[0].hasDiscount,
+    discountType: typeof data[0].discount
+  } : "No products");
+        
+        // Process products to add discount calculations
+        const processedProducts = processProductsWithDiscount(data);
+        
+        // 🔍 DEBUG: Check processed products
+         console.log("🎯 Processed products - First product:", processedProducts[0] ? {
+    name: processedProducts[0].name,
+    price: processedProducts[0].price,
+    discount: processedProducts[0].discount,
+    discountedPrice: processedProducts[0].discountedPrice,
+    hasDiscount: processedProducts[0].hasDiscount
+  } : "No processed products");
+        
+        setProducts(processedProducts);
 
         // ✅ update cache
         localStorage.setItem("products_cache", JSON.stringify(data));
@@ -110,7 +172,6 @@ const getWishlistUserId = () => token || getGuestId();
       }
     } catch (err) {
       console.error("❌ Product fetch failed:", err);
-     
     } finally {
       setLoadingProducts(false);
     }
@@ -160,7 +221,6 @@ const getWishlistUserId = () => token || getGuestId();
       localStorage.setItem("categories_cache_meta", JSON.stringify(serverMeta));
     } catch (err) {
       console.error("❌ Categories fetch failed:", err);
-      
     } finally {
       setLoadingCategories(false);
     }
@@ -246,6 +306,7 @@ const getWishlistUserId = () => token || getGuestId();
       0
     );
 
+  // ✅ UPDATED: CART AMOUNT CALCULATION WITH DISCOUNT
   const getCartAmount = () => {
     if (!products.length) return 0;
 
@@ -254,47 +315,68 @@ const getWishlistUserId = () => token || getGuestId();
       const product = products.find((p) => p._id === id);
       if (!product) continue;
 
-      for (const size in cartItems[id]) total += product.price * cartItems[id][size];
+      // Use discounted price if available
+      const priceToUse = product.hasDiscount ? product.discountedPrice : product.price;
+      
+      for (const size in cartItems[id]) {
+        total += priceToUse * cartItems[id][size];
+      }
     }
     return total;
   };
+
+  // ✅ NEW: CART SAVINGS CALCULATION
+  const getCartSavings = () => {
+    if (!products.length) return 0;
+
+    let totalSavings = 0;
+    for (const id in cartItems) {
+      const product = products.find((p) => p._id === id);
+      if (!product || !product.hasDiscount) continue;
+
+      const savingsPerItem = product.price - product.discountedPrice;
+      
+      for (const size in cartItems[id]) {
+        totalSavings += savingsPerItem * cartItems[id][size];
+      }
+    }
+    return totalSavings;
+  };
+
   /* ===================== ❤️ WISHLIST ===================== */
+  const fetchWishlist = async () => {
+    try {
+      const userId = getWishlistUserId();
 
-const fetchWishlist = async () => {
-  try {
-    const userId = getWishlistUserId();
+      const res = await axios.get(`${WISHLIST_API}/api/wishlist/${userId}`);
 
-    const res = await axios.get(`${WISHLIST_API}/api/wishlist/${userId}`);
+      if (res.data.success) setWishlist(res.data.wishlist || []);
+    } catch (err) {
+      console.error("❌ Wishlist fetch failed:", err);
+    }
+  };
 
-    if (res.data.success) setWishlist(res.data.wishlist || []);
-  } catch (err) {
-    console.error("❌ Wishlist fetch failed:", err);
-  }
-};
+  const toggleWishlist = async (productId) => {
+    console.log("🔥 toggleWishlist called with:", productId);
 
-const toggleWishlist = async (productId) => {
-  console.log("🔥 toggleWishlist called with:", productId);
+    try {
+      const userId = getWishlistUserId();
 
-  try {
-    const userId = getWishlistUserId();
+      console.log("👤 wishlist userId:", userId);
 
-    console.log("👤 wishlist userId:", userId);
+      const res = await axios.post(`${WISHLIST_API}/api/wishlist/toggle`, {
+        userId,
+        productId,
+      });
 
-    const res = await axios.post(`${WISHLIST_API}/api/wishlist/toggle`, {
-      userId,
-      productId,
-    });
+      console.log("✅ Wishlist toggle response:", res.data);
 
-    console.log("✅ Wishlist toggle response:", res.data);
-
-    fetchWishlist();
-  } catch (err) {
-    console.error("❌ Wishlist toggle failed FULL:", err);
-    toast.error("Wishlist failed");
-  }
-};
-
-
+      fetchWishlist();
+    } catch (err) {
+      console.error("❌ Wishlist toggle failed FULL:", err);
+      toast.error("Wishlist failed");
+    }
+  };
 
   /* ===================== EFFECTS ===================== */
   useEffect(() => {
@@ -337,15 +419,16 @@ const toggleWishlist = async (productId) => {
     updateQuantity,
     getCartCount,
     getCartAmount,
+    getCartSavings, // ✅ Added for showing savings
 
     navigate,
     backendUrl,
     token,
     setToken,
     wishlist,
-toggleWishlist,
-fetchWishlist,
-wishlistCount: wishlist.length,
+    toggleWishlist,
+    fetchWishlist,
+    wishlistCount: wishlist.length,
   };
 
   return <ShopContext.Provider value={value}>{children}</ShopContext.Provider>;

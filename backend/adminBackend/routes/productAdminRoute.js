@@ -5,33 +5,30 @@ import {
   removeProduct,
   listProducts,
 } from "../controller/productAdminController.js";
-
 import { requireAdmin } from "../middleware/adminAuth.js";
+import upload from "../middleware/upload.js";
 
 const router = express.Router();
 
-/**
- * ADMIN: LIST PRODUCTS
- * GET /api/admin/products
- */
+// ✅ LIST PRODUCTS (ADMIN)
 router.get("/products", requireAdmin, listProducts);
 
-/**
- * ADMIN: ADD PRODUCT
- * POST /api/admin/products
- */
-router.post("/products", requireAdmin, addProduct);
+router.post(
+  "/products/add",
+  requireAdmin,
+  upload.fields([
+    { name: "image1", maxCount: 1 },
+    { name: "image2", maxCount: 1 },
+    { name: "image3", maxCount: 1 },
+    { name: "image4", maxCount: 1 },
+  ]),
+  addProduct
+);
 
-/**
- * ADMIN: UPDATE PRODUCT
- * PUT /api/admin/products/:id
- */
+// ✅ UPDATE PRODUCT
 router.put("/products/:id", requireAdmin, updateProduct);
 
-/**
- * ADMIN: REMOVE PRODUCT
- * DELETE /api/admin/products/:id
- */
+// ✅ DELETE PRODUCT
 router.delete("/products/:id", requireAdmin, removeProduct);
 
 export default router;
