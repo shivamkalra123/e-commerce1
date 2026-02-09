@@ -131,7 +131,7 @@ const App = () => {
         <SearchBar />
 
         <Routes>
-          {/* ✅ Home WITHOUT padding */}
+          
           <Route path="/" element={<Home />} />
 
           {/* ✅ All other pages WITH padding */}
