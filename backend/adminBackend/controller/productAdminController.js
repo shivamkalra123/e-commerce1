@@ -71,7 +71,8 @@ export const addProduct = async (req, res) => {
       category,
       subCategory,
       ...discountData,
-      bestseller: bestseller === "true",
+      bestseller: Boolean(bestseller),
+
       sizeType: sizeType || "none",
       sizes: parsedSizes,
       image: imagesUrl,
@@ -154,9 +155,10 @@ export const updateProduct = async (req, res) => {
       subCategory: subCategory ?? product.subCategory,
       ...discountData,
       bestseller:
-        bestseller !== undefined
-          ? bestseller === "true"
-          : product.bestseller,
+  bestseller !== undefined
+    ? Boolean(bestseller)
+    : product.bestseller,
+
       sizeType: sizeType ?? product.sizeType,
       sizes: parsedSizes,
       image: imagesUrl,

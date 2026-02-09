@@ -31,7 +31,7 @@ const Product = () => {
     if (product) {
       setProductData(product);
       setImage(product.image?.[0] || "");
-      setSize(""); // reset size when product changes
+      setSize("");
     }
   }, [productId, products]);
 
@@ -73,17 +73,26 @@ const Product = () => {
     }
   };
 
-  if (!productData) return <div className="opacity-0" />;
+  if (!productData) return null;
 
-  // ✅ If product has sizes
-  const hasSizes = Array.isArray(productData.sizes) && productData.sizes.length > 0;
+  /* ===================== PRICE LOGIC (IMPORTANT) ===================== */
+  const hasDiscount =
+    productData.hasDiscount &&
+    Number(productData.discount) > 0 &&
+    Number(productData.discountedPrice) < Number(productData.price);
 
-  // ✅ Final size to send to cart
+  const displayPrice = hasDiscount
+    ? productData.discountedPrice
+    : productData.price;
+
+  const hasSizes =
+    Array.isArray(productData.sizes) && productData.sizes.length > 0;
+
   const finalSize = hasSizes ? size : "NOSIZE";
 
   return (
     <>
-      <div className="border-t-2 pt-10 transition-opacity duration-500 opacity-100">
+      <div className="border-t-2 pt-10">
         {/* ===================== PRODUCT DATA ===================== */}
         <div className="flex flex-col sm:flex-row gap-12">
           {/* IMAGES */}
@@ -109,6 +118,7 @@ const Product = () => {
           <div className="flex-1">
             <h1 className="text-2xl font-medium">{productData.name}</h1>
 
+            {/* RATING */}
             <div className="flex items-center gap-1 mt-2">
               {[...Array(4)].map((_, i) => (
                 <img key={i} src={assets.star_icon} className="w-3" />
@@ -117,14 +127,36 @@ const Product = () => {
               <p className="pl-2 text-sm">( {reviews.length} )</p>
             </div>
 
-            <p className="mt-5 text-3xl font-medium">
-              {currency}
-              {productData.price}
+            {/* 💰 PRICE (FIXED) */}
+            <div className="mt-5">
+              <p
+                className={`text-3xl font-semibold ${
+                  hasDiscount ? "text-green-600" : "text-gray-900"
+                }`}
+              >
+                {currency}
+                {Number(displayPrice).toFixed(2)}
+              </p>
+
+              {hasDiscount && (
+                <div className="flex items-center gap-3 mt-1">
+                  <span className="text-sm text-gray-500 line-through">
+                    {currency}
+                    {Number(productData.price).toFixed(2)}
+                  </span>
+
+                  <span className="text-sm font-semibold text-red-600">
+                    {Math.round(productData.discount)}% OFF
+                  </span>
+                </div>
+              )}
+            </div>
+
+            <p className="mt-5 text-gray-500 md:w-4/5">
+              {productData.description}
             </p>
 
-            <p className="mt-5 text-gray-500 md:w-4/5">{productData.description}</p>
-
-            {/* ✅ SIZE SECTION (ONLY IF SIZES EXIST) */}
+            {/* SIZE */}
             {hasSizes && (
               <div className="my-8">
                 <p className="mb-2">
@@ -149,7 +181,7 @@ const Product = () => {
               </div>
             )}
 
-            {/* ✅ ADD TO CART */}
+            {/* ADD TO CART */}
             <button
               onClick={() => addToCart(productData._id, finalSize)}
               disabled={hasSizes && !size}
@@ -180,13 +212,10 @@ const Product = () => {
 
         {/* ===================== REVIEWS ===================== */}
         <div className="mt-20">
-          <div className="flex border-b">
-            <b className="px-5 py-3 text-sm">
-              <Trans>Reviews ({reviews.length})</Trans>
-            </b>
-          </div>
+          <b className="px-5 py-3 text-sm">
+            <Trans>Reviews ({reviews.length})</Trans>
+          </b>
 
-          {/* REVIEW LIST */}
           <div className="mt-6 space-y-6">
             {reviews.map((rev) => (
               <div key={rev._id} className="border p-4 rounded-md">
@@ -212,7 +241,7 @@ const Product = () => {
             >
               {[5, 4, 3, 2, 1].map((r) => (
                 <option key={r} value={r}>
-                  <Trans>{r} Stars</Trans>
+                  {r} Stars
                 </option>
               ))}
             </select>
@@ -224,17 +253,22 @@ const Product = () => {
               className="border w-full p-3 mb-3"
             />
 
-            <button onClick={submitReview} className="bg-black text-white px-6 py-2">
+            <button
+              onClick={submitReview}
+              className="bg-black text-white px-6 py-2"
+            >
               <Trans>Submit Review</Trans>
             </button>
           </div>
         </div>
 
         {/* RELATED */}
-        <RelatedProducts category={productData.category} subCategory={productData.subCategory} />
+        <RelatedProducts
+          category={productData.category}
+          subCategory={productData.subCategory}
+        />
       </div>
 
-      {/* AUTH MODAL */}
       <AuthModal open={showAuthModal} onClose={() => setShowAuthModal(false)} />
     </>
   );
